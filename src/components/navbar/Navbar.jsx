@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import logo from "../../assets/logo.png";
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Home', 'Catalogo', 'Vender Productos', "Contacto"];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
