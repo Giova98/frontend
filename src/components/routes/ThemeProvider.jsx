@@ -7,10 +7,13 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 
 const defaultTheme = createTheme();
+// Se crea un tema base usando `createTheme` de MUI, para luego reutilizar valores como tipografías, tamaños, etc.
 
 const customShadows = [...defaultTheme.shadows];
+// Se hace una copia del array de sombras (`shadows`) del tema por defecto, para poder modificarlo.
 
 export const brand = {
+  // Define una paleta de colores personalizada llamada `brand` con diferentes tonalidades de azul.
   50: 'hsl(210, 100%, 95%)',
   100: 'hsl(210, 100%, 92%)',
   200: 'hsl(210, 100%, 80%)',
@@ -24,6 +27,7 @@ export const brand = {
 };
 
 export const gray = {
+  // Define una paleta de grises (`gray`) con varios tonos, usados generalmente para fondos, bordes y textos secundarios.
   50: 'hsl(220, 35%, 97%)',
   100: 'hsl(220, 30%, 94%)',
   200: 'hsl(220, 20%, 88%)',
@@ -37,6 +41,7 @@ export const gray = {
 };
 
 export const green = {
+  // Paleta de verdes (`green`), seguramente usada para estados de éxito o confirmaciones.
   50: 'hsl(120, 80%, 98%)',
   100: 'hsl(120, 75%, 94%)',
   200: 'hsl(120, 75%, 87%)',
@@ -50,6 +55,7 @@ export const green = {
 };
 
 export const orange = {
+  // Paleta de naranjas (`orange`), ideal para advertencias o alertas.
   50: 'hsl(45, 100%, 97%)',
   100: 'hsl(45, 92%, 90%)',
   200: 'hsl(45, 94%, 80%)',
@@ -63,6 +69,7 @@ export const orange = {
 };
 
 export const red = {
+  // Paleta de rojos (`red`), típicamente usada para errores.
   50: 'hsl(0, 100%, 97%)',
   100: 'hsl(0, 92%, 90%)',
   200: 'hsl(0, 94%, 80%)',
@@ -75,17 +82,37 @@ export const red = {
   900: 'hsl(0, 93%, 6%)',
 };
 
+export const brown = {
+  50: '#F5F5DC',  // cremita claro (background)
+  100: '#D7CCC8', // un poco más tostado
+  200: '#A1887F', // marrón claro
+  300: '#8B5E3C', // marrón medio (textos importantes)
+  400: '#5D4037', // marrón oscuro (botones)
+  500: '#4E342E', // más oscuro
+  600: '#3E2723', // muy oscuro
+};
+
 export const getDesignTokens = (mode) => {
+// Función que genera un objeto de configuración del tema, dependiendo si `mode` es 'light' o 'dark'.
+// `mode` puede ser 'light' o 'dark' y el tema se adapta dinámicamente a eso.
+
   customShadows[1] =
+  // Modifica la sombra 1 dependiendo si es modo oscuro o no.
     mode === 'dark'
       ? 'hsla(220, 30%, 5%, 0.7) 0px 4px 16px 0px, hsla(220, 25%, 10%, 0.8) 0px 8px 16px -5px'
       : 'hsla(220, 30%, 5%, 0.07) 0px 4px 16px 0px, hsla(220, 25%, 10%, 0.07) 0px 8px 16px -5px';
 
   customShadows[4] =
+  // Reasigna la sombra 4, que parece ser una sombra base común en ambos modos.
     '0px 5px 15px rgba(9, 11, 17, 0.05), 0px 15px 35px -5px rgba(19, 23, 32, 0.05)';
 
   return {
     palette: {
+    // Configura la paleta de colores del tema:
+    // - Define los colores principales (`primary`, `info`, `warning`, `error`, `success`).
+    // - Define el color `divider`, `background` y `text`, adaptados a modo claro/oscuro.
+    // - Usa la paleta `gray` para los tonos grises.
+    // - `action` define colores para efectos de hover y selección.
       mode,
       primary: {
         light: brand[200],
@@ -97,6 +124,18 @@ export const getDesignTokens = (mode) => {
           light: brand[300],
           main: brand[400],
           dark: brand[700],
+        }),
+      },
+      secondary: {
+        light: brown[200],
+        main: brown[400],
+        dark: brown[500],
+        contrastText: '#ffffff',
+        ...(mode === 'dark' && {
+          light: brown[100],
+          main: brown[300],
+          dark: brown[600],
+          contrastText: '#ffffff',
         }),
       },
       info: {
@@ -172,6 +211,9 @@ export const getDesignTokens = (mode) => {
       },
     },
     typography: {
+    // Configura los estilos tipográficos:
+    // - Define tamaños de fuente, pesos (grosor) y alturas de línea para h1, h2, h3, etc.
+    // - Usa funciones del `defaultTheme` para convertir píxeles a rems automáticamente.
       h1: {
         fontSize: defaultTheme.typography.pxToRem(48),
         fontWeight: 600,
@@ -221,17 +263,22 @@ export const getDesignTokens = (mode) => {
     },
     shape: {
       borderRadius: 8,
+      // Define el radio de borde por defecto (redondeo) de los componentes: 8px.
     },
     shadows: customShadows,
+    // Usa las sombras personalizadas modificadas anteriormente.
   };
 };
 
 export const inputsCustomizations = {
+  // Define personalizaciones específicas para componentes de entrada (inputs y botones).
   MuiButtonBase: {
     defaultProps: {
       disableTouchRipple: true,
       disableRipple: true,
     },
+    // Desactiva los efectos de "onda" (ripple) por defecto en todos los botones base.
+
     styleOverrides: {
       root: ({ theme }) => ({
         boxSizing: 'border-box',
@@ -242,6 +289,10 @@ export const inputsCustomizations = {
         },
       }),
     },
+    // Estiliza los botones base:
+    // - Usa `border-box` como modelo de caja.
+    // - Agrega una transición suave.
+    // - Cuando el botón recibe foco (accesibilidad teclado), le pone un borde (outline) con color semitransparente del color primario.
   },
   MuiButton: {
     styleOverrides: {
@@ -249,7 +300,12 @@ export const inputsCustomizations = {
         boxShadow: 'none',
         borderRadius: theme.shape.borderRadius,
         textTransform: 'none',
+        // Configura los botones normales:
+        // - Quita la sombra.
+        // - Redondea usando el borde del tema.
+        // - No transforma el texto (no lo convierte en mayúsculas automáticamente).
         variants: [
+          // Estilo para botón de tamaño pequeño
           {
             props: {
               size: 'small',
@@ -259,6 +315,7 @@ export const inputsCustomizations = {
               padding: '8px 12px',
             },
           },
+          // Estilo para botón de tamaño mediano
           {
             props: {
               size: 'medium',
@@ -267,6 +324,7 @@ export const inputsCustomizations = {
               height: '2.5rem', // 40px
             },
           },
+          // Estilo para botón primario "contained" (relleno)
           {
             props: {
               color: 'primary',
@@ -286,6 +344,7 @@ export const inputsCustomizations = {
               '&:active': {
                 backgroundColor: gray[800],
               },
+              // Estilos alternativos para modo oscuro
               ...theme.applyStyles('dark', {
                 color: 'black',
                 backgroundColor: gray[50],
@@ -303,6 +362,7 @@ export const inputsCustomizations = {
               }),
             },
           },
+          // Estilo para botón secundario "contained"
           {
             props: {
               color: 'secondary',
@@ -324,6 +384,7 @@ export const inputsCustomizations = {
               },
             },
           },
+          // Estilo para botón "outlined" (solo borde)
           {
             props: {
               variant: 'outlined',
@@ -340,6 +401,7 @@ export const inputsCustomizations = {
               '&:active': {
                 backgroundColor: gray[200],
               },
+              // Modo oscuro para outlined
               ...theme.applyStyles('dark', {
                 backgroundColor: gray[800],
                 borderColor: gray[700],
@@ -353,6 +415,7 @@ export const inputsCustomizations = {
               }),
             },
           },
+          // Estilo para botón secundario "outlined"
           {
             props: {
               color: 'secondary',
@@ -370,6 +433,7 @@ export const inputsCustomizations = {
               '&:active': {
                 backgroundColor: alpha(brand[200], 0.7),
               },
+              // Modo oscuro para outlined secundario
               ...theme.applyStyles('dark', {
                 color: brand[50],
                 border: '1px solid',
@@ -385,6 +449,7 @@ export const inputsCustomizations = {
               }),
             },
           },
+          // Estilo para botón "text" (solo texto)
           {
             props: {
               variant: 'text',
@@ -397,6 +462,7 @@ export const inputsCustomizations = {
               '&:active': {
                 backgroundColor: gray[200],
               },
+              // Modo oscuro para text
               ...theme.applyStyles('dark', {
                 color: gray[50],
                 '&:hover': {
@@ -408,6 +474,7 @@ export const inputsCustomizations = {
               }),
             },
           },
+          // Estilo para botón secundario "text"
           {
             props: {
               color: 'secondary',
@@ -421,6 +488,7 @@ export const inputsCustomizations = {
               '&:active': {
                 backgroundColor: alpha(brand[200], 0.7),
               },
+              // Modo oscuro para text secundario
               ...theme.applyStyles('dark', {
                 color: brand[100],
                 '&:hover': {
@@ -433,6 +501,7 @@ export const inputsCustomizations = {
             },
           },
         ],
+        // Estilos para el indicador de carga dentro del botón
         '& .MuiButton-loadingIndicator': {
           color: gray[400],
           ...theme.applyStyles('dark', {
@@ -442,9 +511,12 @@ export const inputsCustomizations = {
       }),
     },
   },
+  
+
+  // Configuración del componente MuiCheckbox
   MuiCheckbox: {
     defaultProps: {
-      disableRipple: true,
+      disableRipple: true, // Desactiva el efecto de onda
       icon: (
         <CheckBoxOutlineBlankRoundedIcon sx={{ color: 'hsla(210, 0%, 0%, 0.0)' }} />
       ),
@@ -495,6 +567,8 @@ export const inputsCustomizations = {
       }),
     },
   },
+
+  // Configuración del componente MuiInputLabel
   MuiInputLabel: {
     styleOverrides: {
       root: {
@@ -505,6 +579,8 @@ export const inputsCustomizations = {
       },
     },
   },
+
+  // Configuración del componente MuiOutlinedInput
   MuiOutlinedInput: {
     styleOverrides: {
       input: {
@@ -524,11 +600,13 @@ export const inputsCustomizations = {
           outline: `3px solid ${alpha(brand[500], 0.5)}`,
           borderColor: brand[400],
         },
+        // Modo oscuro para inputs
         ...theme.applyStyles('dark', {
           '&:hover': {
             borderColor: gray[500],
           },
         }),
+        // Variantes de tamaño para el input
         variants: [
           {
             props: {
@@ -548,6 +626,7 @@ export const inputsCustomizations = {
           },
         ],
       }),
+      // Quita el borde predeterminado
       notchedOutline: {
         border: 'none',
       },

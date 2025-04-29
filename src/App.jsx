@@ -1,12 +1,14 @@
 import React from 'react'
 import ResponsiveAppBar from './components/navbar/Navbar'
 import Footer from './components/footer/footer'
-import { Box } from '@mui/material'
+import { Box, ThemeProvider } from '@mui/material'
 import Toolbar from '@mui/material/Toolbar';
-import ThemeSignInPage from './components/routes/ThemeSignInPage';
+import Login from './components/routes/Login';
+import Register from './components/routes/register';
 
 function App() {
   return (
+    
     <Box
       sx={{
         display: 'flex',
@@ -18,10 +20,10 @@ function App() {
       <Toolbar /> {/* <- Esto empuja el contenido hacia abajo correctamente */}
 
       {/* Contenido principal */}
-      
-      <ThemeSignInPage/>
+      <Register/>
       <Footer />
     </Box>
+    
   );
 }
 
