@@ -41,6 +41,7 @@ export default function Register() {
       <Box
         sx={{
           position: 'relative',
+          width: '99vw',
           minHeight: '100vh',
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
