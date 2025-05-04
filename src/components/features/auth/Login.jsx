@@ -3,7 +3,7 @@ import { AppProvider } from '@toolpad/core/AppProvider';
 import { SignInPage } from '@toolpad/core/SignInPage';
 import { createTheme } from '@mui/material/styles';
 import { useColorScheme } from '@mui/material/styles';
-import { getDesignTokens, inputsCustomizations } from './ThemeProvider';
+import { getDesignTokens, inputsCustomizations } from '../../theme/ThemeProvider';
 
 
 // Definimos un arreglo de objetos llamado "providers", que contiene los métodos de autenticación disponibles.

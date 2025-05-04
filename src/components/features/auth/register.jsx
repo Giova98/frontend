@@ -2,26 +2,31 @@ import * as React from 'react';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { createTheme } from '@mui/material/styles';
 import { useColorScheme } from '@mui/material/styles';
-import { getDesignTokens, inputsCustomizations } from './ThemeProvider';
+import { getDesignTokens, inputsCustomizations } from '../../theme/ThemeProvider';
 import { Box, TextField, Button, Stack, Typography } from '@mui/material';
-import backgroundImage from '../../assets/fondo.png';
+import backgroundImage from '../../../assets/fondo.png';
 
 export default function Register() {
+  // Hook para leer el modo de color (light/system/dark) del usuario
   const { mode, systemMode } = useColorScheme();
+  // Decide si usar el modo del sistema o el explícito; fallback a 'light'
   const calculatedMode = (mode === 'system' ? systemMode : mode) ?? 'light';
+  // Genera tokens de diseño (colores, tipografía, sombras...) según el modo
   const brandingDesignTokens = getDesignTokens(calculatedMode);
 
+  // Crea el tema MUI mezclando los design tokens y las personalizaciones de inputs/buttons
   const THEME = createTheme({
     ...brandingDesignTokens,
     palette: {
       ...brandingDesignTokens.palette,
-      mode: calculatedMode,
+      mode: calculatedMode, // asegura que el palette reconozca light/dark
     },
     components: {
-      ...inputsCustomizations,
+      ...inputsCustomizations, // over-rides globales para botones, inputs, etc.
     },
   });
 
+  // Función que maneja el submit del formulario y extrae los valores
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,7 +42,10 @@ export default function Register() {
   };
 
   return (
+    // AppProvider inyecta el tema en todos los componentes de @toolpad/core y MUI hijos
     <AppProvider theme={THEME}>
+
+      {/* Caja contenedora de TODO el fondo + overlay semitransparente */}
       <Box
         sx={{
           position: 'relative',
@@ -60,6 +68,7 @@ export default function Register() {
           },
         }}
       >
+        {/* Formulario como grid de 2 columnas */}
         <Stack
           component="form"
           onSubmit={handleSubmit}
@@ -76,13 +85,16 @@ export default function Register() {
             gap: '1.5rem',
           }}
         >
+          {/* Título principal (ocupa ambas columnas) */}
           <Typography variant="h4" sx={{ gridColumn: '1 / -1', textAlign: 'center' }}>
             Registrarme
           </Typography>
+          {/* Subtítulo (también ocupa ambas columnas) */}
           <Typography variant="h7" sx={{ gridColumn: '1 / -1', textAlign: 'center' }}>
             Crear una cuenta
           </Typography>
 
+          {/* Campos de texto con estilos personalizados de etiqueta */}
           <TextField name="firstName" label="Nombre" required slotProps={{ inputLabel: { sx: { fontSize: '1.1rem', color: '#FFFBEA', textShadow: '0 1px 2px rgba(0,0,0,0.4)' } } }} />
           <TextField name="nickName" label="Nombre de usuario" required slotProps={{ inputLabel: { sx: { fontSize: '1.1rem', color: '#FFFBEA', textShadow: '0 1px 2px rgba(0,0,0,0.4)' } } }} />
           <TextField name="email" label="Correo electrónico" required type="email" slotProps={{ inputLabel: { sx: { fontSize: '1.1rem', color: '#FFFBEA', textShadow: '0 1px 2px rgba(0,0,0,0.4)' } } }} />

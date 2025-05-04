@@ -43,8 +43,23 @@ function Footer() {
         </Box>
 
         {/* Contacto */}
-        <Box sx={{ textAlign: 'center', mb: 2 }}>
-          <Typography variant="body2" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Box
+          sx={{
+            textAlign: 'center',
+            mb: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,            // espacio vertical entre cada Typography
+          }}
+        >
+          <Typography
+            variant="body2"
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             <EmailIcon sx={{ mr: 1 }} fontSize="small" />
             contacto@carpichords.com
           </Typography>
@@ -54,9 +69,10 @@ function Footer() {
         </Box>
 
         {/* Copyright */}
-        <Typography variant="body2" align="center">
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
           © {new Date().getFullYear()} CarpiChords. Todos los derechos reservados.
         </Typography>
+
       </Container>
     </Box>
   );
