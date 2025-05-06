@@ -13,6 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import logo from "../../assets/logo.png";
+import SideBar from '../sideBar/SideBar';
+
+import { Link } from 'react-router-dom';
 
 const pages = ['Home', 'Catalogo', 'Vender Productos', "Contacto"];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -20,10 +23,19 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
+  const pageRoutes = {
+    Home: '/',
+    Catalogo: '/catalogo',
+    'Vender Productos': '/vender',
+    Contacto: '/contacto',
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -36,10 +48,27 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const toggleSidebar = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setSidebarOpen(open);
+  };
+
   return (
+    <>
     <AppBar position="fixed" sx={{ backgroundColor: '#40250D' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="open drawer"
+          sx={{ mr: 2 }}
+          onClick={toggleSidebar(true)}>
+          <MenuIcon />
+        </IconButton>
         <img src={logo} alt="Logo" style={{ height: '70px', marginRight: '20px' }} />
           <Typography
             variant="h6"
@@ -117,6 +146,8 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
+                component={Link}
+                to={pageRoutes[page]}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
@@ -155,6 +186,8 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
+    <SideBar open={sidebarOpen} onClose={toggleSidebar(false)} />
+    </>
   );
 }
 export default ResponsiveAppBar;
