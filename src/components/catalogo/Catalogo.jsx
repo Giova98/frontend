@@ -2,15 +2,16 @@ import React from 'react'
 import { Route, Routes } from 'react-router'
 import PublicationList from '../publicationList/PublicationList'
 import DetailPublication from '../detailPublication/DetailPublication'
+import { Box } from '@mui/material'
 
-const Catalogo = () => {
+const Catalogo = ({ publicaciones }) => {
   return (
-    <div>
+    <Box>
         <Routes>
-            <Route index element={<PublicationList />}/>
+            <Route index element={<PublicationList publicaciones={publicaciones}/>}/>
             <Route path=":id" element={<DetailPublication />}/>
         </Routes>
-    </div>
+    </Box>
   )
 }
 

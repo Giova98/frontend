@@ -2,14 +2,27 @@ import { Box, Button, Card, CardContent, CardMedia, Typography } from '@mui/mate
 import React from 'react'
 import { useNavigate } from 'react-router';
 
-const PublicationCard = () => {
+
+const PublicationCard = ({id,  title, description, img, price, status, brand }) => {
     const navigate = useNavigate();
 
     const handleCardClick = () => {
-        navigate('/detail-publication/123');
+        navigate(`${id}`, {
+            state: {
+                publicacion: {
+                    title, 
+                    description, 
+                    img, 
+                    price,
+                    status,
+                    brand
+                }
+            }
+        })
     };
+
     return (
-        <Box sx={{ maxWidth: 230, margin: '20px auto'}}>
+        <Box sx={{ maxWidth: 230, minWidth: 200, margin: '20px auto'}}>
             <Card sx={{ 
                 backgroundColor: '#401809',
                 borderRadius: '7px',
@@ -21,7 +34,7 @@ const PublicationCard = () => {
                 <CardMedia 
                     component="img"
                     height="140"
-                    image="https://images-na.ssl-images-amazon.com/images/I/71Oo2ZKroFL._AC_SL1500_.jpg"
+                    image={img}
                     alt="imagen de Producto"
                     sx={{
                         objectFit: 'contain',
@@ -51,7 +64,7 @@ const PublicationCard = () => {
                             lineHeight: 1.2,
                             mb: 1
                         }}>
-                        Guitarra eléctrica, modelo, marca, tamaño
+                        {title}
                     </Typography>
                     <Typography 
                         variant='h5'
@@ -61,7 +74,7 @@ const PublicationCard = () => {
                             fontFamily: '"Poppins", sans-serif',
                             letterSpacing: '0.5px'
                         }}>
-                        $100.000
+                        ${price}
                     </Typography>
                     <Typography 
                         variant='h6'
@@ -69,7 +82,7 @@ const PublicationCard = () => {
                             color: '#fff',
                             fontWeight: '500'
                         }}>
-                        estado
+                        {status}
                     </Typography>
                 </CardContent>
                 <Button 

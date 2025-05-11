@@ -3,18 +3,19 @@ import MyPosts from '../myPosts/MyPosts'
 import SellerDashboard from '../sellerDashboard/SellerDashboard'
 import Register from '../features/auth/Register'
 import Login from '../features/auth/Login'
-import Catalogo from '../catalogo/Catalogo'
+import PublicationList from '../publicationList/PublicationList'
+import { Box } from '@mui/material'
 
 {/* Home (por ahora contendra todos los componentes) */}
-const Dashboard = () => {
+const Dashboard = ({ publicaciones }) => {
     return (
-        <div>
-            <Catalogo />
+        <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
+            <PublicationList publicaciones={publicaciones}/>
             <SellerDashboard />
             <MyPosts />
             <Register />
             <Login />
-        </div>
+        </Box>
     )
 }
 
