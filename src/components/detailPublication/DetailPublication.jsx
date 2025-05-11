@@ -12,7 +12,7 @@ const DetailPublication = () => {
   const { title, description, img, price, status, brand } = location.state.publicacion;
 
   return (
-    <Box sx={{ p: 4, m: 4, backgroundColor: "#FFEFEF", borderRadius: 2, maxWidth: 1000, mx: 'auto', position: 'relative' }}>
+    <Box sx={{ p: 4, m: 4, backgroundColor: "#FFEFEF", borderRadius: 2, maxWidth: 900, mx: 'auto', position: 'relative' }}>
       <IconButton 
         onClick={() => navigate(-1)}
         sx={{ position: 'absolute', top: 0, right: 0 }}>
@@ -25,7 +25,7 @@ const DetailPublication = () => {
             component="img"
             src={img}
             alt="Guitarra"
-            sx={{ width: '400px', borderRadius: 2 }}
+            sx={{ width: '400px', maxHeight: '350px', borderRadius: 2 }}
           />
         </Grid>
 
@@ -46,7 +46,7 @@ const DetailPublication = () => {
 
           <Typography sx={{ mt: 1 }}><strong>Marca:</strong> {brand} </Typography>
 
-          <Box sx={{mb: {md: 7, xs: 5} }} ></Box>
+          <Box sx={{mb: {md: 4, xs: 3}, mt: {md: 4, xs: 3}, borderBottom: '1px solid rgba(0, 0, 0, 0.77)' }} ></Box>
 
           <Typography variant="h4" sx={{ mt: 2 }} >
             ${price}
