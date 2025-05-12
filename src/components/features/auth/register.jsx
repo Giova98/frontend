@@ -5,6 +5,7 @@ import { useColorScheme } from '@mui/material/styles';
 import { getDesignTokens, inputsCustomizations } from '../../theme/ThemeProvider';
 import { Box, TextField, Button, Stack, Typography } from '@mui/material';
 import backgroundImage from '../../../assets/fondo.png';
+import { validateForm } from './RegisterInputValidations';
 
 export default function Register() {
   // Hook para leer el modo de color (light/system/dark) del usuario
@@ -30,15 +31,27 @@ export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    const formValues = {
       firstName: data.get('firstName'),
       nickName: data.get('nickName'),
       email: data.get('email'),
       password: data.get('password'),
       confirmPassword: data.get('confirmPassword'),
-      phone: data.get('phone'),
-      dni: data.get('dni')
-    });
+      phone: data.get('Phone'),
+      dni: data.get('dni'),
+    };
+
+    const errors = validateForm(formValues);
+
+    if (Object.keys(errors).length > 0) {
+      // Podés mostrar errores con un alert, toast, setState o similar
+      console.log("Errores encontrados:", errors);
+      alert("Por favor corregí los errores.");
+      return;
+    }
+
+    console.log("Formulario válido:", formValues);
   };
 
   return (
