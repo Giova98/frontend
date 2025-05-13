@@ -1,91 +1,96 @@
-import * as React from 'react';
-import { AppProvider } from '@toolpad/core/AppProvider';
-import { SignInPage } from '@toolpad/core/SignInPage';
-import { createTheme } from '@mui/material/styles';
-import { useColorScheme } from '@mui/material/styles';
-import { getDesignTokens, inputsCustomizations } from '../../theme/ThemeProvider';
+import fondo from '../../../assets/fondo.png'
+import github from '../../../assets/github.svg'
 
+const Login = () => {
+  return (
+    <div className="min-h-screen flex">
+      {/* Left Side - Form */}
+      <div className="w-full max-w-md mx-auto px-8 py-12 lg:w-1/2 flex flex-col justify-center">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <svg className="h-8 w-8 text-[#40250D]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0L10.59 1.41 18.17 9H0v2h18.17l-7.58 7.59L12 24l12-12L12 0z" />
+          </svg>
+        </div>
 
-// Definimos un arreglo de objetos llamado "providers", que contiene los métodos de autenticación disponibles.
-// Cada objeto tiene un "id" que identifica al proveedor y un "name" que es el nombre que se muestra en la interfaz.
-const providers = [
-  { id: 'github', name: 'GitHub' },
-  { id: 'google', name: 'Google' },
-  { id: 'credentials', name: 'Email y Contraseña' },
-];
+        {/* Heading */}
+        <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
+          Inicie sesion en tu cuenta
+        </h2>
+        <p className="text-sm text-center text-[#40250D] mb-8">
+          No sos miembro? <a href="#" className="font-semibold underline hover:opacity-80">Unite a esta aventura</a>
+        </p>
 
-// Creamos una función "signIn" que simula el proceso de inicio de sesión con un proveedor.
-// Esta función retorna una promesa que después de medio segundo (500ms) muestra por consola el "id" del proveedor usado.
-// Luego resuelve la promesa con un error simulado (esto sirve de ejemplo para manejar errores de login).
-const signIn = async (provider) => {
-  const promise = new Promise((resolve) => {
-    setTimeout(() => {
-      console.log(`Sign in with ${provider.id}`);
-      resolve({ error: 'This is a mock error message.' });
-    }, 500);
-  });
-  return promise;
+        {/* Form */}
+        <form className="space-y-6">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+            <input
+              id="email"
+              type="email"
+              autoComplete="email"
+              required
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Contraseña</label>
+            <input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <label className="flex items-center text-sm text-gray-700">
+              <input type="checkbox" className="mr-2 rounded border-gray-300" />
+              Recordar inicio de sesion
+            </label>
+            <a href="#" className="text-sm text-[#40250D] font-medium hover:underline">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-[#40250D] hover:bg-[#2f1a09] text-white font-semibold py-2 px-4 rounded"
+          >
+            Iniciar sesion
+          </button>
+        </form>
+
+        {/* Divider */}
+        <div className="flex items-center my-6">
+          <hr className="flex-grow border-gray-300" />
+          <span className="px-4 text-gray-400 text-sm">o continuar con</span>
+          <hr className="flex-grow border-gray-300" />
+        </div>
+
+        {/* Social Login Buttons */}
+        <div className="flex gap-4">
+          <button className="flex items-center justify-center w-full border border-gray-300 rounded py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="h-5 w-5 mr-2" alt="Google" />
+            Google
+          </button>
+          <button className="flex items-center justify-center w-full border border-gray-300 rounded py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+            <img src={github} className="h-5 w-5 mr-2" alt="GitHub" />
+            GitHub
+          </button>
+        </div>
+      </div>
+
+      {/* Right Side - Image */}
+      <div className="hidden lg:block lg:w-1/2">
+        <img
+          className="h-full w-full object-cover"
+          src={fondo} // Cambia esto por el path de tu imagen
+          alt="Login visual"
+        />
+      </div>
+    </div>
+  );
 };
 
-// Definimos el componente principal "Login" que se va a exportar como default.
-export default function Login() {
-
-  // Obtenemos el modo de color actual del sistema (puede ser "light" o "dark") usando el hook "useColorScheme".
-  const { mode, systemMode } = useColorScheme();
-
-  // Calculamos el modo final que vamos a usar: si está en "modo sistema", usamos el modo del sistema;
-  // si no, usamos el modo configurado manualmente. Si no hay ninguno definido, por defecto usamos "light".
-  const calculatedMode = (mode === 'system' ? systemMode : mode) ?? 'light';
-
-  // Llamamos a "getDesignTokens" pasándole el modo actual, para obtener los estilos de diseño correspondientes (paleta de colores, etc.).
-  const brandingDesignTokens = getDesignTokens(calculatedMode);
-  
-   // Creamos un nuevo "theme" de MUI (Material-UI) utilizando el tema base más algunas personalizaciones.
-  const THEME = createTheme({
-    ...brandingDesignTokens, // aplicamos los tokens de diseño (colores, tipografías, etc.)
-    palette: {
-      ...brandingDesignTokens.palette,
-      mode: calculatedMode, // indicamos explícitamente el modo (light o dark) en la paleta.
-    },
-    components: {
-      ...inputsCustomizations, // aplicamos las personalizaciones para los inputs de los formularios.
-    },
-  });
-  
-  // Retornamos la estructura del componente.
-  return (
-    
-    <AppProvider theme={THEME}> {/* Proveemos el tema a toda la aplicación usando AppProvider */}
-      <SignInPage
-        signIn={signIn} // Pasamos la función que maneja el proceso de inicio de sesión.
-        providers={providers} // Pasamos los proveedores de autenticación disponibles.
-
-        // slotProps permite personalizar partes internas del formulario de login.
-        slotProps={{ form: { noValidate: true }, // Configuramos el formulario para que no use la validación HTML5 automática.
-        passwordField: { label: 'Contraseña' }, // Cambiamos el label del campo de contraseña al español.
-        emailField: { label: 'Correo electrónico' }, // Cambiamos el label del campo de email al español.
-      }}
-
-      // localeText permite traducir o personalizar todos los textos visibles de la página de inicio de sesión.
-      localeText={{
-        signInTitle: 'Iniciar sesión en la cuenta', // Título principal de la página de login.
-        signInSubtitle: 'Accede a tu perfil', // Subtítulo debajo del título 
-        email: 'Correo electrónico', // Texto para el campo de email.
-        password: 'Contraseña', // Texto para el campo de contraseña.
-        signInRememberMe: 'Recordarme', // Texto del checkbox para recordar la sesión.
-        or: 'o', // Palabra que aparece entre las opciones de login (por ejemplo: "Iniciar sesión con Google o GitHub").
-        passkey: 'Clave de acceso', // Texto alternativo en caso de usar llaves de acceso.
-        providerSignInTitle: (provider) => `Iniciar sesión con ${provider}`,  // Función para traducir el título de cada proveedor de login.
-      }}
-
-      // sx permite aplicar estilos personalizados usando la sintaxis de MUI.
-        sx={{
-          '& form > .MuiStack-root': { // Seleccionamos el Stack que contiene los campos del formulario.
-            marginTop: '2rem', // Agregamos un margen superior de 2 rem.
-            rowGap: '0.5rem', // Espaciado vertical entre los elementos del formulario.
-          },
-        }}
-      />
-    </AppProvider>
-  );
-}
+export default Login;

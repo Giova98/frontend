@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-function RegisterValidationsV2() {
+function RegisterValidations() {
 
   //formData: Describe claramente que contiene datos de formulario
   //setFormData: Es la funcion actualizadora
@@ -56,4 +56,4 @@ function RegisterValidationsV2() {
    };
 }
 
-export default RegisterValidationsV2
+export default RegisterValidations;
