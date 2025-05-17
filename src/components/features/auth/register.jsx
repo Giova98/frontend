@@ -147,7 +147,7 @@ const Register = () => {
             </label>
             <label className="flex items-center text-sm text-gray-700">
               <input type="checkbox" name="isUser" checked={formData.isUser} onChange={handleChange} className="mr-2 rounded border-gray-300" />
-              Ser usuario
+              Ser comprador
             </label>
           </div>
           <button

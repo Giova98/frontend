@@ -2,8 +2,6 @@ import {
   Facebook,
   Instagram,
   Twitter,
-  Globe,
-  Dribbble,
 } from "lucide-react";
 import logo from '../../assets/logo.png'
 
@@ -13,7 +11,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="md:flex md:justify-between">
           {/* Izquierda: logo, descripción, íconos */}
-          <div className="mb-6 md:mb-0 max-w-sm">
+          <div className="mb-6 md:mb-0 max-w-lg pr-20">
             <a href="#" className="flex items-center mb-4 text-white text-xl font-semibold font-mono">
               <img src={logo} alt="Logo" className="h-14 w-auto" />
               CharpiChords
@@ -21,7 +19,7 @@ export default function Footer() {
             <p className="mb-6 text-sm text-[#FFD8A9]">
               CarpiChords es un marketplace especializado donde músicos y amantes del sonido pueden encontrar una <br /> amplia variedad de instrumentos y accesorios.
             </p>
-            <div className="flex space-x-6">
+            <div className="flex space-x-6 ml-15">
               <a href="#" className="text-gray-400 hover:text-[#1877F2] transition-colors duration-200">
                 <Facebook className="w-6 h-6" />
               </a>
@@ -31,19 +29,13 @@ export default function Footer() {
               <a href="#" className="text-gray-400 hover:text-[#1DA1F2] transition-colors duration-200">
                 <Twitter className="w-6 h-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-[#6e5494] transition-colors duration-200">
-                <Globe className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#EA4C89] transition-colors duration-200">
-                <Dribbble className="w-6 h-6" />
-              </a>
             </div>
           </div>
           {/* Derecha: columnas */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 mt-8 md:mt-0">
             <div>
-              <h2 className="mb-4 text-sm font-semibold text-white uppercase">Sobre nosotros</h2>
-              <ul className="space-y-2 text-sm">
+              <h2 className="mb-4 ml-8 text-sm font-semibold text-white uppercase">Sobre nosotros</h2>
+              <ul className="space-y-2 text-sm ml-8">
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Quienes somos</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Sumate al equipo</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Identidad musical</a></li>
@@ -53,7 +45,6 @@ export default function Footer() {
             <div>
               <h2 className="mb-4 text-sm font-semibold text-white uppercase">Preguntas Frecuentes</h2>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Cómo comprar un instrumento?</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Cómo vender mis productos?</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Qué métodos de pago están disponibles?</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Problemas con una compra?</a></li>
@@ -65,7 +56,6 @@ export default function Footer() {
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Política de privacidad</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Política de devoluciones y reembolsos</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Términos y condiciones del vendedor</a></li>
-                <li><a href="#" className="hover:underline text-[#FFD8A9]">Condiciones de uso del sitio</a></li>
               </ul>
             </div>
             <div>
@@ -73,7 +63,6 @@ export default function Footer() {
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Guía para comprar instrumentos</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Guía para vender tus productos</a></li>
-                <li><a href="#" className="hover:underline text-[#FFD8A9]">Cuidados y mantenimiento</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Comparativa de marcas y modelos</a></li>
               </ul>
             </div>
@@ -82,7 +71,7 @@ export default function Footer() {
 
         {/* Línea separadora y derechos */}
         <hr className="my-8 border-gray-600" />
-        <span className="block text-center text-sm text-[#FFD8A9]">
+        <span className="block text-center text-sm text-[#FFD8A9] mb-5">
           © 2025 <a href="#" className="hover:underline">Facu-Code-Team™</a>. Todos los derechos reservados.
         </span>
       </div>
