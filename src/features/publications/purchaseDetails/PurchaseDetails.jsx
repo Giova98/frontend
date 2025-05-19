@@ -17,9 +17,9 @@ const PurchaseDetails = () => {
   return (
     <div className="min-h-screen p-8 text-[#2b1200] text-xl flex flex-col items-center">
       <div className="relative w-full mb-10">
-        <ArrowLeft 
-          className="w-8 h-8 cursor-pointer absolute left-0 top-1/2 -translate-y-1/2" 
-          onClick={() => navigate(-1)}/>
+        <ArrowLeft
+          className="w-8 h-8 cursor-pointer absolute left-0 top-1/2 -translate-y-1/2"
+          onClick={() => navigate(-1)} />
         <h1 className="text-3xl font-semibold text-center">Detalles de Compra</h1>
       </div>
 
@@ -45,8 +45,8 @@ const PurchaseDetails = () => {
             </div>
 
             <div className="border-t border-b border-[#2b1200] py-4 space-y-2">
-              <div className="flex justify-between"><span>Subtotal:</span><span>${price}</span></div>
               <div className="flex justify-between"><span>Envio:</span><span>Gratis</span></div>
+              <div className="flex justify-between"><span>Subtotal:</span><span>${price}</span></div>
               <div className="flex justify-between font-semibold text-3xl"><span>Total:</span><span>${price}</span></div>
             </div>
           </div>
