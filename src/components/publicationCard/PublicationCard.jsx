@@ -1,110 +1,62 @@
-import { Box, Button, Card, CardContent, CardMedia, Typography } from '@mui/material'
 import React from 'react'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom'
 
-
-const PublicationCard = ({id,  title, description, img, price, status, brand }) => {
-    const navigate = useNavigate();
+const PublicationCard = ({ id, title, description, img, price, status, brand }) => {
+    const navigate = useNavigate()
 
     const handleCardClick = () => {
         navigate(`${id}`, {
             state: {
-                publicacion: {
-                    title, 
-                    description, 
-                    img, 
-                    price,
-                    status,
-                    brand
-                }
+                publicacion: { title, description, img, price, status, brand }
             }
         })
-    };
+    }
 
     return (
-        <Box sx={{ maxWidth: 230, minWidth: 200, margin: '20px auto'}}>
-            <Card sx={{ 
-                backgroundColor: '#401809',
-                borderRadius: '7px',
-                boxShadow: '5px 5px 5px rgba(0, 0, 0, 0.25)',
-                position: 'relative',
-                '&:hover .buy-button': { opacity: 1, bottom: '16px' }
-                }}
-                onClick={handleCardClick}>
-                <CardMedia 
-                    component="img"
-                    height="140"
-                    image={img}
-                    alt="imagen de Producto"
-                    sx={{
-                        objectFit: 'contain',
-                        backgroundColor: '#fff',
-                        width: '100%'
-                    }}
-                />
-                <CardContent sx={{ textAlign: 'left' }}>
-                    <Typography
-                        variant='caption' 
-                        color='text.secondary'
-                        sx={{
-                            backgroundColor: '#D2D2D2',
-                            px: 3.5,
-                            py: 0,
-                            mb: 1,
-                            borderRadius: '10px',
-                            display: 'inline-block'
-                        }}>
-                        Category
-                    </Typography>
-                    <Typography 
-                        variant='subtitle1'
-                        sx={{
-                            color: '#fff',
-                            fontWeight: '700',
-                            lineHeight: 1.2,
-                            mb: 1
-                        }}>
-                        {title}
-                    </Typography>
-                    <Typography 
-                        variant='h5'
-                        sx={{
-                            color: '#fff',
-                            mb: 1,
-                            fontFamily: '"Poppins", sans-serif',
-                            letterSpacing: '0.5px'
-                        }}>
-                        ${price}
-                    </Typography>
-                    <Typography 
-                        variant='h6'
-                        sx={{
-                            color: '#fff',
-                            fontWeight: '500'
-                        }}>
-                        {status}
-                    </Typography>
-                </CardContent>
-                <Button 
-                    variant="contained"
-                    className="buy-button"
-                    sx={{
-                      backgroundColor: '#9D9B8F',
-                      color: '#fff',
-                      fontWeight: 'bold',
-                      textTransform: 'none',
-                      width: '90%',
-                      position: 'absolute',
-                      left: '5%',
-                      bottom: '0px',
-                      opacity: 0,
-                      transition: 'all 0.3s ease',
-                      pointerEvents: 'none'
-                    }}>
-                    Comprar
-                </Button>
-            </Card>
-        </Box>
+        <div
+            className="
+                relative
+                group
+                max-w-[230px] min-w-[200px] 
+                bg-[#401809] 
+                text-[#fff] 
+                my-[20px] mx-auto 
+                rounded-[7px] 
+                shadow-[5px_5px_5px_rgba(0,0,0,0.25)]"
+            onClick={handleCardClick}
+        >
+            <img
+                src={img}
+                alt="imagen de Producto"
+                className="w-full h-[140px] bg-[#fff] rounded-t-[7px] object-contain"
+            />
+            <div className="px-[15px] py-[3px] text-left">
+                <span className="inline-block bg-[#D2D2D2] rounded-[10px] px-[10px] py-0 mb-[8px] text-[0.75rem] text-[#535353]">
+                    Categoria
+                </span>
+                <h3 className="text-[1.2rem] font-semibold leading-tight pb-[8px] m-[0] ">{title}</h3>
+                <p className="text-[2rem] pb-[5px] m-[0] font-poppins">${price}</p>
+                <p className="text-[1.25rem] pb-[8px] m-[0]">{status}</p>
+            </div>
+
+            <button
+                className="
+                    bg-[#9D9B8F] 
+                    text-[#fff] 
+                    font-bold
+                    rounded-[5px]
+                    w-[90%]
+                    p-[6px]
+                    absolute 
+                    left-[5%] 
+                    bottom-[10px]
+                    opacity-0 
+                    transition-all
+                    duration-300
+                    group-hover:opacity-100">
+                Comprar
+            </button>
+        </div>
     )
 }
 

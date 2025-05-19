@@ -1,193 +1,66 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import logo from "../../assets/logo.png";
-import SideBar from '../sideBar/SideBar';
+import { Search, Bell } from "lucide-react";
+import logo from "../../assets/logo.png"; // ajustá el path si está en otra carpeta
+import { Link } from "react-router";
 
-import { Link } from 'react-router-dom';
-
-const pages = ['Home', 'Catalogo', 'Vender Productos', "Contacto"];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [sidebarOpen, setSidebarOpen] = React.useState(false);
-
-  const pageRoutes = {
-    Home: '/',
-    Catalogo: '/catalogo',
-    'Vender Productos': '/vender',
-    Contacto: '/contacto',
-  };
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  const toggleSidebar = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setSidebarOpen(open);
-  };
-
+export default function Navbar() {
   return (
-    <>
-    <AppBar position="fixed" sx={{ backgroundColor: '#40250D' }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          sx={{ mr: 2 }}
-          onClick={toggleSidebar(true)}>
-          <MenuIcon />
-        </IconButton>
-        <img src={logo} alt="Logo" style={{ height: '70px', marginRight: '20px' }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            CarpiChords
-          </Typography>
+    <nav className="w-full bg-[#40250D] px-6 py-3 flex items-center justify-between">
+      {/* Sección izquierda: logo + links */}
+      <div className="flex items-center gap-10">
+        {/* Logo + titulo*/}
+        <div className="flex items-center gap-2">
+          <img src={logo} alt="Logo" className="h-14 w-auto" />
+          <h1 className="text-white text-xl font-semibold font-mono">CarpinChords</h1>
+        </div>
+        {/* Links */}
+        <ul className="flex gap-6 text-white font-medium text-lg font-mono">
+          <li>
+            <Link to="/" className="hover:text-gray-300 transition-colors duration-200">
+              Inicio
+            </Link>
+          </li>
+          <li>
+            <Link to="/catalogo" className="hover:text-gray-300 transition-colors duration-200">
+              Catálogo
+            </Link>
+          </li>
+          <li>
+            <Link to="/vender" className="hover:text-gray-300 transition-colors duration-200">
+              Vender
+            </Link>
+          </li>
+          <li>
+            <Link to="/contacto" className="hover:text-gray-300 transition-colors duration-200">
+              Contacto
+            </Link>
+          </li>
+        </ul>
+      </div>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                component={Link}
-                to={pageRoutes[page]}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
-    <SideBar open={sidebarOpen} onClose={toggleSidebar(false)} />
-    </>
+      {/* Sección derecha: búsqueda + notificación + avatar */}
+      <div className="flex items-center gap-5">
+        {/* Barra de búsqueda */}
+        <div className="relative">
+          <Search className="absolute top-2.5 left-3 text-gray-400 w-4 h-4" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="bg-[#60250D] text-white pl-10 pr-4 py-2 rounded-md text-sm placeholder-gray-400 focus:outline-none"
+          />
+        </div>
+
+        {/* Icono de notificación */}
+        <button className="text-gray-400 hover:text-white transition-colors">
+          <Bell className="w-5 h-5" />
+        </button>
+
+        {/* Avatar de usuario (usá una imagen de perfil si tenés) */}
+        <img
+          src="https://i.pravatar.cc/300"
+          alt="User Avatar"
+          className="w-8 h-8 rounded-full object-cover"
+        />
+      </div>
+    </nav >
   );
 }
-export default ResponsiveAppBar;

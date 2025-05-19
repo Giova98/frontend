@@ -1,17 +1,11 @@
-import React from 'react'
-import PublicationCard from '../publicationCard/PublicationCard'
-import { Grid } from '@mui/material'
+import React from 'react';
+import PublicationCard from '../publicationCard/PublicationCard';
 
 const PublicationList = ({ publicaciones }) => {
-
     return (
-        <Grid container spacing={2} columns={12} justifyContent="center" maxWidth={1000}>
+        <div className="max-w-[1000px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {publicaciones.map((publicacion) => (
-                <Grid
-                    key={publicacion.id}
-                    item
-                    xs={12} sm={6} md={4} lg={3}
-                >
+                <div key={publicacion.id}>
                     <PublicationCard
                         id={publicacion.id}
                         title={publicacion.title}
@@ -21,10 +15,10 @@ const PublicationList = ({ publicaciones }) => {
                         status={publicacion.status}
                         brand={publicacion.brand}
                     />
-                </Grid>
+                </div>
             ))}
-        </Grid>
-    )
-}
+        </div>
+    );
+};
 
-export default PublicationList
+export default PublicationList;

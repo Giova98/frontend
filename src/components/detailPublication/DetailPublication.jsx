@@ -1,79 +1,66 @@
 import React from 'react'
-
-import { Box, Typography, Button, Grid, Avatar, IconButton } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CloseIcon from '@mui/icons-material/Close';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router'
+import { Close } from '@mui/icons-material'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 const DetailPublication = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useNavigate()
+  const location = useLocation()
 
-  const { title, description, img, price, status, brand } = location.state.publicacion;
+  const { title, description, img, price, status, brand } = location.state.publicacion
 
   return (
-    <Box sx={{ p: 4, m: 4, backgroundColor: "#FFEFEF", borderRadius: 2, maxWidth: 900, mx: 'auto', position: 'relative' }}>
-      <IconButton 
+    <div className="relative bg-[#FFEFEF] rounded-[8px] max-w-[900px] mx-auto my-8 p-8">
+      <button
         onClick={() => navigate(-1)}
-        sx={{ position: 'absolute', top: 0, right: 0 }}>
-        <CloseIcon />
-      </IconButton>
+        className="absolute top-2 right-2 text-gray-600 hover:text-black"
+      >
+        <Close />
+      </button>
 
-      <Grid container spacing={5} alignItems="flex-start">
-        <Grid item md={4}>
-          <Box
-            component="img"
+      <div className="flex flex-col md:flex-row gap-8">
+        {/* Imagen */}
+        <div className="flex-shrink-0">
+          <img
             src={img}
             alt="Guitarra"
-            sx={{ width: '400px', maxHeight: '350px', borderRadius: 2 }}
+            className="w-[400px] max-h-[350px] rounded-[8px] object-contain"
           />
-        </Grid>
+        </div>
 
-        {/*detalles */}
-        <Grid item md={8} sx={{ ml: { maxWidth: 500, xs: 0, md: 4, lg: 5 } }}>
+        {/* Detalles */}
+        <div className="flex-1">
+          <h2 className="text-2xl font-bold">{title}</h2>
+          <p className="text-sm text-gray-500">category1</p>
+          <p className="mt-2"><strong>Estado:</strong> {status}</p>
+          <p className="mt-2 whitespace-pre-line text-sm">{description}</p>
+          <p className="mt-2"><strong>Marca:</strong> {brand}</p>
 
-          <Typography variant="h5" fontWeight="bold">
-            {title}
-          </Typography>
+          <hr className="my-6 border-black/70" />
 
-          <Typography variant="caption" color="gray">category1</Typography>
-
-          <Typography sx={{ mt: 1 }}><strong>Estado:</strong> {status} </Typography>
-
-          <Typography variant="body2" sx={{ mt: 1, whiteSpace: 'pre-line' }}>
-            {description}
-          </Typography>
-
-          <Typography sx={{ mt: 1 }}><strong>Marca:</strong> {brand} </Typography>
-
-          <Box sx={{mb: {md: 4, xs: 3}, mt: {md: 4, xs: 3}, borderBottom: '1px solid rgba(0, 0, 0, 0.77)' }} ></Box>
-
-          <Typography variant="h4" sx={{ mt: 2 }} >
-            ${price}
-          </Typography>
-
-          <Button variant="contained" color="primary" sx={{ mt: 2, backgroundColor: '#5d4037' }}>
+          <p className="text-[2.5rem] font-semibold mt-4">${price}</p>
+          <button className="mt-4 bg-[#401809] text-white px-6 py-2 rounded font-semibold hover:bg-[#4e332d]">
             Comprar ahora
-          </Button>
+          </button>
+        </div>
+      </div>
 
-        </Grid>
-        {/* Información del vendedor */}
-        <Grid item md={12} sx={{ mt: 4 }}>
-          <Typography fontWeight="bold">Vendedor:</Typography>
-          <Box display="flex" alignItems="center" gap={1} mt={1}>
-            <Avatar />
-            <Box>
-              <Typography fontWeight="bold">Nombre Del Vendedor</Typography>
-              <Typography variant="body2">
-                <LocationOnIcon sx={{ fontSize: 16, verticalAlign: 'middle' }} />
-                Santa Fe, Rosario, Sarmiento 1423
-              </Typography>
-              <Typography variant="body2">Contacto: +54 3464-578823</Typography>
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+      {/* Información del vendedor */}
+      <div className="mt-8">
+        <h3 className="font-bold">Vendedor:</h3>
+        <div className="flex items-center gap-3 mt-2">
+          <div className="w-10 h-10 rounded-full bg-gray-300"></div>
+          <div>
+            <p className="font-bold">Nombre Del Vendedor</p>
+            <p className="text-sm text-gray-700 flex items-center gap-1">
+              <LocationOnIcon fontSize="small" />
+              Santa Fe, Rosario, Sarmiento 1423
+            </p>
+            <p className="text-sm text-gray-700">Contacto: +54 3464-578823</p>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

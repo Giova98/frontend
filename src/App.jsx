@@ -21,7 +21,7 @@ const publicaciones = [
   {
     id: 1,
     title: 'Auriculares Bluetooth',
-    description: 'Auriculares inalámbricos con sonido envolvente. Perfectos para correr.',
+    description: 'Auriculares inalámbricos con sonido envolvente. Perfectos para correr.cascavcadvcdavadvadv',
     img: 'https://th.bing.com/th/id/OIP.DEwRIsQF7Gqqw6kgdEFCCwHaE7?cb=iwc2&rs=1&pid=ImgDetMain',
     price: 8500,
     status: 'Nuevo',
@@ -67,14 +67,8 @@ const publicaciones = [
 function App() {
   return (
     <Router>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          minHeight: '100vh',
-          backgroundColor: '#FFE0C4'
-        }}>
+
+      <div className="flex flex-col items-center min-h-screen bg-[#FFE0C4] ">
 
         <ResponsiveAppBar />
         <Toolbar /> {/* <- Esto empuja el contenido hacia abajo correctamente */}
@@ -92,7 +86,7 @@ function App() {
         </Routes>
 
         <Footer />
-      </Box>
+      </div>
 
     </Router>
   );

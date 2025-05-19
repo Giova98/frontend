@@ -1,81 +1,91 @@
-import * as React from 'react';
 import {
-  Box,
-  Container,
-  Typography,
-  Link,
-  IconButton
-} from '@mui/material';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import EmailIcon from '@mui/icons-material/Email';
+  Facebook,
+  Instagram,
+  Twitter,
+  Globe,
+  Dribbble,
+} from "lucide-react";
+import logo from '../../assets/logo.png'
 
-function Footer() {
+export default function Footer() {
   return (
-    <Box sx={{ backgroundColor: '#40250D', color: 'white', py: 4, mt: 'auto', width: '100%' }}>
-      <Container maxWidth={false} sx={{ px: { xs: 85, sm: 66 } }}>
+    <footer className="w-full bg-[#40250D] px-6 py-3 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto">
+        <div className="md:flex md:justify-between">
+          {/* Izquierda: logo, descripción, íconos */}
+          <div className="mb-6 md:mb-0 max-w-sm">
+            <a href="#" className="flex items-center mb-4 text-white text-xl font-semibold font-mono">
+              <img src={logo} alt="Logo" className="h-14 w-auto" />
+              CharpiChords
+            </a>
+            <p className="mb-6 text-sm text-[#FFD8A9]">
+              CarpiChords es un marketplace especializado donde músicos y amantes del sonido pueden encontrar una <br /> amplia variedad de instrumentos y accesorios.
+            </p>
+            <div className="flex space-x-6">
+              <a href="#" className="text-gray-400 hover:text-[#1877F2] transition-colors duration-200">
+                <Facebook className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#E1306C] transition-colors duration-200">
+                <Instagram className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#1DA1F2] transition-colors duration-200">
+                <Twitter className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#6e5494] transition-colors duration-200">
+                <Globe className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#EA4C89] transition-colors duration-200">
+                <Dribbble className="w-6 h-6" />
+              </a>
+            </div>
+          </div>
+          {/* Derecha: columnas */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 mt-8 md:mt-0">
+            <div>
+              <h2 className="mb-4 text-sm font-semibold text-white uppercase">Sobre nosotros</h2>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Quienes somos</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Sumate al equipo</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Identidad musical</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Notas & novedades</a></li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="mb-4 text-sm font-semibold text-white uppercase">Preguntas Frecuentes</h2>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Cómo comprar un instrumento?</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Cómo vender mis productos?</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Qué métodos de pago están disponibles?</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Problemas con una compra?</a></li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="mb-4 text-sm font-semibold text-white uppercase">Terminos & politicas</h2>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Política de privacidad</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Política de devoluciones y reembolsos</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Términos y condiciones del vendedor</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Condiciones de uso del sitio</a></li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="mb-4 text-sm font-semibold text-white uppercase">Recursos utiles</h2>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Guía para comprar instrumentos</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Guía para vender tus productos</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Cuidados y mantenimiento</a></li>
+                <li><a href="#" className="hover:underline text-[#FFD8A9]">Comparativa de marcas y modelos</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-        {/* Sección institucional */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap', mb: 2 }}>
-          <Link href="#about" underline="hover" sx={{ color: 'white' }}>
-            Sobre nosotros
-          </Link>
-          <Link href="#terms" underline="hover" sx={{ color: 'white' }}>
-            Términos y condiciones
-          </Link>
-          <Link href="#privacy" underline="hover" sx={{ color: 'white' }}>
-            Política de privacidad
-          </Link>
-        </Box>
-
-        {/* Redes sociales */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}>
-          <IconButton color="inherit" href="https://instagram.com" target="_blank">
-            <InstagramIcon />
-          </IconButton>
-          <IconButton color="inherit" href="https://facebook.com" target="_blank">
-            <FacebookIcon />
-          </IconButton>
-          <IconButton color="inherit" href="https://wa.me/5491112345678" target="_blank">
-            <WhatsAppIcon />
-          </IconButton>
-        </Box>
-
-        {/* Contacto */}
-        <Box
-          sx={{
-            textAlign: 'center',
-            mb: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,            // espacio vertical entre cada Typography
-          }}
-        >
-          <Typography
-            variant="body2"
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <EmailIcon sx={{ mr: 1 }} fontSize="small" />
-            contacto@carpichords.com
-          </Typography>
-          <Typography variant="body2">
-            Atención por WhatsApp: +54 9 341-283-6206
-          </Typography>
-        </Box>
-
-        {/* Copyright */}
-        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          © {new Date().getFullYear()} CarpiChords. Todos los derechos reservados.
-        </Typography>
-
-      </Container>
-    </Box>
+        {/* Línea separadora y derechos */}
+        <hr className="my-8 border-gray-600" />
+        <span className="block text-center text-sm text-[#FFD8A9]">
+          © 2025 <a href="#" className="hover:underline">Facu-Code-Team™</a>. Todos los derechos reservados.
+        </span>
+      </div>
+    </footer>
   );
 }
-
-export default Footer;
