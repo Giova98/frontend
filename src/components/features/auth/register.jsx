@@ -1,12 +1,12 @@
 import fondo from "../../../assets/fondo.png"; // Asegurate de que esta ruta sea correcta
-import RegisterValidations from "../RegisterValidations.jsx";
+import RegisterValidations from "../RegisterValidations";
 
 const Register = () => {
 
-  const {formData, handleChange} = RegisterValidations();
+  const { formData, handleChange, validateBlur, errors, handleSubmit } = RegisterValidations();
 
   return (
-    <div className="w-full min-h-screen flex">
+    <div className="min-h-screen flex">
       {/* Left Side - Form */}
       <div className="w-full max-w-md mx-auto px-8 py-12 lg:w-1/2 flex flex-col justify-center">
         {/* Logo */}
@@ -32,7 +32,7 @@ const Register = () => {
         </p>
 
         {/* Form */}
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Nombre completo
@@ -41,10 +41,14 @@ const Register = () => {
               type="text"
               name='fullName'
               value={formData.fullName}
-              onChange={handleChange}              
+              onChange={handleChange}
+              onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
+            {errors.fullName && (
+              <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -55,9 +59,13 @@ const Register = () => {
               name="username"
               value={formData.username}
               onChange={handleChange}
+              onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
+            {errors.username && (
+              <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -68,9 +76,13 @@ const Register = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -81,9 +93,13 @@ const Register = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
+              onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
+            {errors.phone && (
+              <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -94,9 +110,13 @@ const Register = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -107,9 +127,13 @@ const Register = () => {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
+              onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+            )}
           </div>
           <div className="flex items-center my-6">
             <hr className="flex-grow border-gray-300" />
@@ -123,7 +147,7 @@ const Register = () => {
             </label>
             <label className="flex items-center text-sm text-gray-700">
               <input type="checkbox" name="isUser" checked={formData.isUser} onChange={handleChange} className="mr-2 rounded border-gray-300" />
-              Ser usuario
+              Ser comprador
             </label>
           </div>
           <button

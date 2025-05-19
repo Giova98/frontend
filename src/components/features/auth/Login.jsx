@@ -4,7 +4,7 @@ import github from '../../../assets/github.svg'
 
 const Login = () => {
   return (
-    <div className="w-full min-h-screen flex">
+    <div className="min-h-screen flex">
       {/* Left Side - Form */}
       <div className="w-full max-w-md mx-auto px-8 py-12 lg:w-1/2 flex flex-col justify-center">
         {/* Logo */}

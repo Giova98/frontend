@@ -2,20 +2,18 @@ import React from 'react'
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router';
 
-import { Box } from '@mui/material'
-import Toolbar from '@mui/material/Toolbar';
 
-import ResponsiveAppBar from './components/navbar/Navbar'
-import Footer from './components/footer/footer'
+import Navbar from './components/navbar/Navbar'
+import Footer from './components/footer/Footer'
 import Dashboard from './components/dashboard/Dashboard';
 import DetailPublication from './components/detailPublication/DetailPublication';
 import MyPosts from './components/myPosts/MyPosts';
 import NotFound from './components/routes/notFound/notFound';
-import Register from './components/features/auth/Register'
-import Login from './components/features/auth/Login'
+import Login from './components/features/auth/Login';
 import Catalogo from './components/catalogo/Catalogo';
 import SellerDashboard from './components/sellerDashboard/SellerDashboard';
 import Contact from './components/contact/Contact';
+<<<<<<< HEAD
 
 const publicaciones = [
   {
@@ -64,10 +62,16 @@ const publicaciones = [
     brand: 'Meinl',
   }
 ]
+=======
+import Register from './components/features/auth/Register';
+
+
+>>>>>>> origin/tailwind
 function App() {
   return (
     <Router>
 
+<<<<<<< HEAD
       <div className="flex flex-col items-center min-h-screen bg-[#FFE0C4] ">
 
         <ResponsiveAppBar />
@@ -78,15 +82,27 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path=":id" element={<DetailPublication />} />
+=======
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/Login" element={<Login/>}/>
+          <Route path="/detail-publication/:id" element={<DetailPublication />} />
+>>>>>>> origin/tailwind
           <Route path="/vender" element={<SellerDashboard />} />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/catalogo/*" element={<Catalogo publicaciones={publicaciones} />} />
           <Route path="/my-posts" element={<MyPosts />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-
+        
         <Footer />
+<<<<<<< HEAD
       </div>
+=======
+>>>>>>> origin/tailwind
 
     </Router>
   );
