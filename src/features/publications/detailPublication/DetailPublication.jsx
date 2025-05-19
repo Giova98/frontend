@@ -7,7 +7,17 @@ const DetailPublication = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const { title, description, img, price, status, brand } = location.state.publicacion
+  const publicacion = location.state.publicacion
+
+  const { id, title, description, img, price, status, brand, city, quantity } = publicacion
+
+  const handleBuyClick = () => {
+    navigate(`/catalogo/${id}/purchase-details`, {
+      state: {
+        publicacion: { title, img, price }
+      }
+    })
+  }
 
   return (
     <div className="relative bg-[#FFEFEF] rounded-[8px] max-w-[900px] mx-auto my-8 p-8">
@@ -35,17 +45,21 @@ const DetailPublication = () => {
           <p className="mt-2"><strong>Estado:</strong> {status}</p>
           <p className="mt-2 whitespace-pre-line text-sm">{description}</p>
           <p className="mt-2"><strong>Marca:</strong> {brand}</p>
+          <p className="mt-2"><strong>ubicacion:</strong> {city}</p>
+          <p className="mt-2"><strong>En stock:</strong> {quantity}</p>
 
           <hr className="my-6 border-black/70" />
 
           <p className="text-[2.5rem] font-semibold mt-4">${price}</p>
-          <button className="mt-4 bg-[#401809] text-white px-6 py-2 rounded font-semibold hover:bg-[#4e332d]">
+          <button
+            className="mt-4 bg-[#401809] text-white px-6 py-2 rounded font-semibold hover:bg-[#4e332d]"
+            onClick={handleBuyClick}
+          >
             Comprar ahora
           </button>
         </div>
       </div>
 
-      {/* Información del vendedor */}
       <div className="mt-8">
         <h3 className="font-bold">Vendedor:</h3>
         <div className="flex items-center gap-3 mt-2">

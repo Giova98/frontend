@@ -1,5 +1,5 @@
 import { Search, Bell } from "lucide-react";
-import logo from "../../assets/logo.png"; // ajustá el path si está en otra carpeta
+import logo from "../../../assets/logo.png"; // ajustá el path si está en otra carpeta
 import { Link } from "react-router";
 
 export default function Navbar() {
@@ -8,10 +8,10 @@ export default function Navbar() {
       {/* Sección izquierda: logo + links */}
       <div className="flex items-center gap-10">
         {/* Logo + titulo*/}
-        <div className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-14 w-auto" />
           <h1 className="text-white text-xl font-semibold font-mono">CarpinChords</h1>
-        </div>
+        </Link>
         {/* Links */}
         <ul className="flex gap-6 text-white font-medium text-lg font-mono">
           <li>

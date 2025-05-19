@@ -1,5 +1,5 @@
-import fondo from "../../../assets/fondo.png"; // Asegurate de que esta ruta sea correcta
-import RegisterValidations from "../RegisterValidations";
+import fondo from "../../assets/fondo.png"; // Asegurate de que esta ruta sea correcta
+import RegisterValidations from "../auth/RegisterValidations";
 
 const Register = () => {
 

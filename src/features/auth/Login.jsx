@@ -1,6 +1,6 @@
 
-import fondo from '../../../assets/fondo.png'
-import github from '../../../assets/github.svg'
+import fondo from '../../assets/fondo.png'
+import github from '../../assets/github.svg'
 
 const Login = () => {
   return (

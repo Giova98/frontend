@@ -14,6 +14,8 @@ const PublicationList = ({ publicaciones }) => {
                         price={publicacion.price}
                         status={publicacion.status}
                         brand={publicacion.brand}
+                        city={publicacion.city}
+                        quantity={publicacion.quantity}
                     />
                 </div>
             ))}
