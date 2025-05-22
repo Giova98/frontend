@@ -5,6 +5,11 @@ import Register from '../../features/auth/Register'
 import PurchaseDetails from '../../features/publications/purchaseDetails/PurchaseDetails'
 import MyPosts from '../../components/shared/myPosts/MyPosts'
 import SellerDashboard from '../sellerDashboard/SellerDashboard'
+import SobreNosotros from '../sobreNosotros/sobreNosotros'
+import FAQ from '../FAQ/FAQ'
+import TermsAndConditions from '../terminosPolitica/TerminosPolitica'
+import HelpResources from '../recursosUtiles/RecursosUtiles'
+
 
 
 
@@ -15,6 +20,10 @@ const Dashboard = ({ publicaciones }) => {
             <PublicationList publicaciones={publicaciones}/>
             <SellerDashboard />
             {/*<MyPosts />*/}
+            <SobreNosotros/>
+            <FAQ/>
+            <TermsAndConditions/>
+            <HelpResources/>
             <Register />
             <Login />
             <PurchaseDetails />

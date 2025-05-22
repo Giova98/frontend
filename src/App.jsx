@@ -12,8 +12,13 @@ import Catalogo from './pages/catalogo/Catalogo';
 import SellerDashboard from './pages/sellerDashboard/SellerDashboard';
 import Contact from './pages/contact/Contact';
 import Register from './features/auth/Register';
+import SobreNosotros from './pages/sobreNosotros/sobreNosotros'
 import PurchaseDetails from './features/publications/purchaseDetails/PurchaseDetails';
 import PublicationList from './features/publications/publicationList/PublicationList';
+import FAQ from './pages/FAQ/FAQ';
+import TermsAndConditions from './pages/terminosPolitica/TerminosPolitica'
+import HelpResources from './pages/recursosUtiles/RecursosUtiles';
+
 
 const publicaciones = [
   {
@@ -87,6 +92,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/vender" element={<SellerDashboard />} />
           <Route path="/contacto" element={<Contact />} />
+          <Route path='/SobreNosotros' element={<SobreNosotros/>}/>
+          <Route path='/FAQ' element={<FAQ/>}/>
+          <Route path='/TerminosPoliticas' element={<TermsAndConditions/>}/>
+          <Route path='/RecursosUtiles' element={<HelpResources/>}/>
           <Route path="/catalogo" element={<Catalogo />}>
             <Route index element={<PublicationList publicaciones={publicaciones} />} />
             <Route path=":id" element={<DetailPublication />} />
