@@ -5,10 +5,10 @@ import Register from '../../features/auth/Register'
 import PurchaseDetails from '../../features/publications/purchaseDetails/PurchaseDetails'
 import MyPosts from '../../components/shared/myPosts/MyPosts'
 import SellerDashboard from '../sellerDashboard/SellerDashboard'
-import SobreNosotros from '../sobreNosotros/sobreNosotros'
-import FAQ from '../FAQ/FAQ'
-import TermsAndConditions from '../terminosPolitica/TerminosPolitica'
-import HelpResources from '../recursosUtiles/RecursosUtiles'
+import SobreNosotros from '../../components/shared/pageFooter/sobreNosotros/sobreNosotros'
+import FAQ from '../../components/shared/pageFooter/FAQ/FAQ'
+import TermsAndConditions from '../../components/shared/pageFooter/terminosPolitica/TerminosPolitica'
+import HelpResources from '../../components/shared/pageFooter/recursosUtiles/RecursosUtiles'
 
 
 

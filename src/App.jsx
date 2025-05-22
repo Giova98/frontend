@@ -12,12 +12,12 @@ import Catalogo from './pages/catalogo/Catalogo';
 import SellerDashboard from './pages/sellerDashboard/SellerDashboard';
 import Contact from './pages/contact/Contact';
 import Register from './features/auth/Register';
-import SobreNosotros from './pages/sobreNosotros/sobreNosotros'
 import PurchaseDetails from './features/publications/purchaseDetails/PurchaseDetails';
 import PublicationList from './features/publications/publicationList/PublicationList';
-import FAQ from './pages/FAQ/FAQ';
-import TermsAndConditions from './pages/terminosPolitica/TerminosPolitica'
-import HelpResources from './pages/recursosUtiles/RecursosUtiles';
+import SobreNosotros from './components/shared/pageFooter/sobreNosotros/sobreNosotros';
+import FAQ from './components/shared/pageFooter/FAQ/FAQ';
+import TermsAndConditions from './components/shared/pageFooter/terminosPolitica/TerminosPolitica';
+import HelpResources from './components/shared/pageFooter/recursosUtiles/RecursosUtiles';
 
 
 const publicaciones = [

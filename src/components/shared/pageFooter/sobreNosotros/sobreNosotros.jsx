@@ -1,7 +1,7 @@
 import React from "react";
-import foto_Gio from '../../assets/foto_Gio.jpg'
-import foto_Marcos from '../../assets/foto_Marcos.png'
-import foto_Piero from '../../assets/foto_Piero.png'
+import foto_Gio from '../../../../assets/foto_Gio.jpg'
+import foto_Marcos from '../../../../assets/foto_Marcos.png'
+import foto_Piero from '../../../../assets/foto_Piero.png'
 
 const AboutUs = () => {
   return (
