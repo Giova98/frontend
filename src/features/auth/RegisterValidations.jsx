@@ -1,3 +1,9 @@
+/*
+-cuando integre los datos del usuario validado 
+voy a tener que hacer una función asincrona adentro del useEfect que captura el formData y poder esperar la respuesta del servidor.
+-Pobrar hasta tener el backend almacernar los datos en el localStoraged (es para no esperar a tener todo terminado e ir probando mientras tanto).
+-Todo lo que entra en el front (validaciones) tiene que coincidir con el back.
+*/
 
 import { useState, useEffect } from "react"
 
@@ -20,6 +26,11 @@ function RegisterValidations() {
 
   // Debuggear cambios en formData
   useEffect(() => {
+    try {
+      
+    } catch (error) {
+      
+    }
     console.log("Datos actualizados:", formData);
   }, [formData]); // Se ejecuta cada que formData cambie
 
