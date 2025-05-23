@@ -20,7 +20,7 @@ const DetailPublication = () => {
   }
 
   return (
-    <div className="relative bg-[#FFEFEF] rounded-[8px] max-w-[900px] mx-auto my-8 p-8">
+    <div className="relative bg-[#FDE7B9] rounded-[8px] max-w-[900px] mx-auto my-8 p-8">
       <button
         onClick={() => navigate(-1)}
         className="absolute top-2 right-2 text-gray-600 hover:text-black"

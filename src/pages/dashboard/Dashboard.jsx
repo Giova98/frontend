@@ -15,7 +15,7 @@ import HelpResources from '../../components/shared/pageFooter/recursosUtiles/Rec
 {/* Home (por ahora contendra todos los componentes) */}
 const Dashboard = ({ publicaciones }) => {
     return (
-        <div className="flex flex-col items-center justify-center w-full py-10">
+        <div className="items-center justify-center w-full py-10">
             <PublicationList publicaciones={publicaciones}/>
             <SellerDashboard />
             {/*<MyPosts />*/}
@@ -26,6 +26,7 @@ const Dashboard = ({ publicaciones }) => {
             <Register />
             <Login />
             <PurchaseDetails />
+            <MyPosts/>
         </div>
     )
 }

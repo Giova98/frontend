@@ -1,9 +1,5 @@
-import { Box, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ChatIcon from '@mui/icons-material/Chat';
-import SellIcon from '@mui/icons-material/Sell';
-import { motion } from 'framer-motion'; // Para animaciones modernas
+import { MonetizationOn, ShoppingCart, Chat, Sell } from '@mui/icons-material';
+import { motion } from 'framer-motion';
 
 const SellerDashboard = () => {
   // Datos simulados
@@ -27,291 +23,104 @@ const SellerDashboard = () => {
   // Animación para el título
   const titleVariants = {
     hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0., ease: 'easeOut' } },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: 'easeOut' } },
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        background: 'radial-gradient(circle, #FFE0C4 0%)', // Fondo degradado radial
-        padding: '250px 20px 10px 20px', // Espacio para el navbar y padding
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
+    <div className="min-h-screen bg-[#FDE7B9] pt-[250px] pb-10 px-5 flex flex-col items-center">
       {/* Encabezado */}
       <motion.div initial="hidden" animate="visible" variants={titleVariants}>
-        <Box
-          sx={{
-            background: 'linear-gradient(100deg, #40250D 0%)', // Degradado para el encabezado
-            padding: '30px 50px ',
-            borderRadius: '16px',
-            marginBottom: '80px',
-            textAlign: 'center',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
-          }}
-        >
-          <Typography
-            variant="h4"
-            sx={{
-              color: '#363738',
-              fontWeight: 'bold',
-              fontFamily: "'Poppins', sans-serif", // Tipografía moderna
-            }}
-          >
+        <div className="h-[130px] w-[380px] bg-[#40250D] p-8 rounded-2xl mb-20 text-center shadow-lg">
+          <h1 className="text-3xl font-bold text-[#FFE0C4] font-poppins">
             Panel del Vendedor
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              color: '#363738',
-              marginTop: '5px',
-              fontFamily: "'Poppins', sans-serif",
-            }}
-          >
+          </h1>
+          <p className="text-lg text-[#FFE0C4] mt-1 font-poppins">
             Resumen de tu actividad
-          </Typography>
-        </Box>
+          </p>
+        </div>
       </motion.div>
 
-      {/* Tarjetas de métricas (centradas) */}
-      <Box sx={{ maxWidth: '1200px', width: '100%' }}>
-        <Grid container spacing={4} justifyContent="center">
+      {/* Tarjetas de métricas */}
+      <div className="max-w-6xl w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-items-center">
           {/* Ventas totales */}
-          <Grid item xs={12} sm={6} md={3}>
-            <motion.div
-              custom={0}
-              initial="hidden"
-              animate="visible"
-              variants={cardVariants}
-            >
-              <Card
-                sx={{
-                  background: 'linear-gradient(240deg, #FFE0C4 0%, #401809 140%)', // Degradado en la tarjeta
-                  borderRadius: '20px',
-                  textAlign: 'center',
-                  marginRight: '20px',
-                  '&:hover': {
-                    transform: 'translateY(-10px)',
-                  },
-                }}
-              >
-                <CardMedia>
-                  <MonetizationOnIcon
-                    sx={{
-                      fontSize: 60,
-                      color: '#363738',
-                      marginTop: '20px',
-                      transition: 'color 0.3s ease-in-out',
-                      '&:hover': { color: '#FFE0C4' }, // Cambio de color al hover
-                    }}
-                  />
-                </CardMedia>
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      color: '#401809',
-                      fontWeight: 'bold',
-                      fontFamily: "'Poppins', sans-serif",
-                      marginRight: '20px'
-                    }}
-                  >
-                    Ventas Totales
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      color: '#401809',
-                      transition: 'color 0.3s ease-in-out',
-                      '&:hover': { color: '#FFE0C4' },
-                    }}
-                  >
-                    {dashboardData.totalSales}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </Grid>
+          <motion.div custom={0} initial="hidden" animate="visible" variants={cardVariants}>
+            <div className="bg-gradient-to-br from-[#FDE7B9] to-[#401809] rounded-2xl text-center p-6 w-64 h-64 hover:-translate-y-2 transition-transform duration-300 shadow-lg">
+              <div className="mt-5">
+                <MonetizationOn
+                  className="text-[#363738] text-8xl hover:text-[#FFE0C4] transition-colors duration-300"
+                />
+              </div>
+              <div className="mt-4">
+                <h2 className="text-xl font-bold text-[#401809] font-poppins">
+                  Ventas Totales
+                </h2>
+                <p className="text-4xl text-[#401809] mt-2 hover:text-[#FFE0C4] transition-colors duration-300">
+                  {dashboardData.totalSales}
+                </p>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Pedidos pendientes */}
-          <Grid item xs={12} sm={6} md={3}>
-            <motion.div
-              custom={1}
-              initial="hidden"
-              animate="visible"
-              variants={cardVariants}
-            >
-              <Card
-                sx={{
-                  background: 'linear-gradient(240deg, #FFE0C4 0%, #401809 140%)',
-                  borderRadius: '20px',
-                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
-                  textAlign: 'center',
-                  transition: 'all 0.3s ease-in-out',
-                  marginRight: '20px',
-                  '&:hover': {
-                    transform: 'translateY(-10px)',
-                  },
-                }}
-              >
-                <CardMedia>
-                  <ShoppingCartIcon
-                    sx={{
-                      fontSize: 60,
-                      color: '#363738',
-                      marginTop: '20px',
-                      transition: 'color 0.3s ease-in-out',
-                      '&:hover': { color: '#FFE0C4' },
-                    }}
-                  />
-                </CardMedia>
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      color: '#401809',
-                      fontWeight: 'bold',
-                      fontFamily: "'Poppins', sans-serif",
-                    }}
-                  >
-                    Pedidos Pendientes
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      color: '#401809',
-                      transition: 'color 0.3s ease-in-out',
-                      '&:hover': { color: '#FFE0C4' },
-                    }}
-                  >
-                    {dashboardData.pendingOrders}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </Grid>
+          <motion.div custom={1} initial="hidden" animate="visible" variants={cardVariants}>
+            <div className="bg-gradient-to-br from-[#FDE7B9] to-[#401809] rounded-2xl text-center p-6 w-64 h-64 hover:-translate-y-2 transition-transform duration-300 shadow-lg">
+              <div className="mt-5">
+                <ShoppingCart
+                  className="text-[#363738] text-8xl hover:text-[#FFE0C4] transition-colors duration-300"
+                />
+              </div>
+              <div className="mt-4">
+                <h2 className="text-xl font-bold text-[#401809] font-poppins">
+                  Pedidos Pendientes
+                </h2>
+                <p className="text-4xl text-[#401809] mt-2 hover:text-[#FFE0C4] transition-colors duration-300">
+                  {dashboardData.pendingOrders}
+                </p>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Mensajes nuevos */}
-          <Grid item xs={12} sm={6} md={3}>
-            <motion.div
-              custom={2}
-              initial="hidden"
-              animate="visible"
-              variants={cardVariants}
-            >
-              <Card
-                sx={{
-                  background: 'linear-gradient(240deg, #FFE0C4 0%, #401809 140%)',
-                  borderRadius: '20px',
-                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
-                  textAlign: 'center',
-                  transition: 'all 0.3s ease-in-out',
-                  marginRight: '20px',
-                  '&:hover': {
-                    transform: 'translateY(-10px)',
-                  },
-
-                }}
-              >
-                <CardMedia>
-                  <ChatIcon
-                    sx={{
-                      fontSize: 60,
-                      color: '#363738',
-                      marginTop: '20px',
-                      transition: 'color 0.3s ease-in-out',
-                      '&:hover': { color: '#FFE0C4' },
-                    }}
-                  />
-                </CardMedia>
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      color: '#401809',
-                      fontWeight: 'bold',
-                      fontFamily: "'Poppins', sans-serif",
-                    }}
-                  >
-                    Mensajes Nuevos
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      color: '#401809',
-                      transition: 'color 0.3s ease-in-out',
-                      '&:hover': { color: '#FFE0C4' },
-                    }}
-                  >
-                    {dashboardData.newMessages}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </Grid>
+          <motion.div custom={2} initial="hidden" animate="visible" variants={cardVariants}>
+            <div className="bg-gradient-to-br from-[#FDE7B9] to-[#401809] rounded-2xl text-center p-6 w-64 h-64 hover:-translate-y-2 transition-transform duration-300 shadow-lg">
+              <div className="mt-5">
+                <Chat
+                  className="text-[#363738] text-8xl hover:text-[#FFE0C4] transition-colors duration-300"
+                />
+              </div>
+              <div className="mt-4">
+                <h2 className="text-xl font-bold text-[#401809] font-poppins">
+                  Mensajes Nuevos
+                </h2>
+                <p className="text-4xl text-[#401809] mt-2 hover:text-[#FFE0C4] transition-colors duration-300">
+                  {dashboardData.newMessages}
+                </p>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Publicaciones activas */}
-          <Grid item xs={12} sm={6} md={3}>
-            <motion.div
-              custom={3}
-              initial="hidden"
-              animate="visible"
-              variants={cardVariants}
-            >
-              <Card
-                sx={{
-                  background: 'linear-gradient(240deg, #FFE0C4 0%, #401809 140%)',
-                  borderRadius: '20px',
-                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
-                  textAlign: 'center',
-                  transition: 'all 0.3s ease-in-out',
-                  '&:hover': {
-                    transform: 'translateY(-10px)',
-                  },
-                }}
-              >
-                <CardMedia>
-                  <SellIcon
-                    sx={{
-                      fontSize: 60,
-                      color: '#363738',
-                      marginTop: '20px',
-                      transition: 'color 0.3s ease-in-out',
-                      '&:hover': { color: '#FFE0C4' },
-                    }}
-                  />
-                </CardMedia>
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      color: '#401809',
-                      fontWeight: 'bold',
-                      fontFamily: "'Poppins', sans-serif",
-                    }}
-                  >
-                    Publicaciones Activas
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      color: '#401809',
-                      transition: 'color 0.3s ease-in-out',
-                      '&:hover': { color: '#FFE0C4' },
-                    }}
-                  >
-                    {dashboardData.activePosts}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
+          <motion.div custom={3} initial="hidden" animate="visible" variants={cardVariants}>
+            <div className="bg-gradient-to-br from-[#FDE7B9] to-[#401809] rounded-2xl text-center p-6 w-64 h-64 hover:-translate-y-2 transition-transform duration-300 shadow-lg">
+              <div className="mt-5">
+                <Sell
+                  className="text-[#363738] text-8xl hover:text-[#FFE0C4] transition-colors duration-300"
+                />
+              </div>
+              <div className="mt-4">
+                <h2 className="text-xl font-bold text-[#401809] font-poppins">
+                  Publicaciones Activas
+                </h2>
+                <p className="text-4xl text-[#401809] mt-2 hover:text-[#FFE0C4] transition-colors duration-300">
+                  {dashboardData.activePosts}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,5 +1,3 @@
-import React from 'react';
-import { Box, Typography, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
 import { motion } from 'framer-motion';
 
 // Datos simulados (puedes reemplazarlos con una API más adelante)
@@ -9,7 +7,7 @@ const postsData = [
     title: 'Guitarra Eléctrica',
     marca: 'Fender',
     price: 1200,
-    image_url: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTMWpxty9shWqaiRcWgN4djdRQtp3jJ93Sp0_WyLJhTRqbG_Bvgmb1YHSsg3II4b-Iv73i6I9Rb4nNGVmtmrMy9skHFkzZzXnFHH18xXtKIsLRVWHKEHTrc', // Imagen placeholder
+    image_url: 'https://productos.mjmusic.com.ar/images/00000000LE362MBL70717LE362MBL.jpg',
     state: 'Nuevo',
     date: '2025-04-20',
   },
@@ -60,155 +58,63 @@ const MyPosts = () => {
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        backgroundColor: '#FFE0C4', // Fondo sólido como pediste
-        padding: '100px 20px 20px 20px', // Espacio para el navbar
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
+    <div className="min-h-screen bg-[#FDE7B9] pt-24 pb-6 flex flex-col items-center">
       {/* Encabezado */}
       <motion.div initial="hidden" animate="visible" variants={titleVariants}>
-        <Box
-          sx={{
-            backgroundColor: '#40250D',
-            padding: '35px 90px',
-            borderRadius: '12px',
-            marginBottom: '100px',
-            textAlign: 'center',
-            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-          }}
-        >
-          <Typography
-            variant="h4"
-            sx={{
-              color: '#FFE0C4',
-              fontWeight: 'bold',
-              fontFamily: "'Poppins', sans-serif",
-            }}
-          >
+        <div className="bg-[#40250D] p-8 rounded-xl mb-24 text-center shadow-lg">
+          <h2 className="text-4xl font-bold text-[#FDE7B9] font-poppins">
             Mis Publicaciones
-          </Typography>
-        </Box>
+          </h2  >
+        </div>
       </motion.div>
 
       {/* Listado de publicaciones */}
-      <Box sx={{ maxWidth: '1300px', width: '150%'}}>
-        <Grid container spacing={3} justifyContent="center">
+      <div className="max-w-6xl w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
           {postsData.map((post, index) => (
-            <Grid item xs={12} sm={6} md={4} key={post.id}>
-              <motion.div
-                custom={index}
-                initial="hidden"
-                animate="visible"
-                variants={cardVariants}
-              >
-                <Card
-                  sx={{
-                    background: 'linear-gradient(240deg, #FFE0C4 0%, #401809 160%)',
-                    borderRadius: '12px',
-                    border: '1px solid #363738',
-                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.3s ease-in-out',
-                    position: 'relative', // Para el botón flotante
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                      boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
-                      '& .editButton': {
-                        opacity: 1, // Mostrar botón al hacer hover
-                      },
-                    },
-                  }}
+            <motion.div
+              key={post.id}
+              custom={index}
+              initial="hidden"
+              animate="visible"
+              variants={cardVariants}
+            >
+              <div className="relative bg-gradient-to-br from-[#FDE7B9] to-[#401809] rounded-xl border border-[#363738] shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <img
+                  src={post.image_url}
+                  alt={post.title}
+                  className="h-[290px] w-[290px] object-cover rounded-t-xl"
+                />
+                <div className="p-4">
+                  <h2 className="text-xl font-bold text-[#401809] font-poppins mb-2">
+                    {post.title}
+                  </h2>
+                  <p className="text-sm text-[#401809] font-poppins">
+                    <strong>Marca:</strong> {post.marca}
+                  </p>
+                  <p className="text-sm text-[#401809] font-poppins">
+                    <strong>Precio:</strong> ${post.price}
+                  </p>
+                  <p className="text-sm text-[#401809] font-poppins">
+                    <strong>Estado:</strong> {post.state}
+                  </p>
+                  <p className="text-sm text-[#401809] font-poppins">
+                    <strong>Fecha:</strong> {post.date}
+                  </p>
+                </div>
+                {/* Botón flotante que aparece al hacer hover */}
+                <button
+                  className="absolute top-2 right-2 bg-[#363738] text-[#FFE0C4] px-3 py-1 rounded-md opacity-1 group-hover:opacity-100 transition-opacity duration-300"
+                  onClick={() => alert(`Editar publicación: ${post.title}`)}
                 >
-                  <CardMedia
-                    component="img"
-                    height="300"
-                    image={post.image_url}
-                    alt={post.title}
-                    sx={{ objectFit: 'cover', borderTopLeftRadius: '12px', borderTopRightRadius: '12px' }}
-                  />
-                  <CardContent sx={{ padding: '15px' }}>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        color: '#401809',
-                        fontWeight: 'bold',
-                        fontFamily: "'Poppins', sans-serif",
-                        marginBottom: '5px',
-                      }}
-                    >
-                      {post.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: '#401809',
-                        fontFamily: "'Poppins', sans-serif",
-                        marginBottom: '5px',
-                      }}
-                    >
-                      <strong>Marca:</strong> {post.marca}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: '#401809',
-                        fontFamily: "'Poppins', sans-serif",
-                        marginBottom: '5px',
-                      }}
-                    >
-                      <strong>Precio:</strong> ${post.price}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: '#401809',
-                        fontFamily: "'Poppins', sans-serif",
-                        marginBottom: '5px',
-                      }}
-                    >
-                      <strong>Estado:</strong> {post.state}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: '#401809',
-                        fontFamily: "'Poppins', sans-serif",
-                      }}
-                    >
-                      <strong>Fecha:</strong> {post.date}
-                    </Typography>
-                  </CardContent>
-                  {/* Botón flotante que aparece al hacer hover */}
-                  <Button
-                    className="editButton"
-                    variant="contained"
-                    sx={{
-                      position: 'absolute',
-                      top: '9px',
-                      right: '8px',
-                      backgroundColor: '#363738',
-                      color: '#FFE0C4',
-                      opacity: 0, // Oculto por defecto
-                      transition: 'opacity 0.3s ease-in-out',
-                      '&:hover': {
-                        backgroundColor: 'linear-gradient(240deg, #FFE0C4 0%, #401809 140%)',
-                      },
-                    }}
-                    onClick={() => alert(`Editar publicación: ${post.title}`)} // Acción simulada
-                  >
-                    Editar
-                  </Button>
-                </Card>
-              </motion.div>
-            </Grid>
+                  Editar
+                </button>
+              </div>
+            </motion.div>
           ))}
-        </Grid>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

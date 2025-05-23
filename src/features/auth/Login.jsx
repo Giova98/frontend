@@ -101,14 +101,14 @@ const Login = () => {
         {/* Divider */}
         <div className="flex items-center my-6">
           <hr className="flex-grow border-gray-300" />
-          <span className="px-4 text-gray-400 text-sm">o continuar con</span>
+          <span className="px-4 text-gray-400 text-sm text-black">o continuar con</span>
           <hr className="flex-grow border-gray-300" />
         </div>
 
         {/* Social Login Buttons */}
         <div className="flex gap-4">
           <button className="flex items-center justify-center w-full border border-gray-300 rounded py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="h-5 w-5 mr-2" alt="Google" />
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="h-5 w-5 mr-2 [#FDE7B9]" alt="Google" />
             Google
           </button>
           <button className="flex items-center justify-center w-full border border-gray-300 rounded py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
