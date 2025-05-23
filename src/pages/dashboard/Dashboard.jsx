@@ -11,13 +11,14 @@ import SellerDashboard from '../sellerDashboard/SellerDashboard'
 {/* Home (por ahora contendra todos los componentes) */}
 const Dashboard = ({ publicaciones }) => {
     return (
-        <div className="flex flex-col items-center justify-center w-full py-10">
+        <div className="items-center justify-center w-full py-10">
             <PublicationList publicaciones={publicaciones}/>
             <SellerDashboard />
             {/*<MyPosts />*/}
             <Register />
             <Login />
             <PurchaseDetails />
+            <MyPosts/>
         </div>
     )
 }

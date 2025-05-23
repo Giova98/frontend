@@ -27,26 +27,27 @@ const PublicationCard = ({ id, title, description, img, price, status, brand, ci
             className="
                 relative
                 group
-                max-w-[230px] min-w-[200px] 
+                max-w-[300px] min-w-[200px] 
                 bg-[#401809] 
                 text-[#fff] 
-                my-[20px] mx-auto 
-                rounded-[7px] 
-                shadow-[5px_5px_5px_rgba(0,0,0,0.25)]"
+                my-[15px] mx-auto 
+                rounded-[10px] 
+                shadow-[5px_5px_5px_rgba(0,0,0,0.25)]
+                "
             onClick={handleCardClick}
         >
             <img
                 src={img}
                 alt="imagen de Producto"
-                className="w-full h-[140px] bg-[#fff] rounded-t-[7px] object-contain"
+                className="w-full h-[240px] bg-[#fff] rounded-t-[7px] object-contain"
             />
             <div className="px-[15px] py-[3px] text-left">
-                <span className="inline-block bg-[#D2D2D2] rounded-[10px] px-[10px] py-0 mb-[8px] text-[0.75rem] text-[#535353]">
+                <span className="inline-block bg-[#D2D2D2] rounded-[7px] px-[15px] py-0.5 mt-[10px] mb-[8px] text-[0.80rem] text-[black]">
                     Categoria
                 </span>
-                <h3 className="text-[1.2rem] font-semibold leading-tight pb-[4px] m-[0] ">{title}</h3>
+                <h3 className="text-[1.3rem] font-semibold leading-tight pb-[4px] mb-[2px] ">{title}</h3>
                 <p className="text-2 pb-[5px] m-[0]">{city}</p>
-                <p className="text-[2rem] pb-[5px] m-[0] font-poppins">${price}</p>
+                <p className="text-[1.7rem] pb-[5px] m-[0] font-poppins">${price}</p>
                 <p className="text-[1.25rem] pb-[8px] m-[0]">{status}</p>
             </div>
 

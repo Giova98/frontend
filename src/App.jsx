@@ -95,10 +95,10 @@ function App() {
           <Route path="/my-posts" element={<MyPosts />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-
+        
         <Footer />
       </div>
-
+      
     </Router>
   );
 }
