@@ -35,16 +35,16 @@ export default function Footer() {
           {/* Derecha: columnas */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 mt-8 md:mt-0">
             <div>
-              <h2 className="mb-4 ml-8 text-sm font-semibold text-white uppercase">Sobre nosotros</h2>
+              <h2 className="mb-4 ml-8 text-sm font-semibold text-white uppercase hover:text-gray-300 transition-colors duration-200"><a href="SobreNosotros"> Sobre nosotros</a></h2>
               <ul className="space-y-2 text-sm ml-8">
-                <li><a href="#" className="hover:underline text-[#FFD8A9]">Quienes somos</a></li>
-                <li><a href="#" className="hover:underline text-[#FFD8A9]">Sumate al equipo</a></li>
-                <li><a href="#" className="hover:underline text-[#FFD8A9]">Identidad musical</a></li>
-                <li><a href="#" className="hover:underline text-[#FFD8A9]">Notas & novedades</a></li>
+                <li><a href="SobreNosotros#quienes-somos" className="hover:underline text-[#FFD8A9]">Quienes somos</a></li>
+                <li><a href="SobreNosotros#nuestro-valores" className="hover:underline text-[#FFD8A9]">Nuestros valores</a></li>
+                <li><a href="SobreNosotros#nuestro-equipo" className="hover:underline text-[#FFD8A9]">Nuestro equipo</a></li>
+                <li><a href="SobreNosotros#sumate-equipo" className="hover:underline text-[#FFD8A9]">Sumate al equipo</a></li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-4 text-sm font-semibold text-white uppercase">Preguntas Frecuentes</h2>
+              <h2 className="mb-4 text-sm font-semibold text-white uppercase hover:text-gray-300 transition-colors duration-200"><a href="FAQ"> Preguntas Frecuentes</a></h2>
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Cómo vender mis productos?</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">¿Qué métodos de pago están disponibles?</a></li>
@@ -52,7 +52,7 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h2 className="mb-4 text-sm font-semibold text-white uppercase">Terminos & politicas</h2>
+              <h2 className="mb-4 text-sm font-semibold text-white uppercase hover:text-gray-300 transition-colors duration-200"><a href="TerminosPoliticas"> Terminos & politicas</a></h2>
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Política de privacidad</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Política de devoluciones y reembolsos</a></li>
@@ -60,9 +60,9 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h2 className="mb-4 text-sm font-semibold text-white uppercase">Recursos utiles</h2>
+              <h2 className="mb-4 text-sm font-semibold text-white uppercase hover:text-gray-300 transition-colors duration-200"><a href="RecursosUtiles"> Recursos utiles</a></h2>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:underline text-[#FFD8A9]">Guía para comprar instrumentos</a></li>
+                <li><a href="RecursosUtiles#guia-comprar" className="hover:underline text-[#FFD8A9]">Guía para comprar instrumentos</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Guía para vender tus productos</a></li>
                 <li><a href="#" className="hover:underline text-[#FFD8A9]">Comparativa de marcas y modelos</a></li>
               </ul>

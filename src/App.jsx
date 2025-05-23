@@ -15,7 +15,7 @@ import Register from './features/auth/Register';
 import PurchaseDetails from './features/publications/purchaseDetails/PurchaseDetails';
 import PublicationList from './features/publications/publicationList/PublicationList';
 import { getPublications } from './services/api';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
   const [publicaciones, setPublicaciones] = useState([]);

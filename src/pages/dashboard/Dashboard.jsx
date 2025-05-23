@@ -4,6 +4,11 @@ import PublicationList from '../../features/publications/publicationList/Publica
 import Register from '../../features/auth/Register'
 import PurchaseDetails from '../../features/publications/purchaseDetails/PurchaseDetails'
 import SellerDashboard from '../sellerDashboard/SellerDashboard'
+import SobreNosotros from '../../components/shared/pageFooter/sobreNosotros/sobreNosotros'
+import FAQ from '../../components/shared/pageFooter/FAQ/FAQ'
+import TermsAndConditions from '../../components/shared/pageFooter/terminosPolitica/TerminosPolitica'
+import HelpResources from '../../components/shared/pageFooter/recursosUtiles/RecursosUtiles'
+
 
 
 
@@ -14,6 +19,10 @@ const Dashboard = ({ publicaciones }) => {
             <PublicationList publicaciones={publicaciones}/>
             <SellerDashboard />
             {/*<MyPosts />*/}
+            <SobreNosotros/>
+            <FAQ/>
+            <TermsAndConditions/>
+            <HelpResources/>
             <Register />
             <Login />
             <PurchaseDetails />
