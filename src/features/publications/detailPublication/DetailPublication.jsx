@@ -38,7 +38,6 @@ const DetailPublication = () => {
           />
         </div>
 
-        {/* Detalles */}
         <div className="flex-1">
           <h2 className="text-2xl font-bold">{title}</h2>
           <p className="text-sm text-gray-500">category1</p>
@@ -46,7 +45,7 @@ const DetailPublication = () => {
           <p className="mt-2 whitespace-pre-line text-sm">{description}</p>
           <p className="mt-2"><strong>Marca:</strong> {brand}</p>
           <p className="mt-2"><strong>ubicacion:</strong> {city}</p>
-          <p className="mt-2"><strong>En stock:</strong> {quantity}</p>
+
 
           <hr className="my-6 border-black/70" />
 

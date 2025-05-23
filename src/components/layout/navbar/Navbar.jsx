@@ -8,14 +8,14 @@ export default function Navbar() {
       {/* Sección izquierda: logo + links */}
       <div className="flex items-center gap-10">
         {/* Logo + titulo*/}
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/home" className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-14 w-auto" />
           <h1 className="text-white text-xl font-semibold font-mono">CarpinChords</h1>
         </Link>
         {/* Links */}
         <ul className="flex gap-6 text-white font-medium text-lg font-mono">
           <li>
-            <Link to="/" className="hover:text-gray-300 transition-colors duration-200">
+            <Link to="/home" className="hover:text-gray-300 transition-colors duration-200">
               Inicio
             </Link>
           </li>

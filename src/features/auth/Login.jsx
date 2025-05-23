@@ -1,8 +1,38 @@
 
+import { useNavigate } from 'react-router';
 import fondo from '../../assets/fondo.png'
 import github from '../../assets/github.svg'
+import { useState } from 'react';
+import { loginBuyer } from '../../services/auth/auth.services';
+import { useAuth } from '../../services/auth/AuthContext';
 
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  // Estado para inputs y error
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setError('');
+    try {
+      const data = await loginBuyer(email, password);
+      const { token, user } = data;
+
+      login({ token, user });
+      console.log(token,user);
+      
+      navigate('/home');
+    } catch (err) {
+      setError(err.message);
+    }
+
+  };
+
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Form */}
@@ -23,14 +53,16 @@ const Login = () => {
         </p>
 
         {/* Form */}
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
             <input
               id="email"
+              name='email'
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
@@ -39,12 +71,16 @@ const Login = () => {
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">Contraseña</label>
             <input
               id="password"
+              name='password'
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
+
+          {error && <p className="text-red-600 text-sm">{error}</p>}
 
           <div className="flex items-center justify-between">
             <label className="flex items-center text-sm text-gray-700">

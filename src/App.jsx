@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router';
 
 import ResponsiveAppBar from './components/layout/navbar/Navbar'
 import Footer from './components/layout/footer/Footer'
@@ -14,8 +14,15 @@ import Contact from './pages/contact/Contact';
 import Register from './features/auth/Register';
 import PurchaseDetails from './features/publications/purchaseDetails/PurchaseDetails';
 import PublicationList from './features/publications/publicationList/PublicationList';
+import SobreNosotros from './components/shared/pageFooter/sobreNosotros/sobreNosotros';
+import FAQ from './components/shared/pageFooter/FAQ/FAQ';
+import TermsAndConditions from './components/shared/pageFooter/terminosPolitica/TerminosPolitica';
+import HelpResources from './components/shared/pageFooter/recursosUtiles/RecursosUtiles';
+
 import { getPublications } from './services/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Protected from './components/shared/routes/protected/protected';
+import { AuthProvider } from './services/auth/AuthContext';
 
 function App() {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -24,33 +31,46 @@ function App() {
     getPublications().then(setPublicaciones).catch(console.error);
   }, []);
 
+
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
 
-      <div className="flex flex-col items-center min-h-screen bg-[#FDE7B9] ">
+        <div className="flex flex-col items-center min-h-screen bg-[#FDE7B9] ">
 
-        <ResponsiveAppBar />
+          <ResponsiveAppBar />
 
-        <Routes>
-          <Route path="/" element={<Dashboard publicaciones={publicaciones} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/vender" element={<SellerDashboard />} />
-          <Route path="/contacto" element={<Contact />} />
-          <Route path="/catalogo" element={<Catalogo />}>
-            <Route index element={<PublicationList publicaciones={publicaciones} />} />
-            <Route path=":id" element={<DetailPublication />} />
-          </Route>
-          <Route path="/catalogo/:id/purchase-details" element={<PurchaseDetails />} />
-          <Route path="/my-posts" element={<MyPosts />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+          <Routes>
+            <Route path='/' element={<Navigate to='login' />} />
+            <Route path="login" element={<Login />} />
+            <Route element={<Protected />}>
+              <Route path="/home/*" element={<Dashboard publicaciones={publicaciones} />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/vender" element={<SellerDashboard />} />
+              <Route path="/contacto" element={<Contact />} />
+              <Route path="/contacto" element={<Contact />} />
+              <Route path='/SobreNosotros' element={<SobreNosotros />} />
+              <Route path='/FAQ' element={<FAQ />} />
+              <Route path='/TerminosPoliticas' element={<TermsAndConditions />} />
+              <Route path='/RecursosUtiles' element={<HelpResources />} />
+              <Route path="/catalogo" element={<Catalogo />}>
+                <Route index element={<PublicationList publicaciones={publicaciones} />} />
+                <Route path=":id" element={<DetailPublication />} />
+              </Route>
+              <Route path="/catalogo/:id/purchase-details" element={<PurchaseDetails />} />
+              <Route path="/my-posts" element={<MyPosts />} />
+            </Route>
 
-        <Footer />
-      </div>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
 
-    </Router>
+          <Footer />
+        </div>
+
+      </Router>
+    </AuthProvider>
+
   );
-}
+};
 
 export default App
