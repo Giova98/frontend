@@ -14,66 +14,16 @@ import Contact from './pages/contact/Contact';
 import Register from './features/auth/Register';
 import PurchaseDetails from './features/publications/purchaseDetails/PurchaseDetails';
 import PublicationList from './features/publications/publicationList/PublicationList';
-
-const publicaciones = [
-  {
-    id: 1,
-    title: 'Auriculares Bluetooth',
-    description: 'Auriculares inalámbricos con sonido envolvente. Perfectos para correr.cascavcadvcdavadvadv',
-    img: 'https://th.bing.com/th/id/OIP.DEwRIsQF7Gqqw6kgdEFCCwHaE7?cb=iwc2&rs=1&pid=ImgDetMain',
-    price: 8500,
-    status: 'Nuevo',
-    brand: 'Sony',
-    city: 'Buenos Aires',
-    quantity: 10,
-  },
-  {
-    id: 2,
-    title: 'Guitarra Eléctrica',
-    description: 'Guitarra eléctrica tipo Stratocaster, ideal para principiantes.',
-    img: 'https://images-na.ssl-images-amazon.com/images/I/71Oo2ZKroFL._AC_SL1500_.jpg',
-    price: 145000,
-    status: 'Usado',
-    brand: 'Fender',
-    city: 'Córdoba',
-    quantity: 4,
-  },
-  {
-    id: 3,
-    title: 'Teclado MIDI',
-    description: 'Teclado MIDI de 61 teclas, ideal para producción musical.',
-    img: 'https://th.bing.com/th/id/OIP.539jLs5-c-sDWMtwyzBxegHaE8?cb=iwc2&rs=1&pid=ImgDetMain',
-    price: 12000,
-    status: 'Nuevo',
-    brand: 'Akai Professional',
-    city: 'Rosario',
-    quantity: 7,
-  },
-  {
-    id: 4,
-    title: 'Bajo Eléctrico',
-    description: 'Bajo eléctrico tipo Jazz, ideal para todo tipo de música.',
-    img: 'https://th.bing.com/th/id/OIP.jGyCN8nkkvEXW-rHUIgatwHaHc?cb=iwc2&rs=1&pid=ImgDetMain',
-    price: 90000,
-    status: 'Poco usado',
-    brand: 'Ibanez',
-    city: 'Casilda',
-    quantity: 3,
-  },
-  {
-    id: 5,
-    title: 'Cajón Flamenco',
-    description: 'Cajón flamenco de madera con excelente resonancia y sonido.',
-    img: 'https://th.bing.com/th/id/OIP.CDVhWtX6MhBqJiT7ZEuu6gHaJt?cb=iwc2&rs=1&pid=ImgDetMain',
-    price: 25000,
-    status: 'Usado',
-    brand: 'Meinl',
-    city: 'Mendoza',
-    quantity: 6,
-  }
-];
+import { getPublications } from './services/api';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [publicaciones, setPublicaciones] = useState([]);
+
+  useEffect(() => {
+    getPublications().then(setPublicaciones).catch(console.error);
+  }, []);
+
   return (
     <Router>
 
