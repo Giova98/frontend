@@ -8,7 +8,7 @@ export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
-      <nav className="w-full bg-[#40250D] px-6 py-3 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 z-50 w-full bg-[#40250D] px-6 py-3 flex items-center justify-between shadow">
         {/* Sección izquierda: logo + links */}
         <div className="flex items-center gap-10">
           {/* Botón de menú móvil */}
