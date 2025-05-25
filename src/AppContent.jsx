@@ -27,13 +27,17 @@ const AppContent = () => {
   const [publicaciones, setPublicaciones] = useState([]);
 
   useEffect(() => {
-    getPublications().then(setPublicaciones).catch(console.error);
+    getPublications()
+      .then((data) => {
+        setPublicaciones(data)
+      })
+      .catch(console.error);
   }, []);
 
   const hideLayout = location.pathname === '/login';
 
   return (
-    <div className="flex flex-col items-center mt-16 min-h-screen bg-[#FDE7B9]">
+    <div className={`flex flex-col items-center min-h-screen bg-[#FDE7B9] ${!hideLayout ? 'mt-16' : ''}`}>
       {!hideLayout && <ResponsiveAppBar />}
 
       <Routes>

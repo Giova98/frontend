@@ -9,6 +9,7 @@ import FAQ from '../../components/shared/pageFooter/FAQ/FAQ'
 import TermsAndConditions from '../../components/shared/pageFooter/terminosPolitica/TerminosPolitica'
 import HelpResources from '../../components/shared/pageFooter/recursosUtiles/RecursosUtiles'
 import MyPosts from '../../components/shared/myPosts/MyPosts'
+import Carousel from '../../components/shared/carousel/Carousel'
 
 
 
@@ -17,6 +18,7 @@ const Dashboard = ({ publicaciones }) => {
     return (
         <div className="items-center justify-center w-full py-10">
             <PublicationList publicaciones={publicaciones}/>
+            <Carousel />
             <SellerDashboard />
             <SobreNosotros/>
             <FAQ/>

@@ -84,7 +84,7 @@ const SideBar = ({ open, onClose }) => {
           ))}
         </ul>
         
-        <hr className="border-t border-[#401809] my-2" />
+        <hr className="border-t border-[#FFE0C4] m-3" />
 
         {/* Cerrar sesión */}
         <button

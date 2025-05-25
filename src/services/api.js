@@ -6,6 +6,12 @@ export const getPublications = async () => {
   return await res.json();
 };
 
+export const getLatestPublications = async () => {
+  const res = await fetch(`${API_URL}/publications/latest`);
+  if (!res.ok) throw new Error("Error al obtener las ultimas publicaciones");
+  return await res.json();
+};
+
 export const getPublicationById = async (id) => {
   const res = await fetch(`${API_URL}/publications/${id}`);
   if (!res.ok) throw new Error("Publicación no encontrada");
