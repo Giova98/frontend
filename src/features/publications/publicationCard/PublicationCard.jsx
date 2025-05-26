@@ -27,7 +27,7 @@ const PublicationCard = ({ id, title, description, img, price, status, brand, ci
             className="
                 relative
                 group
-                max-w-[300px]
+                w-[250px]
                 bg-[#401809] 
                 text-[#fff] 
                 my-[15px] mx-auto 
