@@ -1,6 +1,5 @@
 
 import Login from '../../features/auth/Login'
-import PublicationList from '../../features/publications/publicationList/PublicationList'
 import Register from '../../features/auth/Register'
 import PurchaseDetails from '../../features/publications/purchaseDetails/PurchaseDetails'
 import SellerDashboard from '../sellerDashboard/SellerDashboard'
@@ -14,10 +13,10 @@ import Carousel from '../../components/shared/carousel/Carousel'
 
 
 {/* Home (por ahora contendra todos los componentes) */}
-const Dashboard = ({ publicaciones }) => {
+const Dashboard = () => {
     return (
         <div className="items-center justify-center w-full py-10">
-            <PublicationList publicaciones={publicaciones}/>
+            {/* <PublicationList publicaciones={publicaciones}/> */}
             <Carousel />
             <SellerDashboard />
             <SobreNosotros/>

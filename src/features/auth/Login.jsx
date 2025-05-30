@@ -1,18 +1,21 @@
-
 import { useNavigate } from 'react-router';
-import fondo from '../../assets/fondo.png'
-import github from '../../assets/github.svg'
 import { useState } from 'react';
+
 import { loginBuyer } from '../../services/auth/auth.services';
 import { useAuth } from '../../services/auth/AuthContext';
 
-const Login = () => {
-  const { login } = useAuth();
-  const navigate = useNavigate();
+import fondo from '../../assets/fondo.png'
+import github from '../../assets/github.svg'
 
+
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
+  
+  const { login } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();

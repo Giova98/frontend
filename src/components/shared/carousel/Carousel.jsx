@@ -11,6 +11,9 @@ const Carousel = () => {
             .catch(console.error);
     }, []);
 
+    console.log(publications);
+    
+
     const duplicated = [...publications, ...publications]; // duplicado para loop continuo
 
     return (
@@ -31,7 +34,7 @@ const Carousel = () => {
                                 status={pub.State}
                                 brand={pub.brand}
                                 city={pub.city}
-                                quantity={pub.quantity}
+                                category={pub.Category}
                             />
                         </div>
                     ))}

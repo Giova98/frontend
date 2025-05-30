@@ -9,7 +9,7 @@ const DetailPublication = () => {
 
   const publicacion = location.state.publicacion
 
-  const { id, title, description, img, price, status, brand, city, quantity } = publicacion
+  const { id, title, description, img, price, status, brand, city, category } = publicacion
 
   const handleBuyClick = () => {
     navigate(`/catalogo/${id}/purchase-details`, {
@@ -40,11 +40,11 @@ const DetailPublication = () => {
 
         <div className="flex-1">
           <h2 className="text-2xl font-bold">{title}</h2>
-          <p className="text-sm text-gray-500">category1</p>
+          <p className="text-sm text-gray-500">{category?.CategoryName}</p>
           <p className="mt-2"><strong>Estado:</strong> {status}</p>
           <p className="mt-2 whitespace-pre-line text-sm">{description}</p>
           <p className="mt-2"><strong>Marca:</strong> {brand}</p>
-          <p className="mt-2"><strong>ubicacion:</strong> {city}</p>
+          <p className="mt-2"><strong>ubicacion:</strong> {city?.Name}</p>
 
 
           <hr className="my-6 border-black/70" />

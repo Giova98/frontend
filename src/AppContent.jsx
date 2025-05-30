@@ -18,14 +18,15 @@ import SobreNosotros from './components/shared/pageFooter/sobreNosotros/sobreNos
 import FAQ from './components/shared/pageFooter/FAQ/FAQ';
 import TermsAndConditions from './components/shared/pageFooter/terminosPolitica/TerminosPolitica';
 import HelpResources from './components/shared/pageFooter/recursosUtiles/RecursosUtiles';
-
-import { getPublications } from './services/api';
 import Protected from './components/shared/routes/protected/protected';
 
-const AppContent = () => {
-  const location = useLocation();
-  const [publicaciones, setPublicaciones] = useState([]);
+import { getPublications } from './services/api';
 
+const AppContent = () => {
+  const [publicaciones, setPublicaciones] = useState([]);
+  
+  const location = useLocation();
+  
   useEffect(() => {
     getPublications()
       .then((data) => {
@@ -44,7 +45,7 @@ const AppContent = () => {
         <Route path="/" element={<Navigate to="login" />} />
         <Route path="login" element={<Login />} />
         <Route element={<Protected />}>
-          <Route path="/home/*" element={<Dashboard publicaciones={publicaciones} />} />
+          <Route path="/home/*" element={<Dashboard />} />
           <Route path="/register" element={<Register />} />
           <Route path="/vender" element={<SellerDashboard />} />
           <Route path="/contacto" element={<Contact />} />
