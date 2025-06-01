@@ -10,6 +10,7 @@ import FAQ from '../../components/shared/pageFooter/FAQ/FAQ'
 import TermsAndConditions from '../../components/shared/pageFooter/terminosPolitica/TerminosPolitica'
 import HelpResources from '../../components/shared/pageFooter/recursosUtiles/RecursosUtiles'
 import PublicationFormSeller from './PublicationFormSeller'
+import ProfileSellerPage from '../sellerDashboard/ProfesilelSeller'
 
 
 
@@ -29,6 +30,7 @@ const Dashboard = ({ publicaciones }) => {
             <PurchaseDetails />
             <MyPosts/>
             <PublicationFormSeller/>
+            <ProfileSellerPage/>
         </div>
     )
 }

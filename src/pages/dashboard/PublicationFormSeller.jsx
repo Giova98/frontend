@@ -54,7 +54,7 @@ const PublicationFormSeller = () => {
             backgroundColor: '#FDE7B9',
             border: '2px solid brown',
         }}>
-            <h2 style={{ textAlign: "center", marginBottom: "2.9rem", fontSize: '26px'}}>Publicar Instrumento Musical</h2>
+            <h2 style={{ textAlign: "center", marginBottom: "2.9rem", fontSize: '26px' }}>Publicar Instrumento Musical</h2>
             <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <label>
                     Nombre del instrumento:
