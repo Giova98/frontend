@@ -1,9 +1,7 @@
 
 import Login from '../../features/auth/Login'
-import PublicationList from '../../features/publications/publicationList/PublicationList'
 import Register from '../../features/auth/Register'
 import PurchaseDetails from '../../features/publications/purchaseDetails/PurchaseDetails'
-import MyPosts from '../../components/shared/myPosts/MyPosts'
 import SellerDashboard from '../sellerDashboard/SellerDashboard'
 import SobreNosotros from '../../components/shared/pageFooter/sobreNosotros/sobreNosotros'
 import FAQ from '../../components/shared/pageFooter/FAQ/FAQ'
@@ -11,16 +9,19 @@ import TermsAndConditions from '../../components/shared/pageFooter/terminosPolit
 import HelpResources from '../../components/shared/pageFooter/recursosUtiles/RecursosUtiles'
 import PublicationFormSeller from './PublicationFormSeller'
 import ProfileSellerPage from '../sellerDashboard/ProfesilelSeller'
+import MyPosts from '../../components/shared/myPosts/MyPosts'
+import Carousel from '../../components/shared/carousel/Carousel'
+
 
 
 
 {/* Home (por ahora contendra todos los componentes) */}
-const Dashboard = ({ publicaciones }) => {
+const Dashboard = () => {
     return (
         <div className="items-center justify-center w-full py-10">
-            <PublicationList publicaciones={publicaciones}/>
+            {/* <PublicationList publicaciones={publicaciones}/> */}
+            <Carousel />
             <SellerDashboard />
-            {/*<MyPosts />*/}
             <SobreNosotros/>
             <FAQ/>
             <TermsAndConditions/>

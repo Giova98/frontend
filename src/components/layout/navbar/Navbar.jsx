@@ -6,13 +6,11 @@ import SideBar from "../sideBar/SideBar"; // Asegúrate de que el path sea corre
 
 export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
     <>
-      {/* Navbar principal */}
-      <nav className="w-full bg-[#40250D] px-6 py-3 flex items-center justify-between">
-        {/* Sección izquierda */}
-        <div className="flex items-center gap-6">
+      <nav className="fixed top-0 left-0 z-50 w-full bg-[#40250D] px-6 py-3 flex items-center justify-between shadow">
+        {/* Sección izquierda: logo + links */}
+        <div className="flex items-center gap-10">
           {/* Botón de menú móvil */}
           <button
             onClick={() => setSidebarOpen(true)}
@@ -21,17 +19,15 @@ export default function Navbar() {
           >
             <Menu className="w-6 h-6" />
           </button>
-
-          {/* Logo y título */}
-          <Link to="/" className="flex items-center gap-2">
+          {/* Logo + titulo*/}
+          <Link to="/home" className="flex items-center gap-2">
             <img src={logo} alt="Logo" className="h-14 w-auto" />
             <h1 className="text-white text-xl font-semibold font-mono">CarpinChords</h1>
           </Link>
-
-          {/* Links (ocultos en mobile) */}
-          <ul className="hidden md:flex gap-6 text-white font-medium text-lg font-mono">
+          {/* Links */}
+          <ul className="flex gap-6 text-white font-medium text-lg font-mono">
             <li>
-              <Link to="/" className="hover:text-gray-300 transition-colors duration-200">
+              <Link to="/home" className="hover:text-gray-300 transition-colors duration-200">
                 Inicio
               </Link>
             </li>

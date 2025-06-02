@@ -1,0 +1,47 @@
+import { useEffect, useState } from "react";
+import { getLatestPublications } from "../../../services/api";
+import PublicationCard from "../../../features/publications/publicationCard/PublicationCard";
+
+const Carousel = () => {
+    const [publications, setPublications] = useState([]);
+
+    useEffect(() => {
+        getLatestPublications()
+            .then((data) => setPublications(data))
+            .catch(console.error);
+    }, []);
+
+    console.log(publications);
+    
+
+    const duplicated = [...publications, ...publications]; // duplicado para loop continuo
+
+    return (
+        <div className="w-full max-w-6xl mx-auto px-4">
+            <h2 className="text-2xl font-bold text-[#FFE0C4] font-poppins bg-[#40250D] p-5 rounded-2xl w-[300px] m-auto">
+                Últimas publicaciones
+            </h2>
+            <div className="overflow-hidden w-full max-w-6xl mx-auto">
+                <div className="flex w-max animate-marquee">
+                    {duplicated.map((pub, i) => (
+                        <div key={i} className="min-w-[300px] mx-2">
+                            <PublicationCard
+                                id={pub.ID_Publication}
+                                title={pub.Title}
+                                description={pub.DescriptionProduct}
+                                img={pub.ImageUrl}
+                                price={pub.Price}
+                                status={pub.State}
+                                brand={pub.brand}
+                                city={pub.city}
+                                category={pub.Category}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Carousel;

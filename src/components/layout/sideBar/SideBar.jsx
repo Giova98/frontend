@@ -9,7 +9,11 @@ import {
   BanknotesIcon,
   UserIcon,
   XMarkIcon,
+  ArrowLeftOnRectangleIcon,
 } from '@heroicons/react/24/solid';
+
+import { useAuth } from '../../../services/auth/AuthContext';
+import { useNavigate } from 'react-router';
 
 const sidebarOptions = [
   { text: 'Home', Icon: Squares2X2Icon },
@@ -22,6 +26,14 @@ const sidebarOptions = [
 ];
 
 const SideBar = ({ open, onClose }) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -71,6 +83,19 @@ const SideBar = ({ open, onClose }) => {
             </li>
           ))}
         </ul>
+        
+        <hr className="border-t border-[#FFE0C4] m-3" />
+
+        {/* Cerrar sesión */}
+        <button
+          onClick={handleLogout}
+          className="group flex items-center space-x-4 py-4 px-4 w-full text-left hover:bg-[#401809] focus:outline-none focus:ring-2 focus:ring-[#FFE0C4]"
+        >
+          <ArrowLeftOnRectangleIcon className="h-6 w-6 text-white group-hover:text-[#FFE0C4]" />
+          <span className="text-white group-hover:text-[#FFE0C4] font-poppins text-lg">
+            Cerrar sesión
+          </span>
+        </button>
       </motion.div>
     </>
   );
