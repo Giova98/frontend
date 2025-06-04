@@ -18,7 +18,7 @@ import SobreNosotros from './components/shared/pageFooter/sobreNosotros/sobreNos
 import FAQ from './components/shared/pageFooter/FAQ/FAQ';
 import TermsAndConditions from './components/shared/pageFooter/terminosPolitica/TerminosPolitica';
 import HelpResources from './components/shared/pageFooter/recursosUtiles/RecursosUtiles';
-
+import HeroSection from './components/layout/Slider/HeroSection';
 
 const publicaciones = [
   {
@@ -75,7 +75,40 @@ const publicaciones = [
     brand: 'Meinl',
     city: 'Mendoza',
     quantity: 6,
-  }
+  },
+    {
+    id: 1,
+    title: 'Auriculares Bluetooth',
+    description: 'Auriculares inalámbricos con sonido envolvente. Perfectos para correr.cascavcadvcdavadvadv',
+    img: 'https://th.bing.com/th/id/OIP.DEwRIsQF7Gqqw6kgdEFCCwHaE7?cb=iwc2&rs=1&pid=ImgDetMain',
+    price: 8500,
+    status: 'Nuevo',
+    brand: 'Sony',
+    city: 'Buenos Aires',
+    quantity: 10,
+  },
+    {
+    id: 1,
+    title: 'Auriculares Bluetooth',
+    description: 'Auriculares inalámbricos con sonido envolvente. Perfectos para correr.cascavcadvcdavadvadv',
+    img: 'https://th.bing.com/th/id/OIP.DEwRIsQF7Gqqw6kgdEFCCwHaE7?cb=iwc2&rs=1&pid=ImgDetMain',
+    price: 8500,
+    status: 'Nuevo',
+    brand: 'Sony',
+    city: 'Buenos Aires',
+    quantity: 10,
+  },
+    {
+    id: 1,
+    title: 'Auriculares Bluetooth',
+    description: 'Auriculares inalámbricos con sonido envolvente. Perfectos para correr.cascavcadvcdavadvadv',
+    img: 'https://th.bing.com/th/id/OIP.DEwRIsQF7Gqqw6kgdEFCCwHaE7?cb=iwc2&rs=1&pid=ImgDetMain',
+    price: 8500,
+    status: 'Nuevo',
+    brand: 'Sony',
+    city: 'Buenos Aires',
+    quantity: 10,
+  },
 ];
 
 function App() {
@@ -87,15 +120,24 @@ function App() {
         <ResponsiveAppBar />
 
         <Routes>
-          <Route path="/" element={<Dashboard publicaciones={publicaciones} />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <HeroSection />
+                <Dashboard publicaciones={publicaciones} />
+              </>
+            }
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/vender" element={<SellerDashboard />} />
           <Route path="/contacto" element={<Contact />} />
-          <Route path='/SobreNosotros' element={<SobreNosotros/>}/>
-          <Route path='/FAQ' element={<FAQ/>}/>
-          <Route path='/TerminosPoliticas' element={<TermsAndConditions/>}/>
-          <Route path='/RecursosUtiles' element={<HelpResources/>}/>
+          <Route path='/SobreNosotros' element={<SobreNosotros />} />
+          <Route path='/FAQ' element={<FAQ />} />
+          <Route path='/TerminosPoliticas' element={<TermsAndConditions />} />
+          <Route path='/RecursosUtiles' element={<HelpResources />} />
+          <Route path='Slider' element={<HeroSection />} />
           <Route path="/catalogo" element={<Catalogo />}>
             <Route index element={<PublicationList publicaciones={publicaciones} />} />
             <Route path=":id" element={<DetailPublication />} />

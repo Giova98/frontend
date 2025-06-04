@@ -127,7 +127,7 @@ const AboutUs = () => {
               />
             </div>
             <div className="p-6">
-              <h3 className="text-xl font-bold mb-1 text-[#FFD8A9]">Alesandro Pierovich</h3>
+              <h3 className="text-xl font-bold mb-1 text-[#FFD8A9]">Alessandro Gonzales</h3>
               <p className="text-white font-medium mb-2">Full Stack Developer</p>
               <p className="text-white mb-4">Especializado en Web & Mobile App</p>
               <div className="flex items-center">
