@@ -19,6 +19,7 @@ import FAQ from './components/shared/pageFooter/FAQ/FAQ';
 import TermsAndConditions from './components/shared/pageFooter/terminosPolitica/TerminosPolitica';
 import HelpResources from './components/shared/pageFooter/recursosUtiles/RecursosUtiles';
 import Protected from './components/shared/routes/protected/protected';
+import ProfesilelSeller from './pages/sellerDashboard/ProfesilelSeller'
 
 import { getPublications } from './services/api';
 
@@ -53,6 +54,7 @@ const AppContent = () => {
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/TerminosPoliticas" element={<TermsAndConditions />} />
           <Route path="/RecursosUtiles" element={<HelpResources />} />
+          <Route path="/Perfil" element={<ProfesilelSeller />} />
           <Route path="/catalogo" element={<Catalogo />}>
             <Route index element={<PublicationList publicaciones={publicaciones} />} />
             <Route path=":id" element={<DetailPublication />} />

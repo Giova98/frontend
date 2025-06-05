@@ -2,10 +2,16 @@ import { useState } from "react";
 import { Search, Bell, Menu } from "lucide-react";
 import logo from "../../../assets/logo.png";
 import { Link } from "react-router";
+import avatarDefault from '../../../assets/avatarDefault.jpeg';
 import SideBar from "../sideBar/SideBar"; // Asegúrate de que el path sea correcto
+
+import { useAuth } from "../../../services/auth/AuthContext";
 
 export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const { user } = useAuth();
+  
   return (
     <>
       <nav className="fixed top-0 left-0 z-50 w-full bg-[#40250D] px-6 py-3 flex items-center justify-between shadow">
@@ -64,11 +70,13 @@ export default function Navbar() {
             <Bell className="w-5 h-5" />
           </button>
 
-          <img
-            src="https://i.pravatar.cc/300"
-            alt="Avatar"
-            className="w-8 h-8 rounded-full object-cover"
-          />
+          <Link to="/Perfil">
+            <img
+              src={user?.avatarUrl || avatarDefault }
+              alt="Avatar"
+              className="w-8 h-8 rounded-full object-cover"
+            />
+          </Link>
         </div>
       </nav>
 

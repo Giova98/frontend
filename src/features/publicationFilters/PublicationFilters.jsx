@@ -4,21 +4,25 @@ const PublicationFilters = ({
   selectedSubcategory,
   selectedProvince,
   selectedCity,
+  selectedState,
+  searchTitle,
   onCategoryChange,
   onSubcategoryChange,
   onProvinceChange,
-  onCityChange
+  onCityChange,
+  onStateChange,
+  onSearchChange
 }) => {
   const provinces = [...new Map(
     publicaciones
-      .map(p => [p.city?.province?.ID_Province, p.city?.province?.Name])
+      .map(p => [p.City?.Province?.ID_Province, p.City?.Province?.Name])
       .filter(([id, name]) => id && name)
   )].map(([id, name]) => ({ id, name }));
 
   const cities = [...new Map(
     publicaciones
-      .filter(p => !selectedProvince || p.city?.province?.ID_Province === parseInt(selectedProvince))
-      .map(p => [p.city?.ID_City, p.city?.Name])
+      .filter(p => !selectedProvince || p.City?.Province?.ID_Province === parseInt(selectedProvince))
+      .map(p => [p.City?.ID_City, p.City?.Name])
       .filter(([id, name]) => id && name)
   )].map(([id, name]) => ({ id, name }));
 
@@ -36,6 +40,17 @@ const PublicationFilters = ({
 
   return (
     <aside className="w-72 sticky top-20 self-start space-y-4 p-4">
+      <div className="mb-4">
+        <label className="block mb-1 font-medium text-gray-800">Buscar por título</label>
+        <input
+          type="text"
+          value={searchTitle}
+          onChange={(e) => onSearchChange(e.target.value)}
+          placeholder="Buscar..."
+          className="w-full p-2 rounded border border-gray-400 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
       <h2 className="text-3xl font-bold mb-4 border-b-2 border-black pb-2 uppercase tracking-wide">
         Filtros
       </h2>
@@ -112,6 +127,20 @@ const PublicationFilters = ({
             ))}
           </select>
         </div>
+      </section>
+      <section className="mt-6">
+        <h3 className="text-lg font-bold mb-2 pb-1">Por estado:</h3>
+        <select
+          value={selectedState}
+          onChange={(e) => onStateChange(e.target.value)}
+          className="w-full p-2 rounded border border-gray-400 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Todos</option>
+          <option value="nuevo">Nuevo</option>
+          <option value="usado">Usado</option>
+          <option value="poco usado">Poco usado</option>
+          <option value="reparado">Reparado</option>
+        </select>
       </section>
     </aside>
 

@@ -44,7 +44,7 @@ const DetailPublication = () => {
           <p className="mt-2"><strong>Estado:</strong> {status}</p>
           <p className="mt-2 whitespace-pre-line text-sm">{description}</p>
           <p className="mt-2"><strong>Marca:</strong> {brand}</p>
-          <p className="mt-2"><strong>ubicacion:</strong> {city?.Name}</p>
+          <p className="mt-2"><strong>ubicacion:</strong>{city?.Province?.Name}, {city?.Name}</p>
 
 
           <hr className="my-6 border-black/70" />

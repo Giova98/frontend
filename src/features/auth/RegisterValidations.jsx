@@ -31,7 +31,6 @@ function RegisterValidations() {
     } catch (error) {
       
     }
-    console.log("Datos actualizados:", formData);
   }, [formData]); // Se ejecuta cada que formData cambie
 
 

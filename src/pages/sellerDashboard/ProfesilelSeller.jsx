@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
-
-const sellerMockData = {
-    profileImage: "https://c.files.bbci.co.uk/F55F/production/_102651826_gettyimages-77062671.jpg",
-    firstName: "Larry",
-    lastName: "Page",
-    nickname: "Larry_1995",
-    country: "Argentina",
-    province: "Buenos Aires",
-    email: "larrypage85@gmail.com",
-    phone: "+54 911 1234 5678",
-};
+import avatarDefault from '../../assets/avatarDefault.jpeg';
+import { useAuth } from "../../services/auth/AuthContext";
 
 const SellerProfile = () => {
-    const [sellerData, setSellerData] = useState(sellerMockData);
+    const { user } = useAuth();
+    const [sellerData, setSellerData] = useState(null);
     const [editingField, setEditingField] = useState(null);
+
+    useEffect(() => {
+        if (user) {
+            setSellerData({
+                profileImage: user.avatarUrl || avatarDefault,
+                name: user.name,
+                lastname: user.lastname,
+                nickname: user.nickname,
+                email: user.email,
+                phone: user.phone,
+                country: "Argentina", // fijo por ahora
+                province: user.city?.province?.name || "",
+                city: user.city?.name || "",
+            });
+        }
+    }, [user]);
 
     const handleChange = (field, value) => {
         setSellerData({ ...sellerData, [field]: value });
@@ -28,12 +36,23 @@ const SellerProfile = () => {
         setEditingField(null);
     };
 
+    const handleProfileImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setSellerData({ ...sellerData, profileImage: reader.result });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const renderField = (label, field) => (
         <div className="group flex flex-col sm:flex-row items-start sm:items-center gap-1">
             <span className="text-[#401809] font-semibold w-32">{label}:</span>
             {editingField === field ? (
                 <input
-                    className="bg-[white] text-[#363738] border-b border-[#401809] focus:outline-none"
+                    className="bg-white text-[#363738] border-b border-[#401809] focus:outline-none"
                     type="text"
                     value={sellerData[field]}
                     onChange={(e) => handleChange(field, e.target.value)}
@@ -52,19 +71,10 @@ const SellerProfile = () => {
         </div>
     );
 
-    const handleProfileImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSellerData({ ...sellerData, profileImage: reader.result });
-            };
-            reader.readAsDataURL(file);
-        }
-    };
+    if (!sellerData) return <div className="text-center mt-10">Cargando perfil...</div>;
 
     return (
-        <div className="max-w-xl mx-auto bg-[#FDE7B9] p-6 rounded-2xl  mt-10">
+        <div className="max-w-xl mx-auto bg-[#FDE7B9] p-6 rounded-2xl mt-10">
             <div className="flex flex-col items-center">
                 <div className="relative group">
                     <img
@@ -82,18 +92,19 @@ const SellerProfile = () => {
                         />
                     </label>
                 </div>
-                <h2 className="text-2xl  mt-4 text-[#401809]">{sellerData.firstName} {sellerData.lastName}</h2>
+                <h2 className="text-2xl mt-4 text-[#401809]">{sellerData.name} {sellerData.lastname}</h2>
                 <span className="text-[#363738] text-sm">@{sellerData.nickname}</span>
             </div>
 
             <div className="mt-8 space-y-6">
-                {renderField("Nombre", "firstName")}
-                {renderField("Apellido", "lastName")}
+                {renderField("Nombre", "name")}
+                {renderField("Apellido", "lastname")}
                 {renderField("Nickname", "nickname")}
-                {renderField("País", "country")}
-                {renderField("Provincia", "province")}
                 {renderField("Correo", "email")}
                 {renderField("Teléfono", "phone")}
+                {renderField("País", "country")}
+                {renderField("Provincia", "province")}
+                {renderField("Ciudad", "city")}
             </div>
 
             <div className="mt-6 text-center">
