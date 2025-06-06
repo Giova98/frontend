@@ -18,6 +18,12 @@ export const getPublicationById = async (id) => {
   return await res.json();
 };
 
+export const getSellerByPublicationId = async (id) => {
+  const res = await fetch(`${API_URL}/publications/${id}/seller`);
+  if (!res.ok) throw new Error("Error al obtener el vendedor");
+  return await res.json();
+};
+
 export const createPublication = async (data) => {
   const res = await fetch(`${API_URL}/publications`, {
     method: "POST",

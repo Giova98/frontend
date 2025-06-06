@@ -7,33 +7,41 @@ import SobreNosotros from '../../components/shared/pageFooter/sobreNosotros/sobr
 import FAQ from '../../components/shared/pageFooter/FAQ/FAQ'
 import TermsAndConditions from '../../components/shared/pageFooter/terminosPolitica/TerminosPolitica'
 import HelpResources from '../../components/shared/pageFooter/recursosUtiles/RecursosUtiles'
-import PublicationFormSeller from './PublicationFormSeller'
-import ProfileSellerPage from '../sellerDashboard/ProfesilelSeller'
-import MyPosts from '../../components/shared/myPosts/MyPosts'
-import Carousel from '../../components/shared/carousel/Carousel'
-
-
+import HeroSection from '../../components/layout/Slider/HeroSection'
+import FeaturedProductsCarousel from '../../features/publications/productCarousel/FeaturedProductsCarousel'
+import BrandsCarousel from '../../features/publications/brandsCarousel/BrandsCarousel'
+import OfferProductsCarousel from '../../features/publications/offerProudctsCarousel/OfferProductsCarousel'
+import MainCategories from '../../features/publications/MainCategories/MainCategories'
+import BenefitsSection from '../../features/publications/BenefitsSection/BenefitsSection'
+import TestimonialsSection from '../../features/publications/TestimonialsSection/TestimonialsSection'
 
 
 {/* Home (por ahora contendra todos los componentes) */}
-const Dashboard = () => {
-    return (
-        <div className="items-center justify-center w-full py-10">
-            {/* <PublicationList publicaciones={publicaciones}/> */}
-            <Carousel />
-            <SellerDashboard />
-            <SobreNosotros/>
-            <FAQ/>
-            <TermsAndConditions/>
-            <HelpResources/>
-            <Register />
-            <Login />
-            <PurchaseDetails />
-            <MyPosts/>
-            <PublicationFormSeller/>
-            <ProfileSellerPage/>
-        </div>
-    )
-}
+const Dashboard = ({ publicaciones }) => {
+  // Filtra productos destacados (los primeros 6 con mejor estado)
+  const featuredProducts = [...publicaciones]
+    .sort((a, b) => {
+      // Ordena por: Nuevo > Poco usado > Usado
+      const statusOrder = { 'Nuevo': 3, 'Poco usado': 2, 'Usado': 1 };
+      return statusOrder[b.status] - statusOrder[a.status] || b.quantity - a.quantity;
+    })
+    .slice(0, 6);
+
+  return (
+    <div className="flex flex-col items-center w-full py-10 bg-[#FFEFEF]">
+      {/* Carrusel de destacados */}
+      <FeaturedProductsCarousel products={featuredProducts} />
+
+      {/* Nuevo carrusel de marcas */}
+      <BrandsCarousel />
+
+      <OfferProductsCarousel products={featuredProducts}/>
+      <MainCategories/>
+      <BenefitsSection/>
+      <TestimonialsSection/>
+      
+    </div>
+  );
+};
 
 export default Dashboard

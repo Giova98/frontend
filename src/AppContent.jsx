@@ -32,6 +32,8 @@ const AppContent = () => {
     getPublications()
       .then((data) => {
         setPublicaciones(data)
+        console.log(data);
+        
       })
       .catch(console.error);
   }, []);

@@ -1,23 +1,36 @@
-import React from 'react'
-import { useLocation, useNavigate } from 'react-router'
-import { Close } from '@mui/icons-material'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
+import { Close } from '@mui/icons-material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { getSellerByPublicationId } from '../../../services/api';
 
 const DetailPublication = () => {
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const publicacion = location.state.publicacion;
+  const { id, title, description, img, price, status, brand, city, category } = publicacion;
 
-  const publicacion = location.state.publicacion
+  const [seller, setSeller] = useState(null);
 
-  const { id, title, description, img, price, status, brand, city, category } = publicacion
+  useEffect(() => {
+    const fetchSeller = async () => {
+      try {
+        const data = await getSellerByPublicationId(id);
+        setSeller(data);
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchSeller();
+  }, [id]);
 
   const handleBuyClick = () => {
     navigate(`/catalogo/${id}/purchase-details`, {
-      state: {
-        publicacion: { title, img, price }
-      }
-    })
-  }
+      state: { publicacion: { title, img, price } }
+    });
+  };
 
   return (
     <div className="relative bg-[#FDE7B9] rounded-[8px] max-w-[900px] mx-auto my-8 p-8">
@@ -29,7 +42,6 @@ const DetailPublication = () => {
       </button>
 
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Imagen */}
         <div className="flex-shrink-0">
           <img
             src={img}
@@ -44,8 +56,7 @@ const DetailPublication = () => {
           <p className="mt-2"><strong>Estado:</strong> {status}</p>
           <p className="mt-2 whitespace-pre-line text-sm">{description}</p>
           <p className="mt-2"><strong>Marca:</strong> {brand}</p>
-          <p className="mt-2"><strong>ubicacion:</strong>{city?.Province?.Name}, {city?.Name}</p>
-
+          <p className="mt-2"><strong>Ubicación:</strong> {city?.Province?.Name}, {city?.Name}</p>
 
           <hr className="my-6 border-black/70" />
 
@@ -61,20 +72,26 @@ const DetailPublication = () => {
 
       <div className="mt-8">
         <h3 className="font-bold">Vendedor:</h3>
-        <div className="flex items-center gap-3 mt-2">
-          <div className="w-10 h-10 rounded-full bg-gray-300"></div>
-          <div>
-            <p className="font-bold">Nombre Del Vendedor</p>
-            <p className="text-sm text-gray-700 flex items-center gap-1">
-              <LocationOnIcon fontSize="small" />
-              Santa Fe, Rosario, Sarmiento 1423
-            </p>
-            <p className="text-sm text-gray-700">Contacto: +54 3464-578823</p>
-          </div>
-        </div>
+        {seller ? (
+          <Link to="/Perfil">
+            <div className="flex items-center gap-3 mt-2">
+              <div className="w-10 h-10 rounded-full bg-gray-300"></div>
+              <div>
+                <p className="font-bold">{seller.Buyer?.BuyersName} {seller.Buyer?.BuyersLastName}</p>
+                <p className="text-sm text-gray-700 flex items-center gap-1">
+                  <LocationOnIcon fontSize="small" />
+                  {seller.Buyer?.City?.Name}, {seller.Buyer?.City?.Province?.Name}
+                </p>
+                <p className="text-sm text-gray-700">Contacto: {seller.Buyer?.Phone}</p>
+              </div>
+            </div>
+          </Link>
+        ) : (
+          <p className="text-sm text-gray-500">Cargando vendedor...</p>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DetailPublication
+export default DetailPublication;
