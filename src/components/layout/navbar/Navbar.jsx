@@ -40,12 +40,12 @@ export default function Navbar() {
       {/* Sección derecha: búsqueda + notificación + avatar */}
       <div className="flex items-center gap-5">
         {/* Barra de búsqueda */}
-        <div className="relative">
+        <div className="relative transition-all duration-300 focus-within:w-[250px] w-[180px]">
           <Search className="absolute top-2.5 left-3 text-gray-400 w-4 h-4" />
           <input
             type="text"
             placeholder="Search"
-            className="bg-[#60250D] text-white pl-10 pr-4 py-2 rounded-md text-sm placeholder-gray-400 focus:outline-none"
+            className="bg-[#60250D] text-white pl-10 pr-4 py-2 rounded-md text-sm placeholder-gray-400 focus:outline-none w-full"
           />
         </div>
 

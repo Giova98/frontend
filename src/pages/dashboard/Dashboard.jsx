@@ -12,8 +12,10 @@ import HelpResources from '../../components/shared/pageFooter/recursosUtiles/Rec
 import HeroSection from '../../components/layout/Slider/HeroSection'
 import FeaturedProductsCarousel from '../../features/publications/productCarousel/FeaturedProductsCarousel'
 import BrandsCarousel from '../../features/publications/brandsCarousel/BrandsCarousel'
-
-
+import OfferProductsCarousel from '../../features/publications/offerProudctsCarousel/OfferProductsCarousel'
+import MainCategories from '../../features/publications/MainCategories/MainCategories'
+import BenefitsSection from '../../features/publications/BenefitsSection/BenefitsSection'
+import TestimonialsSection from '../../features/publications/TestimonialsSection/TestimonialsSection'
 
 
 {/* Home (por ahora contendra todos los componentes) */}
@@ -35,14 +37,11 @@ const Dashboard = ({ publicaciones }) => {
       {/* Nuevo carrusel de marcas */}
       <BrandsCarousel />
 
-      {/* Lista principal de publicaciones */}
-      <div className="w-full max-w-[1000px] px-4 mt-8">
-        <h2 className="text-2xl font-bold mb-6 text-[#401809]">Todos los instrumentos</h2>
-        <PublicationList publicaciones={publicaciones} />
-      </div>
-
-      {/* Resto de tus componentes */}
-      <SellerDashboard />
+      <OfferProductsCarousel products={featuredProducts}/>
+      <MainCategories/>
+      <BenefitsSection/>
+      <TestimonialsSection/>
+      
     </div>
   );
 };

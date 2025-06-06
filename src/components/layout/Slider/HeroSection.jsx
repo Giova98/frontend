@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
+import { Link } from "react-router";
 import AnimatedBackgroundSlider from './AnimatedBackgroundSlider';
 import fondoSlider from '../../../assets/fondoSlider.png'
 import fondoSlider2 from '../../../assets/fondoSlider2.png'
@@ -48,12 +49,16 @@ const HeroSection = () => {
           transition={{ duration: 0.5, delay: 0.4, type: "spring" }}
           className="flex flex-col sm:flex-row gap-4"
         >
+          <Link to="/catalogo">
           <button className="bg-transparent border-2 hover:bg-[#40250D] border-white text-white hover:text-[#FFD8A9] px-8 py-3 rounded-full font-bold transition-all duration-300 hover:shadow-lg">
             Explorar catálogo
           </button>
+          </Link>
+          <Link to="/vender">
           <button className="bg-transparent border-2 hover:bg-[#40250D] border-white text-white hover:text-[#FFD8A9] px-8 py-3 rounded-full font-bold transition-all duration-300 hover:shadow-lg">
             Vender un instrumento
           </button>
+          </Link>
         </motion.div>
       </div>
     </header>
