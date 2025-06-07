@@ -18,7 +18,7 @@ const BrandsCarousel = () => {
   const duplicatedBrands = [...brands, ...brands];
 
   return (
-    <div className="w-full py-16 bg-[#FDE7B9]"> {/* Aumenté el padding vertical */}
+    <div className="w-full py-16 "> {/* Aumenté el padding vertical */}
       <div className="max-w-6xl mx-auto px-4"> {/* Contenedor más ancho */}
         <h2 className="text-3xl font-bold text-center mb-12 text-[#401809]"> {/* Texto más grande */}
           Las marcas que confían en nosotros

@@ -28,7 +28,7 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-[#FFEFEF]">
+    <section className="py-16">
       <div className="max-w-6xl mx-auto px-4">
         {/* Encabezado */}
         <div className="text-center mb-12">

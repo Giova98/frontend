@@ -1,28 +1,53 @@
 import { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
-import avatarDefault from '../../assets/avatarDefault.jpeg';
-import { useAuth } from "../../services/auth/AuthContext";
+import avatarDefault from '../../../assets/avatarDefault.jpeg';
+import { useAuth } from "../../../services/auth/AuthContext";
+import { useParams } from "react-router";
 
 const SellerProfile = () => {
     const { user } = useAuth();
     const [sellerData, setSellerData] = useState(null);
     const [editingField, setEditingField] = useState(null);
 
+    const { id } = useParams();
+
     useEffect(() => {
-        if (user) {
-            setSellerData({
-                profileImage: user.avatarUrl || avatarDefault,
-                name: user.name,
-                lastname: user.lastname,
-                nickname: user.nickname,
-                email: user.email,
-                phone: user.phone,
-                country: "Argentina", // fijo por ahora
-                province: user.city?.province?.name || "",
-                city: user.city?.name || "",
-            });
-        }
-    }, [user]);
+        const fetchProfile = async () => {
+            if (id) {
+                try {
+                    const res = await fetch(`http://localhost:3000/buyers/${id}`);
+                    const data = await res.json();
+                    setSellerData({
+                        profileImage: data.avatarUrl || avatarDefault,
+                        name: data.BuyersName,
+                        lastname: data.BuyersLastName,
+                        nickname: data.NickName,
+                        email: data.Email,
+                        phone: data.Phone,
+                        country: "Argentina",
+                        province: data.City?.Province?.Name || "",
+                        city: data.City?.Name || "",
+                    });
+                } catch (err) {
+                    console.error("Error al cargar el perfil:", err);
+                }
+            } else if (user) {
+                setSellerData({
+                    profileImage: user.avatarUrl || avatarDefault,
+                    name: user.name,
+                    lastname: user.lastname,
+                    nickname: user.nickname,
+                    email: user.email,
+                    phone: user.phone,
+                    country: "Argentina",
+                    province: user.city?.province?.name || "",
+                    city: user.city?.name || "",
+                });
+            }
+        };
+
+        fetchProfile();
+    }, [id, user]);
 
     const handleChange = (field, value) => {
         setSellerData({ ...sellerData, [field]: value });
@@ -47,10 +72,12 @@ const SellerProfile = () => {
         }
     };
 
+    const isOwnProfile = !id || id === user?.id?.toString(); // asegurate que user.id esté definido
+
     const renderField = (label, field) => (
         <div className="group flex flex-col sm:flex-row items-start sm:items-center gap-1">
             <span className="text-[#401809] font-semibold w-32">{label}:</span>
-            {editingField === field ? (
+            {editingField === field && isOwnProfile ? (
                 <input
                     className="bg-white text-[#363738] border-b border-[#401809] focus:outline-none"
                     type="text"
@@ -62,10 +89,12 @@ const SellerProfile = () => {
             ) : (
                 <div className="flex items-center gap-2">
                     <span className="text-[#363738]">{sellerData[field]}</span>
-                    <FaEdit
-                        className="text-[#40250D] cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                        onClick={() => handleEdit(field)}
-                    />
+                    {isOwnProfile && (
+                        <FaEdit
+                            className="text-[#40250D] cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                            onClick={() => handleEdit(field)}
+                        />
+                    )}
                 </div>
             )}
         </div>

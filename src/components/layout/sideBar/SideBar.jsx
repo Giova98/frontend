@@ -4,7 +4,6 @@ import {
   Squares2X2Icon,
   TagIcon,
   ArrowUpTrayIcon,
-  ShoppingCartIcon,
   ChatBubbleLeftRightIcon,
   BanknotesIcon,
   UserIcon,
@@ -16,13 +15,12 @@ import { useAuth } from '../../../services/auth/AuthContext';
 import { useNavigate } from 'react-router';
 
 const sidebarOptions = [
-  { text: 'Home', Icon: Squares2X2Icon },
-  { text: 'Mis Publicaciones', Icon: TagIcon },
-  { text: 'Subir Publicación', Icon: ArrowUpTrayIcon },
-  { text: 'Pedidos', Icon: ShoppingCartIcon },
-  { text: 'Chat', Icon: ChatBubbleLeftRightIcon },
-  { text: 'Datos Bancarios', Icon: BanknotesIcon },
-  { text: 'Perfil', Icon: UserIcon },
+  { text: 'Home', Icon: Squares2X2Icon, route: '/home' },
+  { text: 'Mis Publicaciones', Icon: TagIcon, route: '/MyPosts' },
+  { text: 'Subir Publicación', Icon: ArrowUpTrayIcon, route: '/AñadirPublicacion' },
+  { text: 'Chat', Icon: ChatBubbleLeftRightIcon, route: '/home' },
+  { text: 'Datos Bancarios', Icon: BanknotesIcon, route: '/home' },
+  { text: 'Perfil', Icon: UserIcon, route: '/Perfil' },
 ];
 
 const SideBar = ({ open, onClose }) => {
@@ -68,11 +66,14 @@ const SideBar = ({ open, onClose }) => {
 
         {/* Opciones */}
         <ul>
-          {sidebarOptions.map(({ text, Icon }) => (
+          {sidebarOptions.map(({ text, Icon, route }) => (
             <li key={text}>
               <button
                 className="group flex items-center space-x-4 py-4 px-4 w-full text-left hover:bg-[#401809] focus:outline-none focus:ring-2 focus:ring-[#FFE0C4]"
-                onClick={() => console.log(`Navegar a ${text}`)}
+                onClick={() => {
+                  navigate(route);
+                  onClose(); // cerrá el menú al hacer click
+                }}
                 aria-label={`Ir a ${text}`}
               >
                 <Icon className="h-6 w-6 text-white group-hover:text-[#FFE0C4]" />
@@ -83,7 +84,7 @@ const SideBar = ({ open, onClose }) => {
             </li>
           ))}
         </ul>
-        
+
         <hr className="border-t border-[#FFE0C4] m-3" />
 
         {/* Cerrar sesión */}

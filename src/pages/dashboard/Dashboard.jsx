@@ -1,22 +1,14 @@
 
-import Login from '../../features/auth/Login'
-import Register from '../../features/auth/Register'
-import PurchaseDetails from '../../features/publications/purchaseDetails/PurchaseDetails'
-import SellerDashboard from '../sellerDashboard/SellerDashboard'
-import SobreNosotros from '../../components/shared/pageFooter/sobreNosotros/sobreNosotros'
-import FAQ from '../../components/shared/pageFooter/FAQ/FAQ'
-import TermsAndConditions from '../../components/shared/pageFooter/terminosPolitica/TerminosPolitica'
-import HelpResources from '../../components/shared/pageFooter/recursosUtiles/RecursosUtiles'
-import HeroSection from '../../components/layout/Slider/HeroSection'
-import FeaturedProductsCarousel from '../../features/publications/productCarousel/FeaturedProductsCarousel'
-import BrandsCarousel from '../../features/publications/brandsCarousel/BrandsCarousel'
-import OfferProductsCarousel from '../../features/publications/offerProudctsCarousel/OfferProductsCarousel'
-import MainCategories from '../../features/publications/MainCategories/MainCategories'
-import BenefitsSection from '../../features/publications/BenefitsSection/BenefitsSection'
-import TestimonialsSection from '../../features/publications/TestimonialsSection/TestimonialsSection'
+
+import FeaturedProductsCarousel from '../../features/homeSections/productCarousel/FeaturedProductsCarousel'
+import BrandsCarousel from '../../features/homeSections/brandsCarousel/BrandsCarousel'
+import OfferProductsCarousel from '../../features/homeSections/offerProudctsCarousel/OfferProductsCarousel'
+import MainCategories from '../../features/homeSections/MainCategories/MainCategories'
+import BenefitsSection from '../../features/homeSections/BenefitsSection/BenefitsSection'
+import TestimonialsSection from '../../features/homeSections/TestimonialsSection/TestimonialsSection'
+import Carousel from '../../features/homeSections/carousel/Carousel'
 
 
-{/* Home (por ahora contendra todos los componentes) */}
 const Dashboard = ({ publicaciones }) => {
   // Filtra productos destacados (los primeros 6 con mejor estado)
   const featuredProducts = [...publicaciones]
@@ -28,9 +20,10 @@ const Dashboard = ({ publicaciones }) => {
     .slice(0, 6);
 
   return (
-    <div className="flex flex-col items-center w-full py-10 bg-[#FFEFEF]">
-      {/* Carrusel de destacados */}
-      <FeaturedProductsCarousel products={featuredProducts} />
+    <div className="flex flex-col items-center w-full py-10 bg-[#FDE7B9] ">
+      {/* Carrusel de destacados 
+      <FeaturedProductsCarousel products={featuredProducts} />*/}
+      <Carousel />
 
       {/* Nuevo carrusel de marcas */}
       <BrandsCarousel />

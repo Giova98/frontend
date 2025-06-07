@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getLatestPublications } from "../../../services/api";
-import PublicationCard from "../../../features/publications/publicationCard/PublicationCard";
+import PublicationCard from "../../publications/publicationCard/PublicationCard";
 
 const Carousel = () => {
     const [publications, setPublications] = useState([]);

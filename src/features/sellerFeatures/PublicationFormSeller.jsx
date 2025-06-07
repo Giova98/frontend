@@ -101,9 +101,10 @@ const PublicationFormSeller = () => {
                         style={inputStyle(errors.condition)}
                     >
                         <option value="">Seleccione una opción</option>
-                        <option value="Nuevo">Nuevo</option>
-                        <option value="Usado">Usado</option>
-                        <option value="Reacondicionado">Reacondicionado</option>
+                        <option value="nuevo">Nuevo</option>
+                        <option value="usado">Usado</option>
+                        <option value="poco usado">Poco Usado</option>
+                        <option value="reparado">Reparado</option>
                     </select>
                     {errors.condition && <span style={errorStyle}>{errors.condition}</span>}
                 </label>

@@ -5,19 +5,20 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { getSellerByPublicationId } from '../../../services/api';
 
 const DetailPublication = () => {
+  const [seller, setSeller] = useState(null);
+
   const navigate = useNavigate();
   const location = useLocation();
+
   const publicacion = location.state.publicacion;
   const { id, title, description, img, price, status, brand, city, category } = publicacion;
-
-  const [seller, setSeller] = useState(null);
 
   useEffect(() => {
     const fetchSeller = async () => {
       try {
         const data = await getSellerByPublicationId(id);
         setSeller(data);
-        console.log(data);
+
       } catch (err) {
         console.error(err);
       }
@@ -73,7 +74,7 @@ const DetailPublication = () => {
       <div className="mt-8">
         <h3 className="font-bold">Vendedor:</h3>
         {seller ? (
-          <Link to="/Perfil">
+          <Link to={`/Perfil/${seller.ID_Sellers}`}>
             <div className="flex items-center gap-3 mt-2">
               <div className="w-10 h-10 rounded-full bg-gray-300"></div>
               <div>

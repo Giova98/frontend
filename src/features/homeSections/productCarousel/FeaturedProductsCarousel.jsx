@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import PublicationCard from '../publicationCard/PublicationCard';
+import PublicationCard from '../../publications/publicationCard/PublicationCard';
 
 const FeaturedProductsCarousel = ({ products }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,7 +39,7 @@ const FeaturedProductsCarousel = ({ products }) => {
     >
       <div className="max-w-[1000px] mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8 text-[#401809]">
-          Nuevas ofertas
+          Instrumentos Destacados
         </h2>
         
         <div className="relative overflow-hidden">
