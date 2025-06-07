@@ -72,7 +72,7 @@ const SellerProfile = () => {
         }
     };
 
-    const isOwnProfile = !id || id === user?.id?.toString(); // asegurate que user.id esté definido
+    const isOwnProfile = !id || id === user?.id?.toString();
 
     const renderField = (label, field) => (
         <div className="group flex flex-col sm:flex-row items-start sm:items-center gap-1">
