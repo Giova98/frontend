@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { useAnimatedSlider } from '../../hooks/useAnimatedSlider.js'; // ajustá la ruta
 
 const AnimatedBackgroundSlider = ({ images, overlay = true }) => {
+  const { currentIndex } = useAnimatedSlider(images, 8000); // 8 segundos como en tu animación
+
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden">
       {images.map((img, index) => (
@@ -14,19 +17,16 @@ const AnimatedBackgroundSlider = ({ images, overlay = true }) => {
           }}
           initial={{ opacity: 0 }}
           animate={{ 
-            opacity: [0, 1, 0],
+            opacity: index === currentIndex ? 1 : 0,
             scale: [1, 1.05, 1]
           }}
           transition={{ 
-            duration: 8,
-            repeat: Infinity,
-            repeatDelay: 1,
-            delay: index * 2,
+            duration: 2,
             ease: "easeInOut"
           }}
         />
       ))}
-      
+
       {overlay && (
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
       )}
