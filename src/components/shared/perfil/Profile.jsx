@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
+
 import avatarDefault from '../../../assets/avatarDefault.jpeg';
 import { useAuth } from "../../../services/auth/AuthContext";
 import { useParams } from "react-router";
@@ -103,13 +104,16 @@ const SellerProfile = () => {
     if (!sellerData) return <div className="text-center mt-10">Cargando perfil...</div>;
 
     return (
-        <div className="max-w-xl mx-auto bg-[#FDE7B9] p-6 rounded-2xl mt-10">
+
+        <div className="max-w-xl mx-auto bg-[#FDE7B9] p-6 rounded-2xl mt-10 mb-10">
+
             <div className="flex flex-col items-center">
                 <div className="relative group">
                     <img
                         src={sellerData.profileImage}
                         alt="Perfil"
                         className="w-32 h-32 rounded-full object-cover border-4 border-[#401809]"
+                        style={{height:'200px', width: '200px'}}
                     />
                     <label className="absolute bottom-2 right-2 bg-[#401809] text-white p-1 rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                         <FaEdit />
@@ -121,6 +125,15 @@ const SellerProfile = () => {
                         />
                     </label>
                 </div>
+
+                <h2 className="text-3xl  mt-8 text-[#401809]">{sellerData.firstName} {sellerData.lastName}</h2>
+                <span className="text-[#363738] mt-2 text-1x1">@{sellerData.nickname}</span>
+            </div>
+
+            <div className="mt-12 space-y-6">
+                {renderField("Nombre", "firstName")}
+                {renderField("Apellido", "lastName")}
+
                 <h2 className="text-2xl mt-4 text-[#401809]">{sellerData.name} {sellerData.lastname}</h2>
                 <span className="text-[#363738] text-sm">@{sellerData.nickname}</span>
             </div>
@@ -136,8 +149,8 @@ const SellerProfile = () => {
                 {renderField("Ciudad", "city")}
             </div>
 
-            <div className="mt-6 text-center">
-                <button className="bg-[#401809] text-[#FFE0C4] px-4 py-2 rounded-full hover:bg-[#40250D] transition-colors">
+            <div className="mt-12 text-center">
+                <button className="bg-[#401809] text-[#FFE0C4] px-4 py-2 rounded-full hover:bg-[#40250D] h-[50px] transition-colors">
                     Ir al Panel de Publicaciones
                 </button>
             </div>

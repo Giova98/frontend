@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { notifySuccessAdd, notifyMissingFields } from '../../pages/notification/notification';
 
 const initialState = {
     name: "",
@@ -37,8 +38,10 @@ const PublicationFormSeller = () => {
         const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
+            notifyMissingFields(`¡Completo los campos requeridos!`)
             return;
         }
+        notifySuccessAdd(`¡${formData.name} publicada con exito!`);
 
         // Limpia el formulario tras enviar
         setFormData(initialState);
@@ -46,7 +49,7 @@ const PublicationFormSeller = () => {
 
     return (
         <div style={{
-            maxWidth: "600px",
+            maxWidth: "700px",
             margin: "2rem auto",
             padding: "2rem",
             paddingTop: '10px',
