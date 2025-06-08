@@ -11,7 +11,7 @@ import Login from './features/auth/Login';
 import Catalogo from './pages/catalogo/Catalogo';
 import SellerDashboard from './pages/sellerDashboard/SellerDashboard';
 import Contact from './pages/contact/Contact';
-import Register from './features/auth/Register';
+import Register from './features/auth/register';
 import PurchaseDetails from './features/publications/purchaseDetails/PurchaseDetails';
 import PublicationList from './features/publications/publicationList/PublicationList';
 import SobreNosotros from './components/shared/pageFooter/sobreNosotros/sobreNosotros';
@@ -49,6 +49,7 @@ const AppContent = () => {
 
       <Routes>
         <Route path="/" element={<Navigate to="login" />} />
+        <Route path="/Register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route element={<Protected />}>
           <Route

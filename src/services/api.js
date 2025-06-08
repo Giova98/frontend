@@ -36,6 +36,20 @@ export const createPublication = async (data) => {
   return await res.json();
 };
 
+export const createBuyer = async (data) => {
+  console.log(data);
+  
+  const res = await fetch(`${API_URL}/buyers`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error("Error al crear publicación");
+  return await res.json();
+};
+
 export const updatePublication = async (id, data) => {
   const res = await fetch(`${API_URL}/publications/${id}`, {
     method: "PUT",
