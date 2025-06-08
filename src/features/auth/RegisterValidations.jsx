@@ -6,7 +6,7 @@ voy a tener que hacer una función asincrona adentro del useEfect que captura el
 */
 
 import { useState, useEffect } from "react"
-
+import { notifyMissingFields, notifySuccessAdd } from "../../pages/notification/notification"
 function RegisterValidations() {
 
   //formData: Describe claramente que contiene datos de formulario
@@ -27,9 +27,9 @@ function RegisterValidations() {
   // Debuggear cambios en formData
   useEffect(() => {
     try {
-      
+
     } catch (error) {
-      
+
     }
     console.log("Datos actualizados:", formData);
   }, [formData]); // Se ejecuta cada que formData cambie
@@ -124,8 +124,7 @@ function RegisterValidations() {
       setErrors(newErrors); // Si hay errores, mostrarlos
     } else {
       setErrors({}); // No hay errores, limpiar
-      console.log('Formulario enviado con éxito:', formData);
-      alert('¡Formulario enviado con éxito!');
+      setFormData(formData)
       // Acá podrías hacer un fetch para enviar los datos a un servidor, si quisieras
     }
   };
@@ -135,6 +134,7 @@ function RegisterValidations() {
     validateBlur,
     errors,
     handleSubmit,
+
   };
 }
 

@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+import { notifyMissingFields, notifySuccessAdd } from './pages/notification/notification';
 
 import { BrowserRouter as Router} from 'react-router';
 
@@ -8,6 +10,7 @@ function App() {
 
   return (
     <AuthProvider>
+      <ToastContainer/>
       <Router>
         <AppContent />
       </Router>

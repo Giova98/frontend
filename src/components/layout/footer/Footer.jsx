@@ -9,7 +9,7 @@ import logo from '../../../assets/logo.png'
 export default function Footer() {
   return (
     <footer className="w-full bg-[#40250D] px-6 py-3 flex items-center justify-between">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto mt-5">
         <div className="md:flex md:justify-between">
           {/* Izquierda: logo, descripción, íconos */}
           <div className="mb-6 md:mb-0 max-w-lg pr-20">

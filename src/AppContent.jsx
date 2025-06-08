@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import { notifyMissingFields, notifySuccessAdd } from './pages/notification/notification';
 
 import ResponsiveAppBar from './components/layout/navbar/Navbar';
 import Footer from './components/layout/footer/Footer';
@@ -19,14 +21,14 @@ import FAQ from './components/shared/pageFooter/FAQ/FAQ';
 import TermsAndConditions from './components/shared/pageFooter/terminosPolitica/TerminosPolitica';
 import HelpResources from './components/shared/pageFooter/recursosUtiles/RecursosUtiles';
 import Protected from './components/shared/routes/protected/protected';
-
+import ProfileSeller from'./pages/sellerDashboard/ProfesilelSeller/'
 import { getPublications } from './services/api';
 
 const AppContent = () => {
   const [publicaciones, setPublicaciones] = useState([]);
-  
+
   const location = useLocation();
-  
+
   useEffect(() => {
     getPublications()
       .then((data) => {
@@ -40,8 +42,9 @@ const AppContent = () => {
   return (
     <div className={`flex flex-col items-center min-h-screen bg-[#FDE7B9] ${!hideLayout ? 'mt-16' : ''}`}>
       {!hideLayout && <ResponsiveAppBar />}
-
+      <ToastContainer/>
       <Routes>
+        <Route path="/profile-seller" element={<ProfileSeller />} />
         <Route path="/" element={<Navigate to="login" />} />
         <Route path="login" element={<Login />} />
         <Route element={<Protected />}>

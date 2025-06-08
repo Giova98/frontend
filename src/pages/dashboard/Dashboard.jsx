@@ -1,4 +1,3 @@
-
 import Login from '../../features/auth/Login'
 import Register from '../../features/auth/Register'
 import PurchaseDetails from '../../features/publications/purchaseDetails/PurchaseDetails'
@@ -11,10 +10,8 @@ import PublicationFormSeller from './PublicationFormSeller'
 import ProfileSellerPage from '../sellerDashboard/ProfesilelSeller'
 import MyPosts from '../../components/shared/myPosts/MyPosts'
 import Carousel from '../../components/shared/carousel/Carousel'
-
-
-
-
+import BankDataPage from '../sellerDashboard/DataBackPage'
+import Pedidos from '../sellerDashboard/pedidosMock'
 {/* Home (por ahora contendra todos los componentes) */}
 const Dashboard = () => {
     return (
@@ -32,6 +29,8 @@ const Dashboard = () => {
             <MyPosts/>
             <PublicationFormSeller/>
             <ProfileSellerPage/>
+            <BankDataPage />
+            <Pedidos/>
         </div>
     )
 }
