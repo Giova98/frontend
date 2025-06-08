@@ -3,7 +3,7 @@ import OfferProductsCarousel from '../../features/homeSections/offerProudctsCaro
 import MainCategories from '../../features/homeSections/MainCategories/MainCategories'
 import BenefitsSection from '../../features/homeSections/BenefitsSection/BenefitsSection'
 import TestimonialsSection from '../../features/homeSections/TestimonialsSection/TestimonialsSection'
-
+import Carousel from '../../features/homeSections/carousel/Carousel'
 
 
 const Dashboard = ({ publicaciones }) => {
