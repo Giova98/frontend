@@ -10,8 +10,7 @@ import { useAuth } from "../../../services/auth/AuthContext";
 export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-
-  const { user } = useAuth();
+  const { user } = useAuth();  
 
   return (
     <>
@@ -25,7 +24,7 @@ export default function Navbar() {
           >
             <Menu className="w-6 h-6" />
           </button>
-          
+
           <Link to="/home" className="flex items-center gap-2">
             <img src={logo} alt="Logo" className="h-14 w-auto" />
             <h1 className="text-white text-xl font-semibold font-mono">CarpinChords</h1>
@@ -37,6 +36,9 @@ export default function Navbar() {
             <li><Link to="/catalogo" className="hover:text-gray-300">Catálogo</Link></li>
             <li><Link to="/vender" className="hover:text-gray-300">Vender</Link></li>
             <li><Link to="/contacto" className="hover:text-gray-300">Contacto</Link></li>
+            {user?.isAdmin && (
+              <li><Link to="/panel-admin" className="hover:text-gray-300">Panel Administrador</Link></li>
+            )}
           </ul>
         </div>
 
@@ -49,7 +51,7 @@ export default function Navbar() {
 
           <Link to="/Perfil">
             <img
-              src={user?.avatarUrl || avatarDefault}
+              src={`http://localhost:3000${user?.avatarUrl}` || avatarDefault}
               alt="Avatar"
               className="w-8 h-8 rounded-full object-cover"
             />

@@ -9,6 +9,7 @@ import {
   UserIcon,
   XMarkIcon,
   ArrowLeftOnRectangleIcon,
+  DocumentTextIcon
 } from '@heroicons/react/24/solid';
 
 import { useAuth } from '../../../services/auth/AuthContext';
@@ -18,11 +19,11 @@ const sidebarOptions = [
   { text: 'Home', Icon: Squares2X2Icon, route: '/home' },
   { text: 'Mis Publicaciones', Icon: TagIcon, route: '/MyPosts' },
   { text: 'Subir Publicación', Icon: ArrowUpTrayIcon, route: '/AñadirPublicacion' },
+  { text: 'Mis Pedidos', Icon: DocumentTextIcon, route: '/MisPedidos' },
   { text: 'Chat', Icon: ChatBubbleLeftRightIcon, route: '/home' },
   { text: 'Datos Bancarios', Icon: BanknotesIcon, route: '/home' },
   { text: 'Perfil', Icon: UserIcon, route: '/Perfil' },
 ];
-
 const SideBar = ({ open, onClose }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();

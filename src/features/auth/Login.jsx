@@ -26,7 +26,6 @@ const Login = () => {
       const { token, user } = data;
 
       login({ token, user });
-      console.log(token,user);
       
       navigate('/home');
     } catch (err) {

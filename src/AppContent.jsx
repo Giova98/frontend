@@ -22,11 +22,14 @@ import Protected from './components/shared/routes/protected/protected';
 import Profile from './components/shared/perfil/Profile'
 import HeroSection from './components/layout/Slider/HeroSection';
 import PublicationFormSeller from './features/sellerFeatures/PublicationFormSeller';
-
-import { getPublications } from './services/api';
 import ProtectedSeller from './components/shared/routes/protected/ProtectedSeller';
 import SellerRegister from './features/auth/SellerRegister';
-import SellerProfile from './components/shared/perfil/Profile';
+
+import { getPublications } from './services/api';
+import MyOrders from './components/shared/myOrders/MyOrders';
+import ProtectedAdminRoute from './components/shared/routes/protected/ProtectedAdminRoute';
+import AdminDashboard from './pages/adminDashboard/AdminDashboard';
+import Unauthorized from './components/shared/routes/unauthorized/Unauthorized';
 
 const AppContent = () => {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -67,6 +70,7 @@ const AppContent = () => {
             <Route path="/vender" element={<SellerDashboard />} />
           </Route>
           <Route path="/AñadirPublicacion" element={<PublicationFormSeller />} />
+          <Route path="/MisPedidos" element={<MyOrders />} />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/SobreNosotros" element={<SobreNosotros />} />
           <Route path="/FAQ" element={<FAQ />} />
@@ -80,7 +84,11 @@ const AppContent = () => {
           </Route>
           <Route path="/catalogo/:id/purchase-details" element={<PurchaseDetails />} />
           <Route path='/Slider' element={<HeroSection />} />
+          <Route element={<ProtectedAdminRoute />}>
+            <Route path="/panel-admin" element={<AdminDashboard />} />
+          </Route>
         </Route>
+        <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

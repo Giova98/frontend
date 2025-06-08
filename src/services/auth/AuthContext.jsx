@@ -3,43 +3,50 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  // Inicializo directamente con función para leer localStorage
+  const [token, setToken] = useState(() => localStorage.getItem('token') || '');
+  const [user, setUser] = useState(() => {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
+  });
 
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        if (token) {
-            try {
-                const storedUser = JSON.parse(localStorage.getItem('user') || 'null');                
-                if (storedUser) setUser(storedUser);
-            } catch (error) {
-                console.error("Error parsing user from localStorage", error);
-                setUser(null);
-            }
-        }
-    }, [token]);
+  useEffect(() => {
+    // Ya que inicializamos con localStorage, solo seteamos loading a false acá
+    setLoading(false);
+  }, []);
 
-    const login = ({ token, user }) => {
-        setToken(token);
-        setUser(user);
-        console.log(user);
-        
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
-    };
+  const login = ({ token, user }) => {
+    setToken(token);
+    setUser(user);
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+  };
 
-    const logout = () => {
-        setToken('');
-        setUser(null);
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-    };
+  const logout = () => {
+    setToken('');
+    setUser(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  };
 
-    return (
-        <AuthContext.Provider value={{ token, user, login, logout, isAuthenticated: !!token }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider
+      value={{
+        token,
+        user,
+        setUser,
+        login,
+        logout,
+        isAuthenticated: !!token,
+        tokenisAdmin: user?.isAdmin || false,
+        loading,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => useContext(AuthContext);

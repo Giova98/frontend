@@ -1,12 +1,14 @@
-import { Navigate, Outlet } from "react-router"
+import { Navigate, Outlet } from "react-router";
 import { useAuth } from "../../../../services/auth/AuthContext";
 
 const Protected = () => {
-    const { isAuthenticated } = useAuth();
-    if (!isAuthenticated) {
-        return <Navigate to='/login' replace />
-    }
-    return <Outlet />
-}
+  const { isAuthenticated, loading } = useAuth();
 
-export default Protected
+  if (loading) return null; // o spinner
+
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+
+  return <Outlet />;
+};
+
+export default Protected;

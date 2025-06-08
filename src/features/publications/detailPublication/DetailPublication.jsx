@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { Close } from '@mui/icons-material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { getSellerByPublicationId } from '../../../services/api';
+import avatarDefault from '../../../assets/avatarDefault.jpeg';
 
 const DetailPublication = () => {
   const [seller, setSeller] = useState(null);
@@ -12,6 +13,7 @@ const DetailPublication = () => {
 
   const publicacion = location.state.publicacion;
   const { id, title, description, img, price, status, brand, city, category } = publicacion;
+
 
   useEffect(() => {
     const fetchSeller = async () => {
@@ -29,7 +31,7 @@ const DetailPublication = () => {
 
   const handleBuyClick = () => {
     navigate(`/catalogo/${id}/purchase-details`, {
-      state: { publicacion: { title, img, price } }
+      state: { publicacion: { id, title, img, price } }
     });
   };
 
@@ -76,7 +78,10 @@ const DetailPublication = () => {
         {seller ? (
           <Link to={`/Perfil/${seller.ID_Sellers}`}>
             <div className="flex items-center gap-3 mt-2">
-              <div className="w-10 h-10 rounded-full bg-gray-300"></div>
+              <img
+                src={`http://localhost:3000${seller.Buyer?.avatarUrl}` || avatarDefault}
+                alt='avatarSeller'
+                className="w-10 h-10 rounded-full bg-gray-300" />
               <div>
                 <p className="font-bold">{seller.Buyer?.BuyersName} {seller.Buyer?.BuyersLastName}</p>
                 <p className="text-sm text-gray-700 flex items-center gap-1">

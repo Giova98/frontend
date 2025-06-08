@@ -17,10 +17,31 @@ const Contact = () => {
         setContact(prev => ({ ...prev, [name]: value }))
     }
 
-    const handleOnSubmit = (event) => {
-        event.preventDefault()
-        setContact(initialState)
-    }
+    const handleOnSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:3000/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(contact),
+            });
+
+            if (response.ok) {
+                alert('Mensaje enviado correctamente.');
+                setContact(initialState);
+            } else {
+                const errorData = await response.json();
+                console.error('Error en el servidor:', errorData);
+                alert('Ocurrió un error al enviar el mensaje.');
+            }
+        } catch (error) {
+            console.error('Error al conectar con el servidor:', error);
+            alert('No se pudo conectar con el servidor.');
+        }
+    };
 
     return (
         <div
