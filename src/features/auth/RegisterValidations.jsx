@@ -5,38 +5,58 @@ voy a tener que hacer una función asincrona adentro del useEfect que captura el
 -Todo lo que entra en el front (validaciones) tiene que coincidir con el back.
 */
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import { createBuyer } from "../../services/api";
+import { useNavigate } from "react-router";
 
 function RegisterValidations() {
 
   //formData: Describe claramente que contiene datos de formulario
   //setFormData: Es la funcion actualizadora
   const [formData, setFormData] = useState({
-    fullName: '',
-    username: '',
-    email: '',
-    phone: '',
-    password: '',
+    BuyersName: '',
+    BuyersLastName: '',
+    NickName: '',
+    Email: '',
+    Phone: '',
+    RegistrationDate: '',
+    DNI: '',
+    ID_City: '',
+    Passwords: '',
     confirmPassword: '',
-    isSeller: false, // El usuario no es vendedor por defecto
-    isUser: false // El usuario no es comprador por defecto
   });
+
+  /*
+  useEffect(() => {
+    try {
+      console.log(formData);
+
+      createBuyer(formData)
+    } catch (error) {
+
+    }
+  }, [])
+  */
+
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const navigate = useNavigate();
 
   // Debuggear cambios en formData
   useEffect(() => {
     try {
-      
+
     } catch (error) {
-      
+
     }
   }, [formData]); // Se ejecuta cada que formData cambie
 
 
   const handleChange = (e) => {
     // 1. Desestructuración del evento para obtener propiedades clave
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
     /* 
     name: nombre del campo (debe coincidir con las keys de formData)
     value: valor para inputs normales (text, email, password, etc.)
@@ -44,17 +64,10 @@ function RegisterValidations() {
     checked: estado de checkboxes (true/false)
     */
 
-    // 2. Determinar qué valor usar según el tipo de input
-    const fieldValue = type === 'checkbox' ? checked : value;
-    /*
-    Si es checkbox → usa el estado checked (booleano)
-    Si es input normal → usa el value (string)
-    */
-
     // 3. Actualización del estado de forma inmutable
     setFormData({
       ...formData,
-      [name]: fieldValue
+      [name]: value
     })
     /*
     - prevState: captura el estado actual garantizando que no usamos un estado obsoleto
@@ -62,14 +75,17 @@ function RegisterValidations() {
     - fieldValue: el valor ya procesado (checked o value)
   */
   };
+
+  /*
   const validateField = (e, message) => {
     const validateName = e.target;
 
     const validateNameValue = e.target.value;
-    if (validateNameValue === 0) {
+    if (validateNameValue.trim() === '') {
       setErrors(e, message)
     }
   }
+  */
   const validateBlur = (e) => {
     const { name, value } = e.target;
 
@@ -88,52 +104,75 @@ function RegisterValidations() {
       });
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // 1. Evitar que se recargue la página
 
     const newErrors = {}; // 2. Objeto para guardar errores
 
     // 3. Validar todos los campos
-    if (formData.fullName.trim() === '') {
-      newErrors.fullName = 'El nombre es obligatorio';
+    if (formData.BuyersName.trim() === '') {
+      newErrors.BuyersName = 'El nombre es obligatorio';
     }
-    if (formData.username.trim() === '') {
-      newErrors.username = 'Su nombre de usuario es obligatorio'
+    if (formData.BuyersLastName.trim() === '') {
+      newErrors.BuyersLastName = 'El apellido es obligatorio';
     }
-    if (formData.email.trim() === '') {
-      newErrors.email = 'El email es obligatorio';
+    if (formData.NickName.trim() === '') {
+      newErrors.NickName = 'Su nombre de usuario es obligatorio';
     }
-    if (formData.phone.trim() === '') {
-      newErrors.phone = 'El telefono es obligatorio'
+    if (formData.Email.trim() === '') {
+      newErrors.Email = 'El email es obligatorio';
     }
-    if (formData.password.trim() === '') {
-      newErrors.password = 'La contraseña es obligatoria'
+    if (formData.Phone.trim() === '') {
+      newErrors.Phone = 'El teléfono es obligatorio';
+    }
+    if (formData.RegistrationDate.trim() === '') {
+      newErrors.RegistrationDate = 'La fecha es obligatoria';
+    }
+    if (formData.DNI.trim() === '') {
+      newErrors.DNI = 'El DNI es obligatorio';
+    }
+    if (formData.ID_City.trim() === '') {
+      newErrors.ID_City = 'Debe seleccionar una ciudad';
+    }
+    if (formData.Passwords.trim() === '') {
+      newErrors.Passwords = 'La contraseña es obligatoria';
     }
     if (formData.confirmPassword.trim() === '') {
-      newErrors.confirmPassword = 'La confirmacion de la contraseña es obligatoria'
+      newErrors.confirmPassword = 'La confirmación es obligatoria';
     }
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.Passwords !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Las contraseñas no coinciden';
     }
 
     setErrors(newErrors);
 
     // 4. Revisar si hay errores
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors); // Si hay errores, mostrarlos
-    } else {
-      setErrors({}); // No hay errores, limpiar
-      console.log('Formulario enviado con éxito:', formData);
-      alert('¡Formulario enviado con éxito!');
-      // Acá podrías hacer un fetch para enviar los datos a un servidor, si quisieras
+    if (Object.keys(newErrors).length > 0) return; // Si hay errores, salir
+
+    // 5. Si no hay errores, enviamos al backend
+    try {
+      const response = await createBuyer(formData);
+      console.log('Respuesta del servidor:', response);
+
+      setSuccessMessage("Se registró correctamente");
+
+      // Esperar 2 segundos antes de redirigir
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+
+    } catch (error) {
+      console.error('Error al crear usuario:', error);
     }
   };
+
   return {
     formData,
     handleChange,
     validateBlur,
     errors,
     handleSubmit,
+    successMessage
   };
 }
 

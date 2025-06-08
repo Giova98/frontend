@@ -1,10 +1,11 @@
+import { useState } from "react";
 import fondo from "../../assets/fondo.png"; // Asegurate de que esta ruta sea correcta
-import RegisterValidations from "../auth/RegisterValidations";
+import RegisterValidations from "../auth/RegisterValidations"; 
 
 const Register = () => {
 
   const { formData, handleChange, validateBlur, errors, handleSubmit } = RegisterValidations();
-
+  const [successMessage, setSuccessMessage] = useState("");
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Form */}
@@ -31,23 +32,47 @@ const Register = () => {
           </a>
         </p>
 
+        {/* Mensaje de éxito */}
+        {successMessage && (
+          <p className="text-green-600 font-semibold mb-4 text-center">
+            {successMessage}
+          </p>
+        )}
+
         {/* Form */}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Nombre completo
+              Nombre
             </label>
             <input
               type="text"
-              name='fullName'
-              value={formData.fullName}
+              name='BuyersName'
+              value={formData.BuyersName}
               onChange={handleChange}
               onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
-            {errors.fullName && (
-              <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+            {errors.BuyersName && (
+              <p className="text-red-500 text-sm mt-1">{errors.BuyersName}</p>
+            )}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Apellido
+            </label>
+            <input
+              type="text"
+              name='BuyersLastName'
+              value={formData.BuyersLastName}
+              onChange={handleChange}
+              onBlur={validateBlur}
+              required
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
+            />
+            {errors.BuyersLastName && (
+              <p className="text-red-500 text-sm mt-1">{errors.BuyersLastName}</p>
             )}
           </div>
           <div>
@@ -56,15 +81,15 @@ const Register = () => {
             </label>
             <input
               type="text"
-              name="username"
-              value={formData.username}
+              name="NickName"
+              value={formData.NickName}
               onChange={handleChange}
               onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
-            {errors.username && (
-              <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+            {errors.NickName && (
+              <p className="text-red-500 text-sm mt-1">{errors.NickName}</p>
             )}
           </div>
           <div>
@@ -73,15 +98,15 @@ const Register = () => {
             </label>
             <input
               type="email"
-              name="email"
-              value={formData.email}
+              name="Email"
+              value={formData.Email}
               onChange={handleChange}
               onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            {errors.Email && (
+              <p className="text-red-500 text-sm mt-1">{errors.Email}</p>
             )}
           </div>
           <div>
@@ -90,32 +115,88 @@ const Register = () => {
             </label>
             <input
               type="tel"
-              name="phone"
-              value={formData.phone}
+              name="Phone"
+              value={formData.Phone}
               onChange={handleChange}
               onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
-            {errors.phone && (
-              <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+            {errors.Phone && (
+              <p className="text-red-500 text-sm mt-1">{errors.Phone}</p>
             )}
           </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Fecha de Registro
+            </label>
+            <input
+              type="date"
+              name="RegistrationDate"
+              value={formData.RegistrationDate}
+              onChange={handleChange}
+              onBlur={validateBlur}
+              required
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
+            />
+            {errors.RegistrationDate && (
+              <p className="text-red-500 text-sm mt-1">{errors.RegistrationDate}</p>
+            )}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              DNI
+            </label>
+            <input
+              type="number"
+              name="DNI"
+              value={formData.DNI}
+              onChange={handleChange}
+              onBlur={validateBlur}
+              required
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
+            />
+            {errors.DNI && (
+              <p className="text-red-500 text-sm mt-1">{errors.DNI}</p>
+            )}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Ciudad
+            </label>
+            <select
+              name="ID_City"
+              value={formData.ID_City}
+              onChange={handleChange}
+              onBlur={validateBlur}
+              required
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
+            >
+              <option value="">Selecciona una ciudad</option>
+              <option value="1">Buenos Aires</option>
+              <option value="2">Córdoba</option>
+              <option value="3">Rosario</option>
+            </select>
+            {errors.ID_City && (
+              <p className="text-red-500 text-sm mt-1">{errors.ID_City}</p>
+            )}
+          </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Contraseña
             </label>
             <input
               type="password"
-              name="password"
-              value={formData.password}
+              name="Passwords"
+              value={formData.Passwords}
               onChange={handleChange}
               onBlur={validateBlur}
               required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            {errors.Passwords && (
+              <p className="text-red-500 text-sm mt-1">{errors.Passwords}</p>
             )}
           </div>
           <div>
@@ -139,16 +220,6 @@ const Register = () => {
             <hr className="flex-grow border-gray-300" />
             <span className="px-4 text-gray-400 text-sm">Eligi que queres ser</span>
             <hr className="flex-grow border-gray-300" />
-          </div>
-          <div className="flex items-center justify-between">
-            <label className="flex items-center text-sm text-gray-700">
-              <input type="checkbox" name="isSeller" checked={formData.isSeller} onChange={handleChange} className="mr-2 rounded border-gray-300" />
-              Ser vendedor
-            </label>
-            <label className="flex items-center text-sm text-gray-700">
-              <input type="checkbox" name="isUser" checked={formData.isUser} onChange={handleChange} className="mr-2 rounded border-gray-300" />
-              Ser comprador
-            </label>
           </div>
           <button
             type="submit"

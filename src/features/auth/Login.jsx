@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import { useState } from 'react';
 
 import { loginBuyer } from '../../services/auth/auth.services';
@@ -50,7 +50,7 @@ const Login = () => {
           Inicie sesion en tu cuenta
         </h2>
         <p className="text-sm text-center text-[#40250D] mb-8">
-          No sos miembro? <a href="#" className="font-semibold underline hover:opacity-80">Unite a esta aventura</a>
+          No sos miembro? <Link to="/Register" className="font-semibold underline hover:opacity-80">Unite a esta aventura</Link>
         </p>
 
         {/* Form */}

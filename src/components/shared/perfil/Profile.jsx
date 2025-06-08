@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
+
 import avatarDefault from '../../../assets/avatarDefault.jpeg';
 import { useAuth } from "../../../services/auth/AuthContext";
 import { useNavigate, useParams } from "react-router";
@@ -206,6 +207,7 @@ const Profile = () => {
                                 e.target.onerror = null;
                                 e.target.src = avatarDefault;
                             }}
+
                         />
                         {isOwnProfile && (
                             <label className="absolute bottom-2 right-2 bg-[#401809] text-white p-1 rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-200">
