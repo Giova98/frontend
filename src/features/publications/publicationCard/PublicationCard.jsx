@@ -21,12 +21,15 @@ const PublicationCard = ({ id, title, description, img, price, status, brand, ci
         })
     }
 
+    
+
     return (
         <div
             className="
                 relative
                 group
                 w-[250px]
+                h-[430px]
                 bg-[#401809] 
                 text-[#fff] 
                 my-[15px] mx-auto 
@@ -45,7 +48,7 @@ const PublicationCard = ({ id, title, description, img, price, status, brand, ci
                     {category?.CategoryName}
                 </span>
                 <h3 className="text-[1.3rem] font-semibold leading-tight pb-[4px] mb-[2px] ">{title}</h3>
-                <p className="text-2 pb-[5px] m-[0]">{city?.province?.Name}, {city?.Name}</p>
+                <p className="text-2 pb-[5px] m-[0]">{city?.Province?.Name}, {city?.Name}</p>
                 <p className="text-[1.7rem] pb-[5px] m-[0] font-poppins">${price}</p>
                 <p className="text-[1.25rem] pb-[8px] m-[0]">{status}</p>
             </div>

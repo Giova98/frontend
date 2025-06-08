@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import { getLatestPublications } from "../../../services/api";
-import PublicationCard from "../../../features/publications/publicationCard/PublicationCard";
+import PublicationCard from "../../publications/publicationCard/PublicationCard";
 
 const Carousel = () => {
     const [publications, setPublications] = useState([]);
 
     useEffect(() => {
         getLatestPublications()
-            .then((data) => setPublications(data))
+            .then((data) => {
+                setPublications(data)
+            })
             .catch(console.error);
     }, []);
-
-    console.log(publications);
-    
 
     const duplicated = [...publications, ...publications]; // duplicado para loop continuo
 
@@ -32,8 +31,8 @@ const Carousel = () => {
                                 img={pub.ImageUrl}
                                 price={pub.Price}
                                 status={pub.State}
-                                brand={pub.brand}
-                                city={pub.city}
+                                brand={pub.Brand}
+                                city={pub.City}
                                 category={pub.Category}
                             />
                         </div>

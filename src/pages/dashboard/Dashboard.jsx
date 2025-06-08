@@ -1,38 +1,38 @@
-import Login from '../../features/auth/Login'
-import Register from '../../features/auth/Register'
-import PurchaseDetails from '../../features/publications/purchaseDetails/PurchaseDetails'
-import SellerDashboard from '../sellerDashboard/SellerDashboard'
-import SobreNosotros from '../../components/shared/pageFooter/sobreNosotros/sobreNosotros'
-import FAQ from '../../components/shared/pageFooter/FAQ/FAQ'
-import TermsAndConditions from '../../components/shared/pageFooter/terminosPolitica/TerminosPolitica'
-import HelpResources from '../../components/shared/pageFooter/recursosUtiles/RecursosUtiles'
-import PublicationFormSeller from './PublicationFormSeller'
-import ProfileSellerPage from '../sellerDashboard/ProfesilelSeller'
-import MyPosts from '../../components/shared/myPosts/MyPosts'
-import Carousel from '../../components/shared/carousel/Carousel'
-import BankDataPage from '../sellerDashboard/DataBackPage'
-import Pedidos from '../sellerDashboard/pedidosMock'
-{/* Home (por ahora contendra todos los componentes) */}
-const Dashboard = () => {
+import BrandsCarousel from '../../features/homeSections/brandsCarousel/BrandsCarousel'
+import OfferProductsCarousel from '../../features/homeSections/offerProudctsCarousel/OfferProductsCarousel'
+import MainCategories from '../../features/homeSections/MainCategories/MainCategories'
+import BenefitsSection from '../../features/homeSections/BenefitsSection/BenefitsSection'
+import TestimonialsSection from '../../features/homeSections/TestimonialsSection/TestimonialsSection'
+
+
+
+const Dashboard = ({ publicaciones }) => {
+    // Filtra productos destacados (los primeros 6 con mejor estado)
+    const featuredProducts = [...publicaciones]
+        .sort((a, b) => {
+            // Ordena por: Nuevo > Poco usado > Usado
+            const statusOrder = { 'Nuevo': 3, 'Poco usado': 2, 'Usado': 1 };
+            return statusOrder[b.status] - statusOrder[a.status] || b.quantity - a.quantity;
+        })
+        .slice(0, 6);
+
+
     return (
-        <div className="items-center justify-center w-full py-10">
-            {/* <PublicationList publicaciones={publicaciones}/> */}
+        <div className="flex flex-col items-center w-full py-10 bg-[#FDE7B9] ">
+            {/* Carrusel de destacados 
+      <FeaturedProductsCarousel products={featuredProducts} />*/}
             <Carousel />
-            <SellerDashboard />
-            <SobreNosotros/>
-            <FAQ/>
-            <TermsAndConditions/>
-            <HelpResources/>
-            <Register />
-            <Login />
-            <PurchaseDetails />
-            <MyPosts/>
-            <PublicationFormSeller/>
-            <ProfileSellerPage/>
-            <BankDataPage />
-            <Pedidos/>
+
+            {/* Nuevo carrusel de marcas */}
+            <BrandsCarousel />
+
+            <OfferProductsCarousel products={featuredProducts} />
+            <MainCategories />
+            <BenefitsSection />
+            <TestimonialsSection />
         </div>
-    )
-}
+    );
+};
 
 export default Dashboard
+

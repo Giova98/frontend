@@ -6,15 +6,18 @@ import { BrowserRouter as Router} from 'react-router';
 import { AuthProvider } from './services/auth/AuthContext';
 import AppContent from './AppContent';
 
+
 function App() {
 
   return (
+
     <AuthProvider>
       <ToastContainer/>
       <Router>
         <AppContent />
       </Router>
     </AuthProvider>
+
   );
 };
 
