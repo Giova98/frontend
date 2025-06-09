@@ -152,7 +152,6 @@ function RegisterValidations() {
     // 5. Si no hay errores, enviamos al backend
     try {
       const response = await createBuyer(formData);
-      console.log('Respuesta del servidor:', response);
 
       setSuccessMessage("Se registró correctamente");
 

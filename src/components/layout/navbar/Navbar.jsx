@@ -4,20 +4,14 @@ import logo from "../../../assets/logo.png";
 import avatarDefault from '../../../assets/avatarDefault.jpeg';
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../sideBar/SideBar";
-import SellerPolicyModal from "../../../pages/sellerDashboard/RegisterSeller";
+import SellerPolicyModal from "../../../features/sellerFeatures/DataBackPage";
 import { useAuth } from "../../../services/auth/AuthContext";
 
 export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [showPolicyModal, setShowPolicyModal] = useState(false);
-  const navigate = useNavigate();
   const { user } = useAuth();
-
-  const handleConfirmSeller = () => {
-    setShowPolicyModal(false);
-    navigate("/profile-seller");
-  };
 
   return (
     <>
@@ -34,16 +28,9 @@ export default function Navbar() {
           </Link>
 
           <ul className="flex gap-6 text-white font-medium text-lg font-mono">
-            {user?.isAdmin && (
-              <li><Link to="/panel-admin" className="hover:text-gray-300">Panel Administrador</Link></li>
-            )}
             <li><Link to="/home" className="hover:text-gray-300 transition-colors">Inicio</Link></li>
             <li><Link to="/catalogo" className="hover:text-gray-300 transition-colors">Catálogo</Link></li>
-            <li>
-              <button onClick={() => setShowPolicyModal(true)} className="hover:text-gray-300 transition-colors">
-                Vender
-              </button>
-            </li>
+            <li><Link to="/vender" className="hover:text-gray-300 transition-colors">Vender</Link></li>
             <li><Link to="/contacto" className="hover:text-gray-300 transition-colors">Contacto</Link></li>
             {user?.isAdmin && (
               <li><Link to="/panel-admin" className="hover:text-gray-300 transition-colors">Panel Administrador</Link></li>
@@ -68,7 +55,7 @@ export default function Navbar() {
 
           <Link to="/Perfil">
             <img
-              src={`http://localhost:3000${user?.avatarUrl}` || avatarDefault}
+              src={user?.avatarUrl ? `http://localhost:3000${user?.avatarUrl}` : avatarDefault}
               alt="Avatar"
               className="w-8 h-8 rounded-full object-cover"
             />

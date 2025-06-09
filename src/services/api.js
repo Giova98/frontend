@@ -36,9 +36,7 @@ export const createPublication = async (data) => {
   return await res.json();
 };
 
-export const createBuyer = async (data) => {
-  console.log(data);
-  
+export const createBuyer = async (data) => {  
   const res = await fetch(`${API_URL}/buyers`, {
     method: "POST",
     headers: {

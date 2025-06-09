@@ -23,7 +23,7 @@ import Profile from './components/shared/perfil/Profile'
 import HeroSection from './components/layout/Slider/HeroSection';
 import PublicationFormSeller from './features/sellerFeatures/PublicationFormSeller';
 import ProtectedSeller from './components/shared/routes/protected/ProtectedSeller';
-import SellerRegister from './features/auth/SellerRegister';
+import SellerRegister from './features/sellerFeatures/SellerRegister';
 
 import { getPublications } from './services/api';
 import MyOrders from './components/shared/myOrders/MyOrders';
