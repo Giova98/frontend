@@ -1,10 +1,3 @@
-/*
--cuando integre los datos del usuario validado 
-voy a tener que hacer una función asincrona adentro del useEfect que captura el formData y poder esperar la respuesta del servidor.
--Pobrar hasta tener el backend almacernar los datos en el localStoraged (es para no esperar a tener todo terminado e ir probando mientras tanto).
--Todo lo que entra en el front (validaciones) tiene que coincidir con el back.
-*/
-
 import { useState, useEffect } from "react";
 import { createBuyer } from "../../services/api";
 import { useNavigate } from "react-router";
@@ -121,15 +114,30 @@ function RegisterValidations() {
     }
     if (formData.Email.trim() === '') {
       newErrors.Email = 'El email es obligatorio';
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.Email)) {
+        newErrors.Email = 'El email no es válido';
+      }
     }
     if (formData.Phone.trim() === '') {
       newErrors.Phone = 'El teléfono es obligatorio';
+    } else {
+      const phoneRegex = /^[0-9]{7,}$/;
+      if (!phoneRegex.test(formData.Phone)) {
+        newErrors.Phone = 'Ingrese un teléfono válido';
+      }
     }
     if (formData.RegistrationDate.trim() === '') {
       newErrors.RegistrationDate = 'La fecha es obligatoria';
     }
     if (formData.DNI.trim() === '') {
       newErrors.DNI = 'El DNI es obligatorio';
+    } else {
+      const dniRegex = /^[0-9]{7,8}$/; // ejemplo para DNI de 7 u 8 dígitos
+      if (!dniRegex.test(formData.DNI)) {
+        newErrors.DNI = 'El DNI debe contener solo números (7-8 dígitos)';
+      }
     }
     if (formData.ID_City.trim() === '') {
       newErrors.ID_City = 'Debe seleccionar una ciudad';

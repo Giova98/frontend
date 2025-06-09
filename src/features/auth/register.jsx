@@ -218,7 +218,7 @@ const Register = () => {
           </div>
           <div className="flex items-center my-6">
             <hr className="flex-grow border-gray-300" />
-            <span className="px-4 text-gray-400 text-sm">Eligi que queres ser</span>
+            <span className="px-4 text-gray-400 text-sm">El primer paso hacia tu próximo instrumento</span>
             <hr className="flex-grow border-gray-300" />
           </div>
           <button
