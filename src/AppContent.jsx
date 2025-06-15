@@ -24,6 +24,7 @@ import HeroSection from './components/layout/Slider/HeroSection';
 import PublicationFormSeller from './features/sellerFeatures/PublicationFormSeller';
 import ProtectedSeller from './components/shared/routes/protected/ProtectedSeller';
 import SellerRegister from './features/sellerFeatures/SellerRegister';
+import ChatComponent from './pages/chatPage/ChatComponent'
 
 import { getPublications } from './services/api';
 import MyOrders from './components/shared/myOrders/MyOrders';
@@ -69,6 +70,7 @@ const AppContent = () => {
             <Route path="/MyPosts" element={<MyPosts />} />
             <Route path="/AñadirPublicacion" element={<PublicationFormSeller />} />
             <Route path="/vender" element={<SellerDashboard />} />
+            <Route path="/chat" element={<ChatComponent />} />
           </Route>
           <Route path="/AñadirPublicacion" element={<PublicationFormSeller />} />
           <Route path="/MisPedidos" element={<MyOrders />} />

@@ -20,7 +20,7 @@ const sidebarOptions = [
   { text: 'Mis Publicaciones', Icon: TagIcon, route: '/MyPosts' },
   { text: 'Subir Publicación', Icon: ArrowUpTrayIcon, route: '/AñadirPublicacion' },
   { text: 'Mis Pedidos', Icon: DocumentTextIcon, route: '/MisPedidos' },
-  { text: 'Chat', Icon: ChatBubbleLeftRightIcon, route: '/home' },
+  { text: 'Chat', Icon: ChatBubbleLeftRightIcon, route: '/Chat' },
   { text: 'Datos Bancarios', Icon: BanknotesIcon, route: '/home' },
   { text: 'Perfil', Icon: UserIcon, route: '/Perfil' },
 ];
