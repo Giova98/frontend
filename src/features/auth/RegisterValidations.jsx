@@ -1,10 +1,3 @@
-/*
--cuando integre los datos del usuario validado 
-voy a tener que hacer una función asincrona adentro del useEfect que captura el formData y poder esperar la respuesta del servidor.
--Pobrar hasta tener el backend almacernar los datos en el localStoraged (es para no esperar a tener todo terminado e ir probando mientras tanto).
--Todo lo que entra en el front (validaciones) tiene que coincidir con el back.
-*/
-
 import { useState, useEffect } from "react";
 import { createBuyer } from "../../services/api";
 import { useNavigate } from "react-router";
@@ -26,18 +19,6 @@ function RegisterValidations() {
     confirmPassword: '',
   });
 
-  /*
-  useEffect(() => {
-    try {
-      console.log(formData);
-
-      createBuyer(formData)
-    } catch (error) {
-
-    }
-  }, [])
-  */
-
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [successMessage, setSuccessMessage] = useState('');
@@ -56,12 +37,10 @@ function RegisterValidations() {
 
   const handleChange = (e) => {
     // 1. Desestructuración del evento para obtener propiedades clave
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
     /* 
     name: nombre del campo (debe coincidir con las keys de formData)
     value: valor para inputs normales (text, email, password, etc.)
-    type: tipo de input (para distinguir checkboxes)
-    checked: estado de checkboxes (true/false)
     */
 
     // 3. Actualización del estado de forma inmutable
@@ -72,20 +51,9 @@ function RegisterValidations() {
     /*
     - prevState: captura el estado actual garantizando que no usamos un estado obsoleto
     - [name]: usa la notación de corchetes para actualizar dinámicamente la key correspondiente
-    - fieldValue: el valor ya procesado (checked o value)
   */
   };
 
-  /*
-  const validateField = (e, message) => {
-    const validateName = e.target;
-
-    const validateNameValue = e.target.value;
-    if (validateNameValue.trim() === '') {
-      setErrors(e, message)
-    }
-  }
-  */
   const validateBlur = (e) => {
     const { name, value } = e.target;
 
@@ -104,6 +72,8 @@ function RegisterValidations() {
       });
     }
   };
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault(); // 1. Evitar que se recargue la página
 
@@ -121,15 +91,30 @@ function RegisterValidations() {
     }
     if (formData.Email.trim() === '') {
       newErrors.Email = 'El email es obligatorio';
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.Email)) {
+        newErrors.Email = 'El email no es válido';
+      }
     }
     if (formData.Phone.trim() === '') {
       newErrors.Phone = 'El teléfono es obligatorio';
+    } else {
+      const phoneRegex = /^[0-9]{7,}$/;
+      if (!phoneRegex.test(formData.Phone)) {
+        newErrors.Phone = 'Ingrese un teléfono válido';
+      }
     }
     if (formData.RegistrationDate.trim() === '') {
       newErrors.RegistrationDate = 'La fecha es obligatoria';
     }
     if (formData.DNI.trim() === '') {
       newErrors.DNI = 'El DNI es obligatorio';
+    } else {
+      const dniRegex = /^[0-9]{7,8}$/; 
+      if (!dniRegex.test(formData.DNI)) {
+        newErrors.DNI = 'El DNI debe contener solo números (7-8 dígitos)';
+      }
     }
     if (formData.ID_City.trim() === '') {
       newErrors.ID_City = 'Debe seleccionar una ciudad';
