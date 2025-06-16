@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../services/auth/AuthContext";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ onRefresh }) => {
   const { token } = useAuth();
   const [users, setUsers] = useState([]);
   const [publications, setPublications] = useState([]);
@@ -54,8 +54,14 @@ const AdminDashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setUsers(users.filter((u) => u.ID_Buyers !== id));
       closeConfirm();
+
+      if (onRefresh) {
+        onRefresh();
+      } else {
+        setUsers(users.filter((u) => u.ID_Buyers !== id));
+      }
+
     } catch (error) {
       console.error("Error al eliminar usuario", error);
       closeConfirm();
@@ -70,15 +76,22 @@ const AdminDashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setPublications(publications.filter((p) => p.ID_Publications !== id));
+
       closeConfirm();
+
+      if (onRefresh) {
+        onRefresh();
+      } else {
+        setPublications(publications.filter((p) => p.ID_Publication !== id));
+      }
+      fetchPublications();
+
     } catch (error) {
       console.error("Error al eliminar publicación", error);
       closeConfirm();
     }
   };
 
-  // Abre modal de confirmación con datos
   const openConfirm = (type, id) => {
     setConfirmData({
       show: true,
@@ -91,7 +104,6 @@ const AdminDashboard = () => {
     });
   };
 
-  // Cierra modal de confirmación
   const closeConfirm = () => {
     setConfirmData({
       show: false,
@@ -101,7 +113,6 @@ const AdminDashboard = () => {
     });
   };
 
-  // Confirma la acción según el tipo
   const confirmAction = () => {
     if (confirmData.type === "user") {
       deleteUser(confirmData.id);
@@ -143,7 +154,7 @@ const AdminDashboard = () => {
         <ul className="space-y-2">
           {publications.map((pub) => (
             <li
-              key={pub.ID_Publications}
+              key={pub.ID_Publication}
               className="bg-white shadow p-4 rounded flex justify-between items-center"
             >
               <div>
@@ -152,7 +163,7 @@ const AdminDashboard = () => {
                 </p>
               </div>
               <button
-                onClick={() => openConfirm("publication", pub.ID_Publications)}
+                onClick={() => openConfirm("publication", pub.ID_Publication)}
                 className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
               >
                 Eliminar

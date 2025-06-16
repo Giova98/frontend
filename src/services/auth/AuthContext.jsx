@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Ya que inicializamos con localStorage, solo seteamos loading a false acá
     setLoading(false);
   }, []);
 

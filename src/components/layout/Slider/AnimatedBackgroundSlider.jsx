@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { useAnimatedSlider } from '../../hooks/useAnimatedSlider.js'; // ajustá la ruta
+import { useAnimatedSlider } from '../../hooks/useAnimatedSlider.js'; 
 
 const AnimatedBackgroundSlider = ({ images, overlay = true }) => {
-  const { currentIndex } = useAnimatedSlider(images, 8000); // 8 segundos como en tu animación
+  const { currentIndex } = useAnimatedSlider(images, 8000);
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden">

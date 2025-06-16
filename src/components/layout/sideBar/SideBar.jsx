@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router';
 
 const sidebarOptions = [
   { text: 'Home', Icon: Squares2X2Icon, route: '/home' },
-  { text: 'Mis Publicaciones', Icon: TagIcon, route: '/MyPosts' },
+  { text: 'Mis Publicaciones', Icon: TagIcon, route: '/vender' },
   { text: 'Subir Publicación', Icon: ArrowUpTrayIcon, route: '/AñadirPublicacion' },
   { text: 'Mis Pedidos', Icon: DocumentTextIcon, route: '/MisPedidos' },
   { text: 'Chat', Icon: ChatBubbleLeftRightIcon, route: '/home' },
