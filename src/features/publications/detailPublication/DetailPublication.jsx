@@ -20,7 +20,7 @@ const DetailPublication = () => {
       try {
         const data = await getSellerByPublicationId(id);
         setSeller(data);
-
+        console.log(data);
       } catch (err) {
         console.error(err);
       }
@@ -34,6 +34,14 @@ const DetailPublication = () => {
       state: { publicacion: { id, title, img, price } }
     });
   };
+  /*const hadleChatClick = () => {
+    fetch('https:localhost:3000/chat', {
+      method: 'POST',
+      body: JSON.stringify(
+       seler_id: 
+      )
+    })
+  }*/
 
   return (
     <div className="relative bg-[#FDE7B9] rounded-[8px] max-w-[900px] mx-auto my-8 p-8">

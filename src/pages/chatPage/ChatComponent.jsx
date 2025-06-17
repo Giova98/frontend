@@ -1,38 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import fondo2 from '../../assets/fondo2.png'
 import fondo3 from '../../assets/fondo3.png'
 
 const ChatComponent = () => {
-  const [activeChat, setActiveChat] = useState('Roberts Cases');
+  const [activeChat, setActiveChat] = useState([]);
   const [message, setMessage] = useState('');
-  const [conversations, setConversations] = useState({
-    'Marquinho Galarza': [
-      { sender: 'Marquinho Galarza', time: '11:43', text: "Eu ya pudiste terminar el chat? Yo me puse a terminar el CRUD tal y como acordamos", type: 'text' },
-      { sender: 'Giovani Seta', time: '11:43', text: "Si ya lo estoy por terminar", type: 'text' },
-      { sender: 'Marquinho Galarza', time: '11:43', text: "Manda un video al grupo cuando lo termines, asi lo vemos entre todos el avance", type: 'text' },
-      { sender: 'Giovani Seta', time: '11:43', text: "Dale, lo voy a mandar ahora el video asi ven como quedo. Che vos sabes porque Alessandro anda medio depresivo?", type: 'text' },
-      { sender: 'Marquinho Galarza', time: '11:43', text: "Esta raro, es verdad. Anda muy deprimido ultimamente.", type: 'text' }
-    ],
-    'Leslie Livingston': [
-      { sender: 'Leslie Livingston', time: '14:23', text: "Yes, we can do that", type: 'text' }
-    ],
-    'Neil Sims': [
-      { sender: 'Neil Sims', time: '20:02', text: "Voice message", type: 'voice' }
-    ],
-    // ... otros chats
-  });
-
-  const chatList = [
-    { name: 'Marquinho Galarza', lastMessage: 'Typing...', time: '10:00', unread: true },
-    { name: 'Javier Milei', lastMessage: 'Che negro ya terminaste la pagina?', time: '14:23' },
-    { name: 'Cristina Fernandez Kirchner', lastMessage: 'Querido apurate con la pagina!', time: '20:02' },
-    { name: 'La colombiana', lastMessage: 'Son 300$ la hora papi', time: '09:45' },
-    { name: 'Marcos Galperin', lastMessage: 'Envio una foto', time: '15h' },
-    { name: 'Lionel Messi', lastMessage: 'Gracias por tu mensaje Gio!', time: '16h' },
-    { name: 'Cristiano Ronaldo', lastMessage: 'Listo negrito, ahora te voy a pagar', time: '18h' },
-    { name: 'Pintor Austriaco', lastMessage: 'Viste algun boliviano?...', time: '24h' },
-    { name: 'Iosif Stallin', lastMessage: 'Viste algun nazi?', time: '21h' }
-  ];
+  const [chatlist, setChatlist] = useState([]);
+  const [conversations, setConversations] = useState({})
+  
+  useEffect(() => {
+    
+    fetch('https://localhost:3000/chat')
+    .then(res => res.json())
+    .then(data => {
+      setConversations()
+    })
+    .catch(console.log('error al traer el mensaje'))
+  }, []);
 
   const handleSendMessage = () => {
     if (message.trim() === '') return;
@@ -51,6 +35,7 @@ const ChatComponent = () => {
 
     setMessage('');
   };
+
 
   return(
     <div className="grid grid-cols-[_1fr_ _1fr_ _1fr_ _1fr_] grid-rows-1 rounded-lg overflow-hidden shadow-lg relative">
@@ -88,7 +73,7 @@ const ChatComponent = () => {
 
         {/* Lista de conversaciones */}
         <div className="flex-1 overflow-y-auto">
-          {chatList.map((chat, index) => (
+          {chatlist.map((chat, index) => (
             <div
               key={index}
               className={`flex items-center p-3 border-b border-[#40250D] cursor-pointer hover:bg-[#60250D] hover:bg-opacity-10 ${activeChat === chat.name ? 'bg-[#60250D] bg-opacity-20' : ''}`}
