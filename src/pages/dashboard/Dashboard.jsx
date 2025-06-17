@@ -7,15 +7,8 @@ import Carousel from '../../features/homeSections/carousel/Carousel'
 
 
 const Dashboard = ({ publicaciones }) => {
-    // Filtra productos destacados (los primeros 6 con mejor estado)
-    const featuredProducts = [...publicaciones]
-        .sort((a, b) => {
-            // Ordena por: Nuevo > Poco usado > Usado
-            const statusOrder = { 'Nuevo': 3, 'Poco usado': 2, 'Usado': 1 };
-            return statusOrder[b.status] - statusOrder[a.status] || b.quantity - a.quantity;
-        })
-        .slice(0, 6);
 
+    const onlyNewPublications = publicaciones.filter(p => p.State === 'nuevo');
 
     return (
         <div className="flex flex-col items-center w-full py-10 bg-[#FDE7B9] ">
@@ -26,7 +19,7 @@ const Dashboard = ({ publicaciones }) => {
             {/* Nuevo carrusel de marcas */}
             <BrandsCarousel />
 
-            <OfferProductsCarousel products={featuredProducts} />
+            <OfferProductsCarousel products={onlyNewPublications} />
             <MainCategories />
             <BenefitsSection />
             <TestimonialsSection />

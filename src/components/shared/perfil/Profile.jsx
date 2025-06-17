@@ -27,6 +27,8 @@ const Profile = () => {
     const [toast, setToast] = useState({ message: "", type: "success", visible: false });
 
     const { id } = useParams();
+    console.log(id);
+    
 
     const navigate = useNavigate();
 
@@ -36,6 +38,7 @@ const Profile = () => {
                 try {
                     const res = await fetch(`http://localhost:3000/buyers/${id}`);
                     const data = await res.json();
+                    
                     setSellerData({
                         profileImage: data.avatarUrl
                             ? data.avatarUrl.startsWith("/") ? data.avatarUrl : data.avatarUrl

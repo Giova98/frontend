@@ -39,7 +39,11 @@ const AppContent = () => {
 
   const fetchPublications = () => {
     getPublications()
-      .then(data => setPublicaciones(data))
+      .then(data => {
+        setPublicaciones(data)
+        console.log(data);
+
+      })
       .catch(console.error);
   };
 
@@ -70,10 +74,10 @@ const AppContent = () => {
           <Route path="/registro-vendedor" element={<SellerRegister />} />
           <Route element={<ProtectedSeller />}>
             <Route path="/MyPosts" element={<MyPosts />} />
-            <Route path="/AñadirPublicacion" element={<PublicationFormSeller onRefresh={fetchPublications}/>} />
+            <Route path="/AñadirPublicacion" element={<PublicationFormSeller onRefresh={fetchPublications} />} />
             <Route path="/vender" element={<SellerDashboard />} />
-            <Route path="/chat" element={<ChatComponent />} />
           </Route>
+          <Route path="/chat" element={<ChatComponent />} />
           <Route path="/MisPedidos" element={<MyOrders />} />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/SobreNosotros" element={<SobreNosotros />} />
@@ -89,7 +93,7 @@ const AppContent = () => {
           <Route path="/catalogo/:id/purchase-details" element={<PurchaseDetails />} />
           <Route path='/Slider' element={<HeroSection />} />
           <Route element={<ProtectedAdminRoute />}>
-            <Route path="/panel-admin" element={<AdminDashboard onRefresh={fetchPublications}/>} />
+            <Route path="/panel-admin" element={<AdminDashboard onRefresh={fetchPublications} />} />
           </Route>
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />

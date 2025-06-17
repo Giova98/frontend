@@ -20,7 +20,7 @@ const DetailPublication = () => {
       try {
         const data = await getSellerByPublicationId(id);
         setSeller(data);
-
+        
       } catch (err) {
         console.error(err);
       }
@@ -76,7 +76,7 @@ const DetailPublication = () => {
       <div className="mt-8">
         <h3 className="font-bold">Vendedor:</h3>
         {seller ? (
-          <Link to={`/Perfil/${seller.ID_Sellers}`}>
+          <Link to={`/Perfil/${seller.Buyer?.ID_Buyers}`}>
             <div className="flex items-center gap-3 mt-2">
               <img
                 src={`http://localhost:3000${seller.Buyer?.avatarUrl}` || avatarDefault}
