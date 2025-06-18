@@ -8,20 +8,20 @@ const FeaturedProductsCarousel = ({ products }) => {
   const VISIBLE_PRODUCTS = 3;
 
   const nextSlide = () => {
-    setCurrentIndex(prev => 
+    setCurrentIndex(prev =>
       prev >= products.length - VISIBLE_PRODUCTS ? 0 : prev + 1
     );
   };
 
   const prevSlide = () => {
-    setCurrentIndex(prev => 
+    setCurrentIndex(prev =>
       prev <= 0 ? products.length - VISIBLE_PRODUCTS : prev - 1
     );
   };
 
   useEffect(() => {
     if (products.length <= VISIBLE_PRODUCTS) return;
-    
+
     const interval = setInterval(() => {
       if (!isHovered) nextSlide();
     }, 5000);
@@ -32,26 +32,26 @@ const FeaturedProductsCarousel = ({ products }) => {
   if (products.length === 0) return null;
 
   return (
-    <div 
+    <div
       className="w-full bg-[#FDE7B9] py-8"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="max-w-[1000px] mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8 text-[#401809]">
-          Nuevas ofertas
+          Ofertas en buen estado
         </h2>
-        
+
         <div className="relative overflow-hidden">
           {products.length > VISIBLE_PRODUCTS && (
             <>
-              <button 
+              <button
                 onClick={prevSlide}
                 className="absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-[#FFD8A9] text-[#401809] p-2 rounded-full shadow-md hover:bg-[#9D9B8F] transition"
               >
                 ‹
               </button>
-              <button 
+              <button
                 onClick={nextSlide}
                 className="absolute right-0 top-1/2 z-10 -translate-y-1/2 bg-[#FFD8A9] text-[#401809] p-2 rounded-full shadow-md hover:bg-[#9D9B8F] transition"
               >
@@ -60,20 +60,31 @@ const FeaturedProductsCarousel = ({ products }) => {
             </>
           )}
 
-          <div 
+          <div
             className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${currentIndex * (100 / VISIBLE_PRODUCTS)}%)` }}
           >
             {products.map((product) => (
-              <div 
-                key={product.id} 
+              <div
+                key={product.ID_Publication}
                 className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 px-2"
               >
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   className="h-full"
                 >
-                  <PublicationCard {...product} />
+                  <PublicationCard
+                    key={product.ID_Publication}
+                    id={product.ID_Publication}
+                    title={product.Title}
+                    description={product.DescriptionProduct}
+                    img={product.ImageUrl}
+                    price={product.Price}
+                    status={product.State}
+                    brand={product.Brand}
+                    city={product.City}
+                    category={product.Category}
+                  />
                 </motion.div>
               </div>
             ))}
@@ -86,11 +97,10 @@ const FeaturedProductsCarousel = ({ products }) => {
               <button
                 key={i}
                 onClick={() => setCurrentIndex(i * VISIBLE_PRODUCTS)}
-                className={`w-3 h-3 rounded-full ${
-                  currentIndex >= i * VISIBLE_PRODUCTS && 
-                  currentIndex < (i + 1) * VISIBLE_PRODUCTS ? 
-                  'bg-[#FFD8A9]' : 'bg-[#9D9B8F]'
-                }`}
+                className={`w-3 h-3 rounded-full ${currentIndex >= i * VISIBLE_PRODUCTS &&
+                    currentIndex < (i + 1) * VISIBLE_PRODUCTS ?
+                    'bg-[#FFD8A9]' : 'bg-[#9D9B8F]'
+                  }`}
               />
             ))}
           </div>
@@ -99,5 +109,6 @@ const FeaturedProductsCarousel = ({ products }) => {
     </div>
   );
 };
+
 
 export default FeaturedProductsCarousel;

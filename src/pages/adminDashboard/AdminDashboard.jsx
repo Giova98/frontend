@@ -40,6 +40,7 @@ const AdminDashboard = ({ onRefresh }) => {
         },
       });
       const data = await res.json();
+      
       setPublications(data);
     } catch (error) {
       console.error("Error al obtener publicaciones", error);
