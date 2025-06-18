@@ -72,8 +72,8 @@ const AppContent = () => {
             <Route path="/MyPosts" element={<MyPosts />} />
             <Route path="/AñadirPublicacion" element={<PublicationFormSeller onRefresh={fetchPublications}/>} />
             <Route path="/vender" element={<SellerDashboard />} />
-            <Route path="/chat" element={<ChatComponent />} />
           </Route>
+          <Route path="/chat" element={<ChatComponent />} />
           <Route path="/MisPedidos" element={<MyOrders />} />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/SobreNosotros" element={<SobreNosotros />} />

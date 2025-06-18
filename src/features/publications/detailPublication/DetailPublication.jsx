@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
+import {useAuth} from '../../../services/auth/AuthContext.jsx'
 import { Link, useLocation, useNavigate } from 'react-router';
 import { Close } from '@mui/icons-material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -13,14 +14,16 @@ const DetailPublication = () => {
 
   const publicacion = location.state.publicacion;
   const { id, title, description, img, price, status, brand, city, category } = publicacion;
-
-
+  const {user} = useAuth()
+ 
   useEffect(() => {
     const fetchSeller = async () => {
       try {
         const data = await getSellerByPublicationId(id);
         setSeller(data);
         console.log(data);
+
+
       } catch (err) {
         console.error(err);
       }
@@ -34,14 +37,17 @@ const DetailPublication = () => {
       state: { publicacion: { id, title, img, price } }
     });
   };
-  /*const hadleChatClick = () => {
-    fetch('https:localhost:3000/chat', {
+  const hadleChatClick = () => {
+    fetch('http://localhost:3000/chat', {
       method: 'POST',
-      body: JSON.stringify(
-       seler_id: 
-      )
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: user.id,
+        seller_id: seller.Buyer?.ID_Buyers
+      })
     })
-  }*/
+    navigate('/chat')
+  }
 
   return (
     <div className="relative bg-[#FDE7B9] rounded-[8px] max-w-[900px] mx-auto my-8 p-8">
@@ -77,6 +83,12 @@ const DetailPublication = () => {
             onClick={handleBuyClick}
           >
             Comprar ahora
+          </button>
+          <button
+            className="mt-4 bg-[#401809] text-white px-6 py-2 rounded font-semibold hover:bg-[#4e332d]"
+            onClick={hadleChatClick}
+          >
+            Chatear
           </button>
         </div>
       </div>

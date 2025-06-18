@@ -1,22 +1,29 @@
 import { useEffect, useState } from 'react';
 import fondo2 from '../../assets/fondo2.png'
 import fondo3 from '../../assets/fondo3.png'
+import { useAuth } from '../../services/auth/AuthContext';
 
 const ChatComponent = () => {
   const [activeChat, setActiveChat] = useState([]);
   const [message, setMessage] = useState('');
   const [chatlist, setChatlist] = useState([]);
-  const [conversations, setConversations] = useState({})
-  
+  const [conversations, setConversations] = useState([])
+
+  const { user } = useAuth();
+
   useEffect(() => {
-    
-    fetch('https://localhost:3000/chat')
-    .then(res => res.json())
-    .then(data => {
-      setConversations()
-    })
-    .catch(console.log('error al traer el mensaje'))
+    FechtChats()
+      .then(data => {
+        setConversations(data)
+        console.log(data);
+      })
+      .catch(console.log('error al traer el mensaje'))
   }, []);
+
+  const FechtChats = async () => {
+    const res = await fetch(`http://localhost:3000/chat/${user.id}`)
+    return await res.json()
+  }
 
   const handleSendMessage = () => {
     if (message.trim() === '') return;
@@ -37,7 +44,7 @@ const ChatComponent = () => {
   };
 
 
-  return(
+  return (
     <div className="grid grid-cols-[_1fr_ _1fr_ _1fr_ _1fr_] grid-rows-1 rounded-lg overflow-hidden shadow-lg relative">
 
       {/* Imagen izquierda */}
@@ -103,13 +110,13 @@ const ChatComponent = () => {
         {/* Encabezado del chat */}
         <div className="p-4 border-b border-[#40250D] bg-[#60250D] bg-opacity-10 flex items-center">
           <div className="flex-shrink-0 h-10 w-10 rounded-full bg-[#40250D] flex items-center justify-center text-white">
-            {activeChat.charAt(0)}
+            {/*activeChat.charAt(0)*/}
           </div>
           <div className="ml-3">
             <h3 className="text-lg font-medium text-[#40250D]">{activeChat}</h3>
             <p className="text-xs text-gray-500">
               {conversations[activeChat]?.[conversations[activeChat]?.length - 1]?.time || ''} •
-              {chatList.find(c => c.name === activeChat)?.lastMessage.includes('Typing') ? ' Typing...' : ' Online'}
+              {chatlist.find(c => c.name === activeChat)?.lastMessage.includes('Typing') ? ' Typing...' : ' Online'}
             </p>
           </div>
         </div>
