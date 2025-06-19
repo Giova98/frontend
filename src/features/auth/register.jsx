@@ -1,38 +1,47 @@
 import { useState } from "react";
 import fondo from "../../assets/fondo.png"; // Asegurate de que esta ruta sea correcta
-import RegisterValidations from "../auth/RegisterValidations"; 
+import RegisterValidations from "../auth/RegisterValidations";
+import { Link } from "react-router";
+import { useAuth } from "../../services/auth/AuthContext";
 
-const Register = () => {
-
-  const { formData, handleChange, validateBlur, errors, handleSubmit } = RegisterValidations();
+const Register = ({ onRegisterSuccess }) => {
+  const { formData, handleChange, validateBlur, errors, handleSubmit } = RegisterValidations(onRegisterSuccess);
   const [successMessage, setSuccessMessage] = useState("");
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className="min-h-screen flex">
-      {/* Left Side - Form */}
       <div className="w-full max-w-md mx-auto px-8 py-12 lg:w-1/2 flex flex-col justify-center">
-        {/* Logo */}
-        <div className="flex justify-center mb-6">
-          <svg
-            className="h-8 w-8 text-[#40250D]"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M12 0L10.59 1.41 18.17 9H0v2h18.17l-7.58 7.59L12 24l12-12L12 0z" />
-          </svg>
-        </div>
+        {!isAuthenticated && (
+          <>
+            <div className="flex justify-center mb-6">
+              <svg
+                className="h-8 w-8 text-[#40250D]"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 0L10.59 1.41 18.17 9H0v2h18.17l-7.58 7.59L12 24l12-12L12 0z" />
+              </svg>
+            </div>
 
-        {/* Title */}
-        <h2 className="text-2xl font-bold text-center text-[#222] mb-2">
-          Crea tu cuenta
-        </h2>
-        <p className="text-sm text-center text-[#444] mb-8">
-          Ya tenés una cuenta?{" "}
-          <a href="#" className="text-[#40250D] hover:underline">
-            Iniciá sesión
-          </a>
-        </p>
+            <h2 className="text-2xl font-bold text-center text-[#222] mb-2">
+              Crea tu cuenta
+            </h2>
+            <p className="text-sm text-center text-[#444] mb-8">
+              Ya tenés una cuenta?{" "}
+              <Link to="/login" className="text-[#40250D] hover:underline">
+                Iniciá sesión
+              </Link>
+            </p>
+          </>
+        )}
 
-        {/* Mensaje de éxito */}
+        {isAuthenticated && (
+          <h2 className="text-2xl w-[200px] font-bold text-center text-[#222] mb-2">
+            Crea un Usuario
+          </h2>
+        )}
+
         {successMessage && (
           <p className="text-green-600 font-semibold mb-4 text-center">
             {successMessage}
@@ -231,13 +240,15 @@ const Register = () => {
       </div>
 
       {/* Right Side - Image */}
-      <div className="hidden lg:block w-1/2">
-        <img
-          src={fondo}
-          alt="Register"
-          className="h-full w-full object-cover"
-        />
-      </div>
+      {!isAuthenticated && (
+        <div className="hidden lg:block w-1/2">
+          <img
+            src={fondo}
+            alt="Register"
+            className="h-full w-full object-cover"
+          />
+        </div>
+      )}
     </div>
   );
 };

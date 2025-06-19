@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { createBuyer } from "../../services/api";
 import { useNavigate } from "react-router";
+import { useAuth } from "../../services/auth/AuthContext";
 
-function RegisterValidations() {
+function RegisterValidations(onRegisterSuccess) {
 
   //formData: Describe claramente que contiene datos de formulario
   //setFormData: Es la funcion actualizadora
@@ -22,6 +23,8 @@ function RegisterValidations() {
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [successMessage, setSuccessMessage] = useState('');
+
+  const { isAuthenticated } = useAuth();
 
   const navigate = useNavigate();
 
@@ -73,7 +76,7 @@ function RegisterValidations() {
     }
   };
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault(); // 1. Evitar que se recargue la página
 
@@ -111,7 +114,7 @@ function RegisterValidations() {
     if (formData.DNI.trim() === '') {
       newErrors.DNI = 'El DNI es obligatorio';
     } else {
-      const dniRegex = /^[0-9]{7,8}$/; 
+      const dniRegex = /^[0-9]{7,8}$/;
       if (!dniRegex.test(formData.DNI)) {
         newErrors.DNI = 'El DNI debe contener solo números (7-8 dígitos)';
       }
@@ -139,11 +142,24 @@ function RegisterValidations() {
       const response = await createBuyer(formData);
 
       setSuccessMessage("Se registró correctamente");
+      onRegisterSuccess();
 
-      // Esperar 2 segundos antes de redirigir
-      setTimeout(() => {
+      setFormData({
+        BuyersName: '',
+        BuyersLastName: '',
+        NickName: '',
+        Email: '',
+        Phone: '',
+        RegistrationDate: '',
+        DNI: '',
+        ID_City: '',
+        Passwords: '',
+        confirmPassword: '',
+      });
+
+      if (!isAuthenticated) {
         navigate('/login');
-      }, 2000);
+      }
 
     } catch (error) {
       console.error('Error al crear usuario:', error);

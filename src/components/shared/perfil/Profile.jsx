@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
+import { ArrowLeft } from "lucide-react";
 
 import avatarDefault from '../../../assets/avatarDefault.jpeg';
 import { useAuth } from "../../../services/auth/AuthContext";
@@ -20,15 +21,16 @@ const Toast = ({ message, type = "success", onClose }) => {
 };
 
 const Profile = () => {
-    const { user, setUser } = useAuth();
     const [sellerData, setSellerData] = useState(null);
     const [editingField, setEditingField] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
     const [toast, setToast] = useState({ message: "", type: "success", visible: false });
-
-    const { id } = useParams();
-    console.log(id);
     
+    const { user, setUser } = useAuth();
+    console.log(user);
+    
+    const { id } = useParams();
+
 
     const navigate = useNavigate();
 
@@ -38,7 +40,7 @@ const Profile = () => {
                 try {
                     const res = await fetch(`http://localhost:3000/buyers/${id}`);
                     const data = await res.json();
-                    
+
                     setSellerData({
                         profileImage: data.avatarUrl
                             ? data.avatarUrl.startsWith("/") ? data.avatarUrl : data.avatarUrl
@@ -199,7 +201,11 @@ const Profile = () => {
 
     return (
         <>
-            <div className="max-w-xl mx-auto bg-[#FDE7B9] p-6 rounded-2xl mt-10">
+            <div className="min-w-full mx-auto bg-[#FDE7B9] p-6 rounded-2xl mt-10 relative">
+                <ArrowLeft
+                    className="w-8 h-8 cursor-pointer absolute left-8 top-8 -translate-y-1/2"
+                    onClick={() => navigate(-1)}
+                />
                 <div className="flex flex-col items-center">
                     <div className="relative group">
                         <img
@@ -226,39 +232,40 @@ const Profile = () => {
                     </div>
                     <h2 className="text-2xl mt-4 text-[#401809]">{sellerData.name} {sellerData.lastname}</h2>
                     <span className="text-[#363738] text-sm">@{sellerData.nickname}</span>
-                </div>
 
-                <div className="mt-8 space-y-6">
-                    {renderField("Nombre", "name")}
-                    {renderField("Apellido", "lastname")}
-                    {renderField("Nickname", "nickname")}
-                    {renderField("Correo", "email")}
-                    {renderField("Teléfono", "phone")}
-                    {renderField("País", "country")}
-                    {renderField("Provincia", "province")}
-                    {renderField("Ciudad", "city")}
-                </div>
 
-                {isOwnProfile && (
-                    <div className="mt-6 text-center">
-                        <button 
-                            onClick={handleNavigateSellerDashboard}
-                            className="bg-[#401809] text-[#FFE0C4] px-4 py-2 rounded-full hover:bg-[#40250D] transition-colors">
-                            Ir al Panel de Publicaciones
-                        </button>
+                    <div className="mt-8 space-y-6">
+                        {renderField("Nombre", "name")}
+                        {renderField("Apellido", "lastname")}
+                        {renderField("Nickname", "nickname")}
+                        {renderField("Correo", "email")}
+                        {renderField("Teléfono", "phone")}
+                        {renderField("País", "country")}
+                        {renderField("Provincia", "province")}
+                        {renderField("Ciudad", "city")}
                     </div>
-                )}
 
-                {isOwnProfile && (
-                    <div className="mt-6 text-center">
-                        <button
-                            onClick={handleSaveChanges}
-                            className="bg-[#401809] text-[#FFE0C4] px-4 py-2 rounded-full hover:bg-[#40250D] transition-colors"
-                        >
-                            Guardar Cambios
-                        </button>
-                    </div>
-                )}
+                    {isOwnProfile && (
+                        <div className="mt-6 text-center">
+                            <button
+                                onClick={handleNavigateSellerDashboard}
+                                className="bg-[#401809] text-[#FFE0C4] px-4 py-2 rounded-full hover:bg-[#40250D] transition-colors">
+                                Ir al Panel de Publicaciones
+                            </button>
+                        </div>
+                    )}
+
+                    {isOwnProfile && (
+                        <div className="mt-6 text-center">
+                            <button
+                                onClick={handleSaveChanges}
+                                className="bg-[#401809] text-[#FFE0C4] px-4 py-2 rounded-full hover:bg-[#40250D] transition-colors"
+                            >
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {toast.visible && (

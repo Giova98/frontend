@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Squares2X2Icon,
@@ -25,13 +25,15 @@ const sidebarOptions = [
   { text: 'Perfil', Icon: UserIcon, route: '/Perfil' },
 ];
 const SideBar = ({ open, onClose }) => {
-  const { logout } = useAuth();
+  const [confirmData, setConfirmData] = useState({
+    show: false,
+    id: null,
+    message: '',
+  });
+
+  const { logout, user, token } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -40,6 +42,49 @@ const SideBar = ({ open, onClose }) => {
     if (open) document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [open, onClose]);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  const openConfirm = (id) => {
+    setConfirmData({
+      show: true,
+      id,
+      message: "¿Eliminar este usuario?"
+    });
+  };
+
+  const closeConfirm = () => {
+    setConfirmData({
+      show: false,
+      id: null,
+      message: "",
+    });
+  };
+
+  const confirmAction = () => {
+    deleteUser(confirmData.id);
+  };
+
+  const deleteUser = async (id) => {
+    try {
+      await fetch(`http://localhost:3000/admin/usuarios/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      closeConfirm();
+      logout();
+      navigate('/login');
+
+    } catch (error) {
+      console.error("Error al eliminar usuario", error);
+      closeConfirm();
+    }
+  };
 
   return (
     <>
@@ -88,7 +133,6 @@ const SideBar = ({ open, onClose }) => {
 
         <hr className="border-t border-[#FFE0C4] m-3" />
 
-        {/* Cerrar sesión */}
         <button
           onClick={handleLogout}
           className="group flex items-center space-x-4 py-4 px-4 w-full text-left hover:bg-[#401809] focus:outline-none focus:ring-2 focus:ring-[#FFE0C4]"
@@ -98,7 +142,39 @@ const SideBar = ({ open, onClose }) => {
             Cerrar sesión
           </span>
         </button>
+
+        <button
+          onClick={() => openConfirm(user.id)}
+          className="group flex items-center space-x-4 py-4 px-4 w-full text-left hover:bg-[#401809] focus:outline-none focus:ring-2 focus:ring-[#FFE0C4]"
+        >
+          <ArrowLeftOnRectangleIcon className="h-6 w-6 text-red-400 group-hover:text-[#FFE0C4]" />
+          <span className="text-red-400 group-hover:text-[#FFE0C4] font-poppins text-lg">
+            Eliminar usuario
+          </span>
+        </button>
       </motion.div>
+
+      {confirmData.show && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-80 max-w-full shadow-lg">
+            <p className="mb-4">{confirmData.message}</p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={closeConfirm}
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={confirmAction}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

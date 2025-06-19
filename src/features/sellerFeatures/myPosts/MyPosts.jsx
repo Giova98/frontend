@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { notifySuccessAdd } from '../../../pages/notification/notification';
 import { toast } from 'react-toastify';
 
-const MyPosts = ({ posts, setPosts }) => {
+const MyPosts = ({ posts, setPosts, onRefresh }) => {
   const [editingPost, setEditingPost] = useState(null);
   const [formData, setFormData] = useState({});
 
@@ -80,6 +80,7 @@ const MyPosts = ({ posts, setPosts }) => {
           p.ID_Publication === editingPost ? { ...updatedPost } : p
         )
       );
+      onRefresh();
       notifySuccessAdd('¡Actualización con éxito!');
       closeEditor();
     }
@@ -162,21 +163,20 @@ const MyPosts = ({ posts, setPosts }) => {
                 <p><strong>Estado:</strong> {post.State}</p>
               </div>
 
-              {/* Botones arriba a la derecha */}
-              <div className="absolute top-2 right-2 flex space-x-2">
-                <button
-                  onClick={() => openEditor(post)}
-                  className="bg-[#363738] text-[#FFE0C4] px-3 py-1 rounded-md hover:bg-[#292a2b] transition"
-                  aria-label={`Editar publicación ${post.Title}`}
-                >
-                  Editar
-                </button>
+              <div className="absolute top-2 left-2 flex space-x-[130px]">
                 <button
                   onClick={() => handleDelete(post.ID_Publication)}
                   className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition"
                   aria-label={`Eliminar publicación ${post.Title}`}
                 >
                   Eliminar
+                </button>
+                <button
+                  onClick={() => openEditor(post)}
+                  className="bg-[#363738] text-[#FFE0C4] px-3 py-1 rounded-md hover:bg-[#292a2b] transition"
+                  aria-label={`Editar publicación ${post.Title}`}
+                >
+                  Editar
                 </button>
               </div>
             </motion.div>
