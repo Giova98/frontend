@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../../services/auth/AuthContext';
 
 
-const SellerDashboard = () => {
+const SellerDashboard = ({ onRefresh }) => {
 
     const [posts, setPosts] = useState([]);
     const { user } = useAuth();
@@ -153,7 +153,7 @@ const SellerDashboard = () => {
                 </div>
             </div>
 
-            <MyPosts posts={posts} setPosts={setPosts} />
+            <MyPosts posts={posts} setPosts={setPosts} onRefresh={onRefresh}/>
         </>
     );
 };

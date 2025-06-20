@@ -1,5 +1,5 @@
 import BrandsCarousel from '../../features/homeSections/brandsCarousel/BrandsCarousel'
-import OfferProductsCarousel from '../../features/homeSections/offerProudctsCarousel/OfferProductsCarousel'
+import FeaturedProductsCarousel from '../../features/homeSections/offerProudctsCarousel/OfferProductsCarousel'
 import MainCategories from '../../features/homeSections/MainCategories/MainCategories'
 import BenefitsSection from '../../features/homeSections/BenefitsSection/BenefitsSection'
 import TestimonialsSection from '../../features/homeSections/TestimonialsSection/TestimonialsSection'
@@ -19,7 +19,7 @@ const Dashboard = ({ publicaciones }) => {
             {/* Nuevo carrusel de marcas */}
             <BrandsCarousel />
 
-            <OfferProductsCarousel products={onlyNewPublications} />
+            <FeaturedProductsCarousel products={onlyNewPublications} />
             <MainCategories />
             <BenefitsSection />
             <TestimonialsSection />

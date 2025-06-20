@@ -41,7 +41,6 @@ const AppContent = () => {
     getPublications()
       .then(data => {
         setPublicaciones(data)
-        console.log(data);
 
       })
       .catch(console.error);
@@ -51,7 +50,7 @@ const AppContent = () => {
     fetchPublications();
   }, []);
 
-  const hideLayout = location.pathname === '/login';
+  const hideLayout = location.pathname === '/login' || location.pathname === '/Register';
 
   return (
     <div className={`flex flex-col items-center min-h-screen bg-[#FDE7B9] ${!hideLayout ? 'mt-16' : ''}`}>
@@ -75,7 +74,7 @@ const AppContent = () => {
           <Route element={<ProtectedSeller />}>
             <Route path="/MyPosts" element={<MyPosts />} />
             <Route path="/AñadirPublicacion" element={<PublicationFormSeller onRefresh={fetchPublications} />} />
-            <Route path="/vender" element={<SellerDashboard />} />
+            <Route path="/vender" element={<SellerDashboard onRefresh={fetchPublications} />} />
           </Route>
           <Route path="/chat" element={<ChatComponent />} />
           <Route path="/MisPedidos" element={<MyOrders />} />

@@ -21,9 +21,13 @@ const SellerRegister = () => {
       });
 
       const data = await response.json();
+      console.log(data);
 
       if (response.ok) {
-        setUser(prev => ({ ...prev, seller: { id: data.seller.ID_Sellers } }));
+        const updatedUser = { ...user, seller: { id: data.seller?.ID_Sellers } };
+
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
         navigate('/vender');
       } else {
         console.error(data.message);
