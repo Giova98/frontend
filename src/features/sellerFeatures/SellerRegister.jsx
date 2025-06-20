@@ -2,6 +2,7 @@ import { useState } from "react";
 import SellerPolicyModal from "./DataBackPage";
 import { useNavigate } from "react-router";
 import { useAuth } from "../../services/auth/AuthContext";
+import { notifySuccessAdd, notifyMissingFields } from "../../pages/notification/notification";
 
 const SellerRegister = () => {
   const [showModal, setShowModal] = useState(false);
@@ -28,11 +29,13 @@ const SellerRegister = () => {
 
         setUser(updatedUser);
         localStorage.setItem("user", JSON.stringify(updatedUser));
+        notifySuccessAdd(`¡Registro de vendedor con exito!`)
         navigate('/vender');
-      } else {
+      } else {  
         console.error(data.message);
       }
     } catch (error) {
+      notifyMissingFields(`¡Hubo un error en el registro!`)
       console.error('Error:', error);
     }
   };

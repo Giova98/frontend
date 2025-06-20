@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { createBuyer } from "../../services/api";
 import { useNavigate } from "react-router";
 import { useAuth } from "../../services/auth/AuthContext";
+import { notifyMissingFields, notifySuccessAdd } from "../../pages/notification/notification";
 
 function RegisterValidations(onRegisterSuccess) {
 
@@ -141,7 +142,6 @@ function RegisterValidations(onRegisterSuccess) {
     try {
       const response = await createBuyer(formData);
 
-      setSuccessMessage("Se registró correctamente");
       onRegisterSuccess();
 
       setFormData({
@@ -156,6 +156,7 @@ function RegisterValidations(onRegisterSuccess) {
         Passwords: '',
         confirmPassword: '',
       });
+      notifySuccessAdd(`¡Registro con éxito!`)
 
       if (!isAuthenticated) {
         navigate('/login');
@@ -163,6 +164,7 @@ function RegisterValidations(onRegisterSuccess) {
 
     } catch (error) {
       console.error('Error al crear usuario:', error);
+      notifyMissingFields(`¡Hubo un error al registrarce!`)
     }
   };
 

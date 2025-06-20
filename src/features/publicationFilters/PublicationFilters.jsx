@@ -39,9 +39,9 @@ const PublicationFilters = ({
   ].map(([id, name]) => ({ id, name }));
 
   return (
-    <aside className="w-72 sticky top-20 self-start space-y-4 p-4">
-      <div className="mb-4">
-        <label className="block mb-1 font-medium text-gray-800">Buscar por título</label>
+    <aside className="w-72 sticky top-20 space-y-4 mr-[100px]">
+      <div className="mb-7">
+        <label className="block mb-1 font-bold text-gray-800">Buscar por título</label>
         <input
           type="text"
           value={searchTitle}
@@ -56,7 +56,7 @@ const PublicationFilters = ({
       </h2>
 
       <section>
-        <h3 className="text-lg font-bold mb-2 pb-1">
+        <h3 className="text-lg font-bold mb-3 mt-5 pb-1">
           Por categorías:
         </h3>
         <div>

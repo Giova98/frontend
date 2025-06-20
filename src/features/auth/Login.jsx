@@ -5,8 +5,6 @@ import { loginBuyer } from '../../services/auth/auth.services';
 import { useAuth } from '../../services/auth/AuthContext';
 
 import fondo from '../../assets/fondo.png'
-import github from '../../assets/github.svg'
-
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -113,8 +111,8 @@ const Login = () => {
             Google
           </button>
           <button className="flex items-center justify-center w-full border border-gray-300 rounded py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-            <img src={github} className="h-5 w-5 mr-2" alt="GitHub" />
-            GitHub
+            <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/250px-2021_Facebook_icon.svg.png' className="h-5 w-5 mr-2" />
+            Facebook
           </button>
         </div>
       </div>
@@ -122,7 +120,7 @@ const Login = () => {
       {/* Right Side - Image */}
       <div className="hidden lg:block lg:w-1/2">
         <img
-          className="h-full w-full object-cover"
+          className="h-full w-[1490px] object-cover"
           src={fondo} // Cambia esto por el path de tu imagen
           alt="Login visual"
         />

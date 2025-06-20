@@ -1,5 +1,6 @@
 import fondo from '../../assets/fondo.png'
 import { useState } from 'react'
+import { notifySuccessAdd, notifyMissingFields } from '../../pages/notification/notification'
 
 const initialState = {
     name: '',
@@ -30,16 +31,15 @@ const Contact = () => {
             });
 
             if (response.ok) {
-                alert('Mensaje enviado correctamente.');
+                notifySuccessAdd(`Mensaje Enviado correctamente`)
                 setContact(initialState);
             } else {
                 const errorData = await response.json();
                 console.error('Error en el servidor:', errorData);
-                alert('Ocurrió un error al enviar el mensaje.');
+                notifyMissingFields(`Hubo un error al enviar el mensaje`)
             }
         } catch (error) {
             console.error('Error al conectar con el servidor:', error);
-            alert('No se pudo conectar con el servidor.');
         }
     };
 

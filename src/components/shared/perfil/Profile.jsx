@@ -5,20 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import avatarDefault from '../../../assets/avatarDefault.jpeg';
 import { useAuth } from "../../../services/auth/AuthContext";
 import { useNavigate, useParams } from "react-router";
-
-const Toast = ({ message, type = "success", onClose }) => {
-    return (
-        <div
-            className={`fixed top-4 right-4 z-50 px-4 py-2 rounded shadow text-white 
-        ${type === "success" ? "bg-green-600" : "bg-red-600"}`}
-            role="alert"
-            onClick={onClose}
-            style={{ cursor: "pointer" }}
-        >
-            {message}
-        </div>
-    );
-};
+import { notifyMissingFields, notifySuccessAdd } from "../../../pages/notification/notification";
 
 const Profile = () => {
     const [sellerData, setSellerData] = useState(null);
@@ -30,7 +17,6 @@ const Profile = () => {
     console.log(user);
     
     const { id } = useParams();
-
 
     const navigate = useNavigate();
 
@@ -128,7 +114,7 @@ const Profile = () => {
 
             if (!res.ok) throw new Error("No se pudo guardar el perfil");
 
-            showToast("Perfil actualizado con éxito.", "success");
+            notifySuccessAdd(`¡Cambios Guardados!`)
             setEditingField(null);
 
             const resData = await res.json();
@@ -147,7 +133,7 @@ const Profile = () => {
             setUser(updatedUser);
         } catch (error) {
             console.error("Error al guardar el perfil:", error);
-            showToast("Hubo un error al guardar los cambios.", "error");
+            notifyMissingFields(`¡Hubo un error al guardar los cambios!`)
         }
     };
 
@@ -201,7 +187,7 @@ const Profile = () => {
 
     return (
         <>
-            <div className="min-w-full mx-auto bg-[#FDE7B9] p-6 rounded-2xl mt-10 relative">
+            <div className="min-w-full mx-auto bg-[#FDE7B9] p-9 rounded-2xl mt-12 relative">
                 <ArrowLeft
                     className="w-8 h-8 cursor-pointer absolute left-8 top-8 -translate-y-1/2"
                     onClick={() => navigate(-1)}
@@ -211,7 +197,7 @@ const Profile = () => {
                         <img
                             src={getImageSrc()}
                             alt="Perfil"
-                            className="w-32 h-32 rounded-full object-cover border-4 border-[#401809]"
+                            className="w-[190px] h-[190px] rounded-full object-cover border-4 border-[#401809]"
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = avatarDefault;
@@ -230,11 +216,11 @@ const Profile = () => {
                             </label>
                         )}
                     </div>
-                    <h2 className="text-2xl mt-4 text-[#401809]">{sellerData.name} {sellerData.lastname}</h2>
-                    <span className="text-[#363738] text-sm">@{sellerData.nickname}</span>
+                    <h2 className="text-3xl mt-5 text-[#401809]">{sellerData.name} {sellerData.lastname}</h2>
+                    <span className="text-[#363738] text-[18px] ">@{sellerData.nickname}</span>
 
 
-                    <div className="mt-8 space-y-6">
+                    <div className="mt-12 space-y-6">
                         {renderField("Nombre", "name")}
                         {renderField("Apellido", "lastname")}
                         {renderField("Nickname", "nickname")}
@@ -246,10 +232,10 @@ const Profile = () => {
                     </div>
 
                     {isOwnProfile && (
-                        <div className="mt-6 text-center">
+                        <div className="mt-12 text-center">
                             <button
                                 onClick={handleNavigateSellerDashboard}
-                                className="bg-[#401809] text-[#FFE0C4] px-4 py-2 rounded-full hover:bg-[#40250D] transition-colors">
+                                className="bg-[#401809] text-[#FFE0C4] px-4 py-3 rounded-full hover:bg-[#40250D] transition-colors">
                                 Ir al Panel de Publicaciones
                             </button>
                         </div>
@@ -259,7 +245,7 @@ const Profile = () => {
                         <div className="mt-6 text-center">
                             <button
                                 onClick={handleSaveChanges}
-                                className="bg-[#401809] text-[#FFE0C4] px-4 py-2 rounded-full hover:bg-[#40250D] transition-colors"
+                                className="bg-[#401809] text-[#FFE0C4] px-6 py-2 rounded-full hover:bg-[#40250D] transition-colors"
                             >
                                 Guardar Cambios
                             </button>
