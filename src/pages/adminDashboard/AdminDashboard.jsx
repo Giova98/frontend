@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../services/auth/AuthContext";
 import Register from "../../features/auth/register";
 import { motion } from 'framer-motion';
+import { notifyMissingFields, notifySuccessAdd } from "../notification/notification";
 
 async function updatePublication(id, data) {
   const res = await fetch(`http://localhost:3000/publications/${id}`, {
@@ -95,10 +96,11 @@ const AdminDashboard = ({ onRefresh }) => {
       } else {
         setUsers(users.filter((u) => u.ID_Buyers !== id));
       }
-      fetchUsers();
-
+      fetchUsers(); 
+      notifySuccessAdd('!Se elimino el usuario con exito!')
     } catch (error) {
       console.error("Error al eliminar usuario", error);
+      notifyMissingFields(`¡Hubo un error al eliminar el usuario!`)
       closeConfirm();
     }
   };
@@ -120,9 +122,11 @@ const AdminDashboard = ({ onRefresh }) => {
         setPublications(publications.filter((p) => p.ID_Publication !== id));
       }
       fetchPublications();
+      notifySuccessAdd(`¡Eliminacion de publicacion con exito!`)
 
     } catch (error) {
       console.error("Error al eliminar publicación", error);
+      notifyMissingFields(`!Error al eliminar publicacion`)
       closeConfirm();
     }
   };
@@ -143,9 +147,10 @@ const AdminDashboard = ({ onRefresh }) => {
         setSellers(sellers.filter((s) => s.ID_Buyers !== id));
       }
       fetchSellers();
-
+      notifySuccessAdd(`¡Se elimino un usuario!`)
     } catch (error) {
       console.error("Error al eliminar usuario", error);
+      notifyMissingFields(`¡Error al eliminar el usuario!`)
       closeConfirm();
     }
   };
@@ -208,8 +213,10 @@ const AdminDashboard = ({ onRefresh }) => {
       );
       onRefresh();
       closeEditor();
+      notifySuccessAdd(`¡Cambios Guardados!`)
     } catch (error) {
       console.error("Error guardando publicación:", error);
+      notifyMissingFields(`¡Error al guardar cambios!`)
     }
   };
 
