@@ -125,6 +125,11 @@ function RegisterValidations(onRegisterSuccess) {
     }
     if (formData.Passwords.trim() === '') {
       newErrors.Passwords = 'La contraseña es obligatoria';
+    }else {
+      const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+      if (!passwordRegex.test(formData.Passwords)) {
+        newErrors.Passwords = 'La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas y números';
+      }
     }
     if (formData.confirmPassword.trim() === '') {
       newErrors.confirmPassword = 'La confirmación es obligatoria';
@@ -142,7 +147,10 @@ function RegisterValidations(onRegisterSuccess) {
     try {
       const response = await createBuyer(formData);
 
-      onRegisterSuccess();
+      
+      if (isAuthenticated) {
+          onRegisterSuccess();
+      }
 
       setFormData({
         BuyersName: '',
