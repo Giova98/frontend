@@ -6,9 +6,9 @@ import TestimonialsSection from '../../features/homeSections/TestimonialsSection
 import Carousel from '../../features/homeSections/carousel/Carousel'
 
 
-const Dashboard = ({ publicaciones }) => {
+const Dashboard = ({ publications }) => {
 
-    const onlyNewPublications = publicaciones.filter(p => p.State === 'nuevo');
+    const onlyNewPublications = publications.filter(p => p.State === 'nuevo');
 
     return (
         <div className="flex flex-col items-center w-full py-10 bg-[#FDE7B9] ">

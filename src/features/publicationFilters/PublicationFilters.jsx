@@ -1,55 +1,43 @@
 const PublicationFilters = ({
-  publicaciones,
+  publications,
   selectedCategory,
   selectedSubcategory,
   selectedProvince,
   selectedCity,
   selectedState,
-  searchTitle,
   onCategoryChange,
   onSubcategoryChange,
   onProvinceChange,
   onCityChange,
   onStateChange,
-  onSearchChange
 }) => {
   const provinces = [...new Map(
-    publicaciones
+    publications
       .map(p => [p.City?.Province?.ID_Province, p.City?.Province?.Name])
       .filter(([id, name]) => id && name)
   )].map(([id, name]) => ({ id, name }));
 
   const cities = [...new Map(
-    publicaciones
+    publications
       .filter(p => !selectedProvince || p.City?.Province?.ID_Province === parseInt(selectedProvince))
       .map(p => [p.City?.ID_City, p.City?.Name])
       .filter(([id, name]) => id && name)
   )].map(([id, name]) => ({ id, name }));
 
   const categories = [...new Map(
-    publicaciones.map(p => [p.Category?.ID_Category, p.Category?.CategoryName])
+    publications.map(p => [p.Category?.ID_Category, p.Category?.CategoryName])
   )].map(([id, name]) => ({ id, name }));
 
   const subcategories = [
     ...new Map(
-      publicaciones
+      publications
         .filter(p => p.Category?.ID_Category === parseInt(selectedCategory))
         .map(p => [p.SubCategory?.ID_SubCategory, p.SubCategory?.NameSubCategory])
     )
   ].map(([id, name]) => ({ id, name }));
 
   return (
-    <aside className="w-72 sticky top-20 space-y-4 mr-[100px]">
-      <div className="mb-7">
-        <label className="block mb-1 font-bold text-gray-800">Buscar por título</label>
-        <input
-          type="text"
-          value={searchTitle}
-          onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Buscar..."
-          className="w-full p-2 rounded border border-gray-400 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+    <aside className="w-72 sticky top-[100px] self-start space-y-4 mr-[100px]">
 
       <h2 className="text-3xl font-bold mb-4 border-b-2 border-black pb-2 uppercase tracking-wide">
         Filtros

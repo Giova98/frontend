@@ -6,12 +6,20 @@ import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../sideBar/SideBar";
 import SellerPolicyModal from "../../../features/sellerFeatures/DataBackPage";
 import { useAuth } from "../../../services/auth/AuthContext";
+import { useSearch } from "../../../services/auth/SearchContext";
 
-export default function Navbar() {
+export default function Navbar({ publications }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const [showPolicyModal, setShowPolicyModal] = useState(false);
+  const { searchTitle, setSearchTitle } = useSearch();
+
+  const navigate = useNavigate();
   const { user } = useAuth();
+
+  const handleSearchChange = (e) => {
+    setSearchTitle(e.target.value);
+    navigate('/catalogo');
+  };
 
   return (
     <>
@@ -44,7 +52,9 @@ export default function Navbar() {
             <Search className="absolute top-2.5 left-3 text-gray-400 w-4 h-4" />
             <input
               type="text"
-              placeholder="Buscar"
+              value={searchTitle}
+              onChange={handleSearchChange}
+              placeholder="Buscar..."
               className="bg-[#60250D] text-white pl-10 pr-4 py-2 rounded-md text-sm placeholder-gray-400 focus:outline-none"
             />
           </div>

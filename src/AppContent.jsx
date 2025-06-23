@@ -33,14 +33,14 @@ import AdminDashboard from './pages/adminDashboard/AdminDashboard';
 import Unauthorized from './components/shared/routes/unauthorized/Unauthorized';
 
 const AppContent = () => {
-  const [publicaciones, setPublicaciones] = useState([]);
+  const [publications, setPublications] = useState([]);
 
   const location = useLocation();
 
   const fetchPublications = () => {
     getPublications()
       .then(data => {
-        setPublicaciones(data)
+        setPublications(data)
 
       })
       .catch(console.error);
@@ -54,7 +54,7 @@ const AppContent = () => {
 
   return (
     <div className={`flex flex-col items-center min-h-screen bg-[#FDE7B9] ${!hideLayout ? 'mt-16' : ''}`}>
-      {!hideLayout && <ResponsiveAppBar />}
+      {!hideLayout && <ResponsiveAppBar publications={publications} />}
 
       <Routes>
         <Route path="/" element={<Navigate to="login" />} />
@@ -66,7 +66,7 @@ const AppContent = () => {
             element={
               <>
                 <HeroSection />
-                <Dashboard publicaciones={publicaciones} />
+                <Dashboard publications={publications} />
               </>
             }
           />
@@ -86,7 +86,7 @@ const AppContent = () => {
           <Route path="/Perfil" element={<Profile />} />
           <Route path="/Perfil/:id" element={<Profile />} />
           <Route path="/catalogo" element={<Catalogo />}>
-            <Route index element={<PublicationList publicaciones={publicaciones} />} />
+            <Route index element={<PublicationList publications={publications} />} />
             <Route path=":id" element={<DetailPublication />} />
           </Route>
           <Route path="/catalogo/:id/purchase-details" element={<PurchaseDetails />} />

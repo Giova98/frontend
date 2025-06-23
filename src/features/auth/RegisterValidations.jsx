@@ -142,7 +142,9 @@ function RegisterValidations(onRegisterSuccess) {
     try {
       const response = await createBuyer(formData);
 
-      onRegisterSuccess();
+      if (isAuthenticated) {
+        onRegisterSuccess();
+      }
 
       setFormData({
         BuyersName: '',

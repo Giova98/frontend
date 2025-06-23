@@ -1,10 +1,15 @@
-import React, { use, useEffect, useState } from 'react';
-import {useAuth} from '../../../services/auth/AuthContext.jsx'
+import { useEffect, useState } from 'react';
+
+import { useAuth } from '../../../services/auth/AuthContext.jsx'
 import { Link, useLocation, useNavigate } from 'react-router';
+
 import { Close } from '@mui/icons-material';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { getSellerByPublicationId } from '../../../services/api';
+
 import avatarDefault from '../../../assets/avatarDefault.jpeg';
+import { getSellerByPublicationId } from '../../../services/api';
 
 const DetailPublication = () => {
   const [seller, setSeller] = useState(null);
@@ -12,18 +17,17 @@ const DetailPublication = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const { user } = useAuth()
+
   const publicacion = location.state.publicacion;
-  const { id, title, description, img, price, status, brand, city, category } = publicacion;
-  const {user} = useAuth()
- 
+  const { id, title, description, img, price, status, brand, city, category, subCategory } = publicacion;
+
+
   useEffect(() => {
     const fetchSeller = async () => {
       try {
         const data = await getSellerByPublicationId(id);
         setSeller(data);
-        console.log(data);
-
-
       } catch (err) {
         console.error(err);
       }
@@ -33,22 +37,31 @@ const DetailPublication = () => {
   }, [id]);
 
   const handleBuyClick = () => {
+    if (user.id === seller?.Buyer?.ID_Buyers) {
+      toast.info("No podés comprar tu propia publicación.");
+      return;
+    }
+
     navigate(`/catalogo/${id}/purchase-details`, {
       state: { publicacion: { id, title, img, price } }
     });
   };
-  const hadleChatClick = () => {
-    fetch('http://localhost:3000/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_id: user.id,
-        seller_id: seller.Buyer?.ID_Buyers
-      })
-    })
-    navigate('/chat')
-  }
 
+  const hadleChatClick = () => {
+    if (user.id === seller?.Buyer?.ID_Buyers) {
+      toast.info("No podés chatear con vos mismo.");
+      return;
+    }
+
+    navigate('/chat', {
+      state: {
+        chatUsers: {
+          userID: user.id,
+          sellerID: seller.Buyer?.ID_Buyers
+        }
+      }
+    });
+  };
   return (
     <div className="relative bg-[#FDE7B9] rounded-[8px] max-w-[900px] mx-auto my-8 p-8">
       <button
@@ -69,9 +82,12 @@ const DetailPublication = () => {
 
         <div className="flex-1">
           <h2 className="text-2xl font-bold">{title}</h2>
-          <p className="text-sm text-gray-500">{category?.CategoryName}</p>
+          <div className='flex'>
+            <p className="bg-[#C5CEBB] rounded-[25px] text-sm text-gray-800 px-5 mr-3">{category?.CategoryName}</p>
+            <p className="bg-[#C5CEBB] rounded-[25px] text-sm text-gray-800 px-5">{subCategory?.NameSubCategory}</p>
+          </div>
           <p className="mt-2"><strong>Estado:</strong> {status}</p>
-          <p className="mt-2 whitespace-pre-line text-sm">{description}</p>
+          <p className="mt-2 whitespace-pre-line text-sm"> {description}</p>
           <p className="mt-2"><strong>Marca:</strong> {brand}</p>
           <p className="mt-2"><strong>Ubicación:</strong> {city?.Province?.Name}, {city?.Name}</p>
 
@@ -79,7 +95,7 @@ const DetailPublication = () => {
 
           <p className="text-[2.5rem] font-semibold mt-4">${price}</p>
           <button
-            className="mt-4 bg-[#401809] text-white px-6 py-2 rounded font-semibold hover:bg-[#4e332d]"
+            className="mt-4 mr-4 bg-[#401809] text-white px-6 py-2 rounded font-semibold hover:bg-[#4e332d]"
             onClick={handleBuyClick}
           >
             Comprar ahora

@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 
-const PublicationCard = ({ id, title, description, img, price, status, brand, city, category }) => {
+const PublicationCard = ({ id, title, description, img, price, status, brand, city, category, subCategory }) => {
     const navigate = useNavigate()
 
     const handleCardClick = () => {
-        const publicacion = { id, title, description, img, price, status, brand, city, category }
+        const publicacion = { id, title, description, img, price, status, brand, city, category, subCategory }
 
         navigate(`/catalogo/${id}`, {
             state: { publicacion }
