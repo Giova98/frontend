@@ -12,6 +12,7 @@ const ChatComponent = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const { user } = useAuth();
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -68,7 +69,6 @@ const ChatComponent = () => {
     fetchMessages();
   }, [activeChat]);
 
-  // Enviar mensaje
   const handleSendMessage = async () => {
     if (message.trim() === '') return;
 
@@ -90,7 +90,13 @@ const ChatComponent = () => {
 
       setConversations(prev => ({
         ...prev,
-        [activeChat]: [...(prev[activeChat] || []), savedMessage]
+        [activeChat]: [...(prev[activeChat] || []), {
+          ...savedMessage,
+          Sender: {
+            BuyersName: user.name,
+            BuyersLastName: user.lastname
+          }
+        }]
       }));
 
       setMessage('');
@@ -189,10 +195,8 @@ const ChatComponent = () => {
         </div>
       </div>
 
-      {/* Área de chat principal */}
       <div className="min-w-[500px] min-h-[700px] col-start-3 col-end-4 bg-[#FDE7B9] bg-opacity-70 relative z-10 flex flex-col py-6">
 
-        {/* Encabezado del chat */}
         <div className="p-4 border-b border-[#40250D] bg-[#60250D] bg-opacity-10 flex items-center">
           {(() => {
             const chat = chatlist.find(c => c.ID_Chat === activeChat);
@@ -202,7 +206,8 @@ const ChatComponent = () => {
 
             return (
               <>
-                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-[#40250D] flex items-center justify-center text-white overflow-hidden">
+                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-[#40250D] flex items-center justify-center text-white overflow-hidden cursor-pointer"
+                  onClick={() => navigate(`/perfil/${otherUser.ID_Buyers}`)}>
                   {otherUser?.avatarUrl ? (
                     <img
                       src={`http://localhost:3000${otherUser.avatarUrl}`}
@@ -235,7 +240,6 @@ const ChatComponent = () => {
               ? `${msg.Sender.BuyersName} ${msg.Sender.BuyersLastName}`
               : isSender ? "Tú" : "Desconocido";
 
-            // Obtener si el sender es el vendedor
             const chat = chatlist.find(c => c.ID_Chat === activeChat);
 
             return (

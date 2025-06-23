@@ -20,7 +20,6 @@ const PublicationCard = ({ id, title, description, img, price, status, brand, ci
             state: { publicacion }
         })
     }
-
     
 
     return (
