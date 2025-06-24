@@ -16,7 +16,6 @@ const Profile = () => {
     const [toast, setToast] = useState({ message: "", type: "success", visible: false });
 
     const { user, setUser } = useAuth();
-    console.log(user);
 
     const { id } = useParams();
 
@@ -28,8 +27,6 @@ const Profile = () => {
                 try {
                     const res = await fetch(`http://localhost:3000/buyers/${id}`);
                     const data = await res.json();
-                    console.log(data);
-
 
                     setSellerData({
                         profileImage: data.avatarUrl

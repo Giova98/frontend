@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import fondo2 from '../../assets/fondo2.png'
 import fondo3 from '../../assets/fondo3.png'
 import { useAuth } from '../../services/auth/AuthContext';
 import { useLocation, useNavigate } from 'react-router';
+import { io } from 'socket.io-client';
+
+const socket = io("http://localhost:3000");
 
 const ChatComponent = () => {
   const [activeChat, setActiveChat] = useState('');
@@ -20,6 +23,38 @@ const ChatComponent = () => {
   const userID = chatUsers?.userID;
   const sellerID = chatUsers?.sellerID;
 
+  const messagesContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      const container = messagesContainerRef.current;
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [conversations[activeChat]]);
+
+  useEffect(() => {
+    if (activeChat) {
+      socket.emit("join", activeChat);
+    }
+  }, [activeChat]);
+
+  useEffect(() => {
+    const handler = (newMsg) => {
+      const chatId = String(newMsg.chat_id || newMsg.ID_Chat);
+
+      setConversations(prev => ({
+        ...prev,
+        [chatId]: [...(prev[chatId] || []), newMsg]
+      }));
+    };
+
+    socket.on("receiveMessage", handler);
+
+    return () => {
+      socket.off("receiveMessage", handler);
+    };
+  }, []);
+
   useEffect(() => {
     const initChat = async () => {
       try {
@@ -33,7 +68,7 @@ const ChatComponent = () => {
           (chat.ID_User === sellerID && chat.ID_Buyers === userID)
         );
 
-        if (!existingChat) {
+        if (!existingChat && userID && sellerID) {
           const createdChat = await fetchCreateChat();
 
           const updatedRes = await fetch(`http://localhost:3000/chat/${user.id}`);
@@ -43,9 +78,12 @@ const ChatComponent = () => {
 
           const newChat = updatedChats.find(chat => chat.ID_Chat === createdChat.ID_Chat);
           setActiveChat(newChat?.ID_Chat || createdChat.ID_Chat);
-        } else {
+        } else if (existingChat) {
           setActiveChat(existingChat.ID_Chat);
+        } else if (chats.length > 0) {
+          setActiveChat(chats[0].ID_Chat);
         }
+
       } catch (error) {
         console.error("Error al inicializar el chat:", error);
       }
@@ -66,7 +104,7 @@ const ChatComponent = () => {
       }
     };
     fetchMessages();
-  }, [activeChat]);
+  }, [String(activeChat)]);
 
   const handleSendMessage = async () => {
     if (message.trim() === '') return;
@@ -87,16 +125,14 @@ const ChatComponent = () => {
 
       const savedMessage = await res.json();
 
-      setConversations(prev => ({
-        ...prev,
-        [activeChat]: [...(prev[activeChat] || []), {
-          ...savedMessage,
-          Sender: {
-            BuyersName: user.name,
-            BuyersLastName: user.lastname
-          }
-        }]
-      }));
+      socket.emit("sendMessage", {
+        ...savedMessage,
+        chat_id: savedMessage.ID_Chat,
+        Sender: {
+          BuyersName: user.name,
+          BuyersLastName: user.lastname
+        }
+      });
 
       setMessage('');
     } catch (error) {
@@ -121,12 +157,10 @@ const ChatComponent = () => {
   return (
     <div className="grid grid-cols-[_1fr_ _1fr_ _1fr_ _1fr_] grid-rows-1 rounded-lg overflow-hidden shadow-lg relative">
 
-      {/* Imagen izquierda */}
       <div className="col-start-1 col-end-2 max-h-auto">
         <img src={fondo2} alt="" className="w-full h-full object-cover object-left" />
       </div>
 
-      {/* Lista de chats */}
       <div className="min-w-[300px] min-h-[700px] col-start-2 col-end-3 bg-[#40250D] text-white flex flex-col py-6">
         <div className="p-4">
           <h2 className="text-xl font-bold">Chats</h2>
@@ -154,7 +188,7 @@ const ChatComponent = () => {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 p-4 overflow-y-auto max-h-[540px]">
           {chatlist
             .filter(chat => {
               const otherUser = chat.ID_User === user.id ? chat.Buyer : chat.User;
@@ -199,9 +233,7 @@ const ChatComponent = () => {
         <div className="p-4 border-b border-[#40250D] bg-[#60250D] bg-opacity-10 flex items-center">
           {(() => {
             const chat = chatlist.find(c => c.ID_Chat === activeChat);
-            const otherUser = chat
-              ? (chat.ID_User === user.id ? chat.Buyer : chat.User)
-              : null;
+            const otherUser = chat ? (chat.ID_User === user.id ? chat.Buyer : chat.User) : null;
 
             return (
               <>
@@ -232,14 +264,15 @@ const ChatComponent = () => {
             );
           })()}
         </div>
-        <div className="flex-1 p-4 overflow-y-auto">
+
+        <div
+          ref={messagesContainerRef}
+          className="flex-1 overflow-y-auto px-4 max-h-[540px]">
           {conversations[activeChat]?.map((msg, index) => {
             const isSender = msg.sender_id === user.id;
             const senderName = msg.Sender
               ? `${msg.Sender.BuyersName} ${msg.Sender.BuyersLastName}`
               : isSender ? "Tú" : "Desconocido";
-
-            const chat = chatlist.find(c => c.ID_Chat === activeChat);
 
             return (
               <div key={index} className={`mb-4 flex ${isSender ? 'justify-end' : 'justify-start'}`}>
@@ -253,6 +286,7 @@ const ChatComponent = () => {
               </div>
             );
           })}
+          <div />
         </div>
 
         {/* Input de mensaje */}
@@ -277,9 +311,6 @@ const ChatComponent = () => {
 
       </div>
 
-
-
-      {/* Imagen derecha */}
       < div className="col-start-4 col-end-5" >
         <img src={fondo3} alt="" className="w-full h-full object-cover object-right" />
       </div >
