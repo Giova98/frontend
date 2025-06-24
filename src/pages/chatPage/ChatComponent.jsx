@@ -25,7 +25,6 @@ const ChatComponent = () => {
       try {
         const res = await fetch(`http://localhost:3000/chat/${user.id}`);
         const chats = await res.json();
-        console.log(chats);
 
         setChatlist(chats);
 

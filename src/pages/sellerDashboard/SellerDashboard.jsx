@@ -38,7 +38,6 @@ const SellerDashboard = ({ onRefresh }) => {
         activePosts: 25,
     };
 
-    // Animaciones para las tarjetas
     const cardVariants = {
         hidden: { opacity: 0, y: 50 },
         visible: (i) => ({
@@ -48,7 +47,6 @@ const SellerDashboard = ({ onRefresh }) => {
         }),
     };
 
-    // Animación para el título
     const titleVariants = {
         hidden: { opacity: 0, x: -50 },
         visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: 'easeOut' } },

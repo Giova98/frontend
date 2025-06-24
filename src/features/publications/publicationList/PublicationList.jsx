@@ -4,6 +4,7 @@ import PublicationCard from '../publicationCard/PublicationCard';
 import { useSearch } from '../../../services/auth/SearchContext';
 
 const PublicationList = ({ publications }) => {
+  
 
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
@@ -56,6 +57,7 @@ const PublicationList = ({ publications }) => {
               city={publication.City}
               category={publication.Category}
               subCategory={publication.SubCategory}
+              id_seller={publication.ID_Sellers}
             />
           ))
         ) : (

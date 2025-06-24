@@ -5,8 +5,19 @@ import { Link } from "react-router";
 import { useAuth } from "../../services/auth/AuthContext";
 
 const Register = ({ onRegisterSuccess }) => {
-  const { formData, handleChange, validateBlur, errors, handleSubmit } = RegisterValidations(onRegisterSuccess);
-  const [successMessage, setSuccessMessage] = useState("");
+  const {
+    formData,
+    handleChange,
+    validateBlur,
+    errors,
+    handleSubmit,
+    successMessage,
+    provinces,
+    cities,
+    selectedProvince,
+    setSelectedProvince
+  } = RegisterValidations(onRegisterSuccess);
+
   const { isAuthenticated } = useAuth();
 
   return (
@@ -60,7 +71,6 @@ const Register = ({ onRegisterSuccess }) => {
               value={formData.BuyersName}
               onChange={handleChange}
               onBlur={validateBlur}
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
             {errors.BuyersName && (
@@ -77,7 +87,6 @@ const Register = ({ onRegisterSuccess }) => {
               value={formData.BuyersLastName}
               onChange={handleChange}
               onBlur={validateBlur}
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
             {errors.BuyersLastName && (
@@ -94,7 +103,6 @@ const Register = ({ onRegisterSuccess }) => {
               value={formData.NickName}
               onChange={handleChange}
               onBlur={validateBlur}
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
             {errors.NickName && (
@@ -111,7 +119,6 @@ const Register = ({ onRegisterSuccess }) => {
               value={formData.Email}
               onChange={handleChange}
               onBlur={validateBlur}
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
             {errors.Email && (
@@ -128,28 +135,10 @@ const Register = ({ onRegisterSuccess }) => {
               value={formData.Phone}
               onChange={handleChange}
               onBlur={validateBlur}
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
             {errors.Phone && (
               <p className="text-red-500 text-sm mt-1">{errors.Phone}</p>
-            )}
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Fecha de Registro
-            </label>
-            <input
-              type="date"
-              name="RegistrationDate"
-              value={formData.RegistrationDate}
-              onChange={handleChange}
-              onBlur={validateBlur}
-              required
-              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
-            />
-            {errors.RegistrationDate && (
-              <p className="text-red-500 text-sm mt-1">{errors.RegistrationDate}</p>
             )}
           </div>
           <div>
@@ -162,29 +151,52 @@ const Register = ({ onRegisterSuccess }) => {
               value={formData.DNI}
               onChange={handleChange}
               onBlur={validateBlur}
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
             {errors.DNI && (
               <p className="text-red-500 text-sm mt-1">{errors.DNI}</p>
             )}
           </div>
+
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Ciudad
-            </label>
+            <label className="block text-sm font-medium text-gray-700">Provincia</label>
+            <select
+              name="ID_Province"
+              value={selectedProvince}
+              onChange={(e) => {
+                setSelectedProvince(e.target.value);
+                handleChange({ target: { name: 'ID_City', value: '' } });
+              }}
+              onBlur={validateBlur}
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"
+            >
+              <option value="">Selecciona una provincia</option>
+              {provinces.map((provincia) => (
+                <option key={provincia.ID_Province} value={provincia.ID_Province}>
+                  {provincia.Name}
+                </option>
+              ))}
+            </select>
+            {errors.selectedProvince && (
+              <p className="text-red-500 text-sm mt-1">{errors.selectedProvince}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Ciudad</label>
             <select
               name="ID_City"
               value={formData.ID_City}
               onChange={handleChange}
               onBlur={validateBlur}
-              required
-              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"
             >
               <option value="">Selecciona una ciudad</option>
-              <option value="1">Buenos Aires</option>
-              <option value="2">Córdoba</option>
-              <option value="3">Rosario</option>
+              {cities.map((ciudad) => (
+                <option key={ciudad.ID_City} value={ciudad.ID_City}>
+                  {ciudad.Name}
+                </option>
+              ))}
             </select>
             {errors.ID_City && (
               <p className="text-red-500 text-sm mt-1">{errors.ID_City}</p>
@@ -201,7 +213,6 @@ const Register = ({ onRegisterSuccess }) => {
               value={formData.Passwords}
               onChange={handleChange}
               onBlur={validateBlur}
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
             {errors.Passwords && (
@@ -218,7 +229,6 @@ const Register = ({ onRegisterSuccess }) => {
               value={formData.confirmPassword}
               onChange={handleChange}
               onBlur={validateBlur}
-              required
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#40250D] focus:border-[#40250D]"
             />
             {errors.confirmPassword && (
@@ -239,7 +249,6 @@ const Register = ({ onRegisterSuccess }) => {
         </form>
       </div>
 
-      {/* Right Side - Image */}
       {!isAuthenticated && (
         <div className="hidden lg:block w-1/2">
           <img

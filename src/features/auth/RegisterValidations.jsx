@@ -6,8 +6,10 @@ import { notifyMissingFields, notifySuccessAdd } from "../../pages/notification/
 
 function RegisterValidations(onRegisterSuccess) {
 
-  //formData: Describe claramente que contiene datos de formulario
-  //setFormData: Es la funcion actualizadora
+  const [provinces, setProvinces] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState('');
+
   const [formData, setFormData] = useState({
     BuyersName: '',
     BuyersLastName: '',
@@ -29,61 +31,76 @@ function RegisterValidations(onRegisterSuccess) {
 
   const navigate = useNavigate();
 
-  // Debuggear cambios en formData
   useEffect(() => {
     try {
 
     } catch (error) {
 
     }
-  }, [formData]); // Se ejecuta cada que formData cambie
+  }, [formData]);
 
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/provincias-ciudades");
+        const data = await res.json();
+        setProvinces(data);
+      } catch (err) {
+        console.error("Error al cargar provincias:", err);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      if (!selectedProvince) return;
+      try {
+        const res = await fetch(`http://localhost:3000/ciudades/${selectedProvince}`);
+        const data = await res.json();
+        setCities(data);
+      } catch (err) {
+        console.error("Error al cargar ciudades:", err);
+      }
+    };
+
+    fetchCities();
+  }, [selectedProvince]);
 
   const handleChange = (e) => {
-    // 1. Desestructuración del evento para obtener propiedades clave
     const { name, value } = e.target;
-    /* 
-    name: nombre del campo (debe coincidir con las keys de formData)
-    value: valor para inputs normales (text, email, password, etc.)
-    */
 
-    // 3. Actualización del estado de forma inmutable
     setFormData({
       ...formData,
       [name]: value
     })
-    /*
-    - prevState: captura el estado actual garantizando que no usamos un estado obsoleto
-    - [name]: usa la notación de corchetes para actualizar dinámicamente la key correspondiente
-  */
+
   };
 
   const validateBlur = (e) => {
     const { name, value } = e.target;
 
     if (value.trim() === '') {
-      // Campo vacío → guardar mensaje de error
       setErrors(prev => ({
         ...prev,
         [name]: 'Este campo es obligatorio',
       }));
     } else {
-      // Campo válido → eliminar error si ya estaba
       setErrors(prev => {
-        const newErrors = { ...prev }; // Copio el estado actual de errores
-        delete newErrors[name]; // Borro el error del campo corregido
-        return newErrors; // Devuelvo la nueva lista de errores
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
       });
     }
   };
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // 1. Evitar que se recargue la página
+    e.preventDefault();
 
-    const newErrors = {}; // 2. Objeto para guardar errores
+    const newErrors = {};
 
-    // 3. Validar todos los campos
     if (formData.BuyersName.trim() === '') {
       newErrors.BuyersName = 'El nombre es obligatorio';
     }
@@ -109,9 +126,6 @@ function RegisterValidations(onRegisterSuccess) {
         newErrors.Phone = 'Ingrese un teléfono válido';
       }
     }
-    if (formData.RegistrationDate.trim() === '') {
-      newErrors.RegistrationDate = 'La fecha es obligatoria';
-    }
     if (formData.DNI.trim() === '') {
       newErrors.DNI = 'El DNI es obligatorio';
     } else {
@@ -120,12 +134,15 @@ function RegisterValidations(onRegisterSuccess) {
         newErrors.DNI = 'El DNI debe contener solo números (7-8 dígitos)';
       }
     }
+    if (!selectedProvince || selectedProvince === '') {
+      newErrors.selectedProvince = 'Debe seleccionar una provincia';
+    }
     if (formData.ID_City.trim() === '') {
       newErrors.ID_City = 'Debe seleccionar una ciudad';
     }
     if (formData.Passwords.trim() === '') {
       newErrors.Passwords = 'La contraseña es obligatoria';
-    }else {
+    } else {
       const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
       if (!passwordRegex.test(formData.Passwords)) {
         newErrors.Passwords = 'La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas y números';
@@ -140,12 +157,16 @@ function RegisterValidations(onRegisterSuccess) {
 
     setErrors(newErrors);
 
-    // 4. Revisar si hay errores
-    if (Object.keys(newErrors).length > 0) return; // Si hay errores, salir
+    if (Object.keys(newErrors).length > 0) return;
 
-    // 5. Si no hay errores, enviamos al backend
     try {
-      const response = await createBuyer(formData);
+      const formDataToSend = { ...formData };
+
+      delete formDataToSend.RegistrationDate;
+
+      delete formDataToSend.confirmPassword;
+
+      const response = await createBuyer(formDataToSend);
 
       if (isAuthenticated) {
         onRegisterSuccess();
@@ -181,8 +202,13 @@ function RegisterValidations(onRegisterSuccess) {
     handleChange,
     validateBlur,
     errors,
+    setErrors,
     handleSubmit,
-    successMessage
+    successMessage,
+    provinces,
+    cities,
+    selectedProvince,
+    setSelectedProvince,
   };
 }
 

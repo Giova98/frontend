@@ -13,7 +13,7 @@ const Carousel = () => {
             .catch(console.error);
     }, []);
 
-    const duplicated = [...publications, ...publications]; // duplicado para loop continuo
+    const duplicated = [...publications, ...publications];    
 
     return (
         <div className="w-full max-w-6xl mx-auto px-4">
@@ -34,6 +34,7 @@ const Carousel = () => {
                                 brand={pub.Brand}
                                 city={pub.City}
                                 category={pub.Category}
+                                id_seller={pub.ID_Sellers}
                             />
                         </div>
                     ))}

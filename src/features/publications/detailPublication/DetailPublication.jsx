@@ -28,6 +28,7 @@ const DetailPublication = () => {
       try {
         const data = await getSellerByPublicationId(id);
         setSeller(data);
+        
       } catch (err) {
         console.error(err);
       }
@@ -115,7 +116,7 @@ const DetailPublication = () => {
           <Link to={`/Perfil/${seller.Buyer?.ID_Buyers}`}>
             <div className="flex items-center gap-3 mt-2">
               <img
-                src={`http://localhost:3000${seller.Buyer?.avatarUrl}` || avatarDefault}
+                src={seller.Buyer?.avatarUrl ? `http://localhost:3000${seller.Buyer?.avatarUrl}` : avatarDefault}
                 alt='avatarSeller'
                 className="w-10 h-10 rounded-full bg-gray-300" />
               <div>

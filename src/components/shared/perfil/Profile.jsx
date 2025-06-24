@@ -6,16 +6,18 @@ import avatarDefault from '../../../assets/avatarDefault.jpeg';
 import { useAuth } from "../../../services/auth/AuthContext";
 import { useNavigate, useParams } from "react-router";
 import { notifyMissingFields, notifySuccessAdd } from "../../../pages/notification/notification";
+import PublicationCard from "../../../features/publications/publicationCard/PublicationCard";
 
 const Profile = () => {
     const [sellerData, setSellerData] = useState(null);
     const [editingField, setEditingField] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
+    const [posts, setPosts] = useState([]);
     const [toast, setToast] = useState({ message: "", type: "success", visible: false });
-    
+
     const { user, setUser } = useAuth();
     console.log(user);
-    
+
     const { id } = useParams();
 
     const navigate = useNavigate();
@@ -26,6 +28,8 @@ const Profile = () => {
                 try {
                     const res = await fetch(`http://localhost:3000/buyers/${id}`);
                     const data = await res.json();
+                    console.log(data);
+
 
                     setSellerData({
                         profileImage: data.avatarUrl
@@ -41,6 +45,11 @@ const Profile = () => {
                         city: data.City?.Name || "",
                         seller: data.Seller || null
                     });
+                    if (data.Seller?.ID_Sellers) {
+                        const pubRes = await fetch(`http://localhost:3000/seller/${data.Seller.ID_Sellers}`);
+                        const pubData = await pubRes.json();
+                        setPosts(pubData);
+                    }
                 } catch (err) {
                     console.error("Error al cargar el perfil:", err);
                 }
@@ -57,6 +66,16 @@ const Profile = () => {
                     city: user.city?.name || "",
                     seller: user.seller || null
                 });
+
+                if (user.seller?.id) {
+                    try {
+                        const pubRes = await fetch(`http://localhost:3000/seller/${user.seller.id}`);
+                        const pubData = await pubRes.json();
+                        setPosts(pubData);
+                    } catch (err) {
+                        console.error("Error al cargar publicaciones:", err);
+                    }
+                }
             }
         };
 
@@ -251,6 +270,33 @@ const Profile = () => {
                             </button>
                         </div>
                     )}
+
+                    {posts.length > 0 && (
+                        <div className="mt-12">
+                            <h2 className="text-2xl font-bold text-[#401809] mb-6 text-center">
+                                {isOwnProfile ? "Tus publicaciones" : "Publicacines del vendedor"}
+                            </h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {posts.map(publication => (
+                                    <PublicationCard
+                                        key={publication.ID_Publication}
+                                        id={publication.ID_Publication}
+                                        title={publication.Title}
+                                        description={publication.DescriptionProduct}
+                                        img={publication.ImageUrl}
+                                        price={publication.Price}
+                                        status={publication.State}
+                                        brand={publication.Brand}
+                                        city={publication.City}
+                                        category={publication.Category}
+                                        subCategory={publication.SubCategory}
+                                        id_seller={publication.ID_Sellers}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                 </div>
             </div>
 

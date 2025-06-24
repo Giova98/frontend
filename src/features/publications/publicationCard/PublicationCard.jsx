@@ -1,7 +1,12 @@
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../../../services/auth/AuthContext';
 
-const PublicationCard = ({ id, title, description, img, price, status, brand, city, category, subCategory }) => {
-    const navigate = useNavigate()
+const PublicationCard = ({ id, title, description, img, price, status, brand, city, category, subCategory, id_seller }) => {
+    const navigate = useNavigate();
+    const { user } = useAuth();
+    
 
     const handleCardClick = () => {
         const publicacion = { id, title, description, img, price, status, brand, city, category, subCategory }
@@ -13,6 +18,12 @@ const PublicationCard = ({ id, title, description, img, price, status, brand, ci
 
     const handleBuyClick = (event) => {
         event.stopPropagation();
+        
+        if (user.id === id_seller) {
+            toast.info("No podés comprar tu propia publicación.");
+
+            return;
+        }
 
         const publicacion = { id, title, description, img, price, status, brand, city }
 
@@ -20,7 +31,7 @@ const PublicationCard = ({ id, title, description, img, price, status, brand, ci
             state: { publicacion }
         })
     }
-    
+
 
     return (
         <div

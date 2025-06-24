@@ -84,6 +84,7 @@ const FeaturedProductsCarousel = ({ products }) => {
                     brand={product.Brand}
                     city={product.City}
                     category={product.Category}
+                    id_seller={product.ID_Sellers}
                   />
                 </motion.div>
               </div>
