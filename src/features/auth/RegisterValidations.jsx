@@ -125,7 +125,7 @@ function RegisterValidations(onRegisterSuccess) {
     }
     if (formData.Passwords.trim() === '') {
       newErrors.Passwords = 'La contraseña es obligatoria';
-    }else {
+    } else {
       const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
       if (!passwordRegex.test(formData.Passwords)) {
         newErrors.Passwords = 'La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas y números';
@@ -172,7 +172,15 @@ function RegisterValidations(onRegisterSuccess) {
 
     } catch (error) {
       console.error('Error al crear usuario:', error);
-      notifyMissingFields(`¡Hubo un error al registrarce!`)
+
+      if (error.message.includes("email") || error.message.includes("Email")) {
+        setErrors((prev) => ({
+          ...prev,
+          Email: error.message,
+        }));
+      } else {
+        notifyMissingFields(`¡Hubo un error al registrarte!`);
+      }
     }
   };
 
