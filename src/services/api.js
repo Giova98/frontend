@@ -44,8 +44,15 @@ export const createBuyer = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error("Error al crear publicación");
-  return await res.json();
+
+  const result = await res.json();
+
+  if (!res.ok) {
+    // Lanza el mensaje real que devuelve el backend
+    throw new Error(result.error || "Error al crear usuario");
+  }
+
+  return result;
 };
 
 export const updatePublication = async (id, data) => {

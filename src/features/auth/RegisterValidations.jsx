@@ -193,7 +193,15 @@ function RegisterValidations(onRegisterSuccess) {
 
     } catch (error) {
       console.error('Error al crear usuario:', error);
-      notifyMissingFields(`¡Hubo un error al registrarce!`)
+
+      if (error.message.includes("email") || error.message.includes("Email")) {
+        setErrors((prev) => ({
+          ...prev,
+          Email: error.message,
+        }));
+      } else {
+        notifyMissingFields(`¡Hubo un error al registrarte!`);
+      }
     }
   };
 
