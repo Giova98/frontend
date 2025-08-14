@@ -1,5 +1,7 @@
 # 🎸 CarpinChords – Frontend
 
+Este repositorio es un 'fork' del proyecto original, creado como trabajo final para el cuatrimestre pasado de la tecnicatura en programación. Representa la versión del proyecto completada por el equipo al finalizar el curso. Las contribuciones posteriores en el repositorio original no forman parte de esta versión.
+
 Este repositorio contiene el frontend de **CarpinChords**, un marketplace de instrumentos musicales desarrollado con **React 19**, **Vite** y **Tailwind CSS**.  
 Permite a los usuarios navegar productos, registrarse, realizar compras, enviar mensajes y contactar a vendedores en tiempo real.
 
